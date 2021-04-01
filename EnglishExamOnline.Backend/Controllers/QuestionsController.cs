@@ -52,7 +52,7 @@ namespace EnglishExamOnline.Backend.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutQuest(int id, QuestionCreateRequest questCreateRequest)
+        public async Task<IActionResult> PutQuest(int id, QuestionFormVm questCreateRequest)
         {
             var question = await _context.Questions.FindAsync(id);
 
@@ -68,7 +68,7 @@ namespace EnglishExamOnline.Backend.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<QuestionVm>> PostQuest(QuestionCreateRequest questCreateRequest)
+        public async Task<ActionResult<QuestionVm>> PostQuest(QuestionFormVm questCreateRequest)
         {
             var question = new Question
             {
