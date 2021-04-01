@@ -14,5 +14,8 @@ namespace EnglishExamOnline.Backend.Data
         {
 
         }
+        public DbSet<Question> Questions { get; set; }
+
+        
     }
 }

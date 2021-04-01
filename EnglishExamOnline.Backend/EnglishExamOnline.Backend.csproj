@@ -13,7 +13,12 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.4" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EnglishExamOnline.Shared\EnglishExamOnline.Shared.csproj" />
   </ItemGroup>
 
 </Project>
