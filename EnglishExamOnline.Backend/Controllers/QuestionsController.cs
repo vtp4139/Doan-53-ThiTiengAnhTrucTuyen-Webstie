@@ -10,6 +10,9 @@ using EnglishExamOnline.Backend.Models;
 
 namespace EnglishExamOnline.Backend.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
+    [Authorize("Bearer")]
     public class QuestionsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -21,7 +24,7 @@ namespace EnglishExamOnline.Backend.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<ActionResult<IEnumerable<QuestionVm>>> GetBrands()
+        public async Task<ActionResult<IEnumerable<QuestionVm>>> GetQuests()
         {
             return await _context.Questions
                 .Select(x => new QuestionVm { QuestionId = x.QuestionId, QuestionInfo = x.QuestionInfo })
@@ -30,64 +33,64 @@ namespace EnglishExamOnline.Backend.Controllers
 
         [HttpGet("{id}")]
         [AllowAnonymous]
-        public async Task<ActionResult<QuestionVm>> GetBrand(int id)
+        public async Task<ActionResult<QuestionVm>> GetQuest(int id)
         {
-            var brand = await _context.Questions.FindAsync(id);
+            var question = await _context.Questions.FindAsync(id);
 
-            if (brand == null)
+            if (question == null)
             {
                 return NotFound();
             }
 
-            var brandVm = new QuestionVm
+            var questVm = new QuestionVm
             {
-                QuestionId = brand.QuestionId,
-                QuestionInfo = brand.QuestionInfo
+                QuestionId = question.QuestionId,
+                QuestionInfo = question.QuestionInfo
             };
 
-            return brandVm;
+            return questVm;
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutBrand(int id, QuestionCreateRequest questCreateRequest)
+        public async Task<IActionResult> PutQuest(int id, QuestionCreateRequest questCreateRequest)
         {
-            var brand = await _context.Questions.FindAsync(id);
+            var question = await _context.Questions.FindAsync(id);
 
-            if (brand == null)
+            if (question == null)
             {
                 return NotFound();
             }
 
-            brand.QuestionInfo = questCreateRequest.QuestionInfo;
+            question.QuestionInfo = questCreateRequest.QuestionInfo;
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
         [HttpPost]
-        public async Task<ActionResult<QuestionVm>> PostBrand(QuestionCreateRequest questCreateRequest)
+        public async Task<ActionResult<QuestionVm>> PostQuest(QuestionCreateRequest questCreateRequest)
         {
-            var quest = new Question
+            var question = new Question
             {
                 QuestionInfo = questCreateRequest.QuestionInfo
             };
 
-            _context.Questions.Add(quest);
+            _context.Questions.Add(question);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetBrand", new { id = quest.QuestionId }, new QuestionVm { QuestionId = quest.QuestionId, QuestionInfo = quest.QuestionInfo });
+            return CreatedAtAction("GetQuest", new { id = question.QuestionId }, new QuestionVm { QuestionId = question.QuestionId, QuestionInfo = question.QuestionInfo });
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteBrand(int id)
+        public async Task<IActionResult> DeleteQuest(int id)
         {
-            var brand = await _context.Questions.FindAsync(id);
-            if (brand == null)
+            var question = await _context.Questions.FindAsync(id);
+            if (question == null)
             {
                 return NotFound();
             }
 
-            _context.Questions.Remove(brand);
+            _context.Questions.Remove(question);
             await _context.SaveChangesAsync();
 
             return NoContent();

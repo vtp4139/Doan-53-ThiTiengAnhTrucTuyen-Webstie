@@ -79,6 +79,21 @@ namespace EnglishExamOnline.Backend
                 });
             });
 
+            services.AddAuthentication()
+                .AddLocalApi("Bearer", option =>
+                {
+                    option.ExpectedScope = "english_exam.api";
+                });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("Bearer", policy =>
+                {
+                    policy.AddAuthenticationSchemes("Bearer");
+                    policy.RequireAuthenticatedUser();
+                });
+            });
+
             services.AddControllersWithViews();
         }
 
