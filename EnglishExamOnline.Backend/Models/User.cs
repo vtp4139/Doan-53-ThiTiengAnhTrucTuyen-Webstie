@@ -18,5 +18,7 @@ namespace EnglishExamOnline.Backend.Models
 
         [PersonalData]
         public string FullName { get; set; }
+
+        public virtual ICollection<ContestRegist> ContestRegists { get; set; }
     }
 }

@@ -29,5 +29,8 @@ namespace EnglishExamOnline.Backend.Models
 
         [Column(TypeName = "nvarchar(100)")]
         public string CorrectAnswer { get; set; }
+
+        //Set foreign access to primary key
+        public virtual ICollection<QuestionDetail> QuestionDetails { get; set; }
     }
 }
