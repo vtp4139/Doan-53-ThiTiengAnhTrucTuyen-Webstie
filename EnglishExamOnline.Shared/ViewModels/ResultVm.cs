@@ -1,27 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
-namespace EnglishExamOnline.Backend.Models
+namespace EnglishExamOnline.Shared.ViewModels
 {
-    public class Result
+    public class ResultVm
     {
-        [Key]
         public int ResultId { get; set; }
 
+        [Range(0, 500, ErrorMessage = "The value not exceed 500 points!")]
         public int Point { get; set; }
 
+        [Range(0, 50, ErrorMessage = "The value not exceed 50!")]
         public int NumOfCorrect { get; set; }
 
         public DateTime StartTime { get; set; }
 
         public DateTime EndTime { get; set; }
-
-        //Set 1-1 relationship
-        public int ContestRegistId { get; set; }
-        public ContestRegist ContestRegist { get; set; }
     }
 }
