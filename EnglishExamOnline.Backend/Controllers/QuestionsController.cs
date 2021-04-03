@@ -27,7 +27,16 @@ namespace EnglishExamOnline.Backend.Controllers
         public async Task<ActionResult<IEnumerable<QuestionVm>>> GetQuests()
         {
             return await _context.Questions
-                .Select(x => new QuestionVm { QuestionId = x.QuestionId, QuestionInfo = x.QuestionInfo })
+                .Select(x => new QuestionVm 
+                { 
+                    QuestionId = x.QuestionId, 
+                    QuestionInfo = x.QuestionInfo,
+                    AnswerA = x.AnswerA,
+                    AnswerB = x.AnswerB,
+                    AnswerC = x.AnswerC,
+                    AnswerD= x.AnswerD,
+                    CorrectAnswer = x.CorrectAnswer,
+                })
                 .ToListAsync();
         }
 
@@ -45,7 +54,12 @@ namespace EnglishExamOnline.Backend.Controllers
             var questVm = new QuestionVm
             {
                 QuestionId = question.QuestionId,
-                QuestionInfo = question.QuestionInfo
+                QuestionInfo = question.QuestionInfo,
+                AnswerA = question.AnswerA,
+                AnswerB = question.AnswerB,
+                AnswerC = question.AnswerC,
+                AnswerD = question.AnswerD,
+                CorrectAnswer = question.CorrectAnswer,
             };
 
             return questVm;
@@ -78,7 +92,17 @@ namespace EnglishExamOnline.Backend.Controllers
             _context.Questions.Add(question);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetQuest", new { id = question.QuestionId }, new QuestionVm { QuestionId = question.QuestionId, QuestionInfo = question.QuestionInfo });
+            return CreatedAtAction("GetQuest", 
+                new { id = question.QuestionId }, 
+                new QuestionVm 
+                { 
+                    QuestionInfo = question.QuestionInfo,
+                    AnswerA = question.AnswerA,
+                    AnswerB = question.AnswerB,
+                    AnswerC = question.AnswerC,
+                    AnswerD = question.AnswerD,
+                    CorrectAnswer = question.CorrectAnswer,
+                });
         }
 
         [HttpDelete("{id}")]
