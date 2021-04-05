@@ -76,6 +76,12 @@ namespace EnglishExamOnline.Backend.Controllers
             }
 
             question.QuestionInfo = questCreateRequest.QuestionInfo;
+            question.AnswerA = questCreateRequest.AnswerA;
+            question.AnswerB = questCreateRequest.AnswerB;
+            question.AnswerC = questCreateRequest.AnswerC;
+            question.AnswerD = questCreateRequest.AnswerD;
+            question.CorrectAnswer = questCreateRequest.CorrectAnswer;
+
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -86,7 +92,12 @@ namespace EnglishExamOnline.Backend.Controllers
         {
             var question = new Question
             {
-                QuestionInfo = questCreateRequest.QuestionInfo
+                QuestionInfo = questCreateRequest.QuestionInfo,
+                AnswerA = questCreateRequest.AnswerA,
+                AnswerB = questCreateRequest.AnswerB,
+                AnswerC = questCreateRequest.AnswerC,
+                AnswerD = questCreateRequest.AnswerD,
+                CorrectAnswer = questCreateRequest.CorrectAnswer,
             };
 
             _context.Questions.Add(question);
