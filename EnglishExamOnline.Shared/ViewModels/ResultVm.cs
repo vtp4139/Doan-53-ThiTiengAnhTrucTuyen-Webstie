@@ -10,11 +10,8 @@ namespace EnglishExamOnline.Shared.ViewModels
     public class ResultVm
     {
         public int ResultId { get; set; }
-
-        [Range(0, 500, ErrorMessage = "The value not exceed 500 points!")]
         public int Point { get; set; }
 
-        [Range(0, 50, ErrorMessage = "The value not exceed 50!")]
         public int NumOfCorrect { get; set; }
 
         public DateTime StartTime { get; set; }
