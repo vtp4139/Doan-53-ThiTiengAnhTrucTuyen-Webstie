@@ -1,7 +1,18 @@
 ﻿@model IList<EnglishExamOnline.Shared.ViewModels.ContestVm>
 
 <div class="container">
+    <!--Title of regis-->
     <div class="row">
+        <div class="col-md-4">
+            <div class="card mb-4 bg-primary" style="height:269px">
+                <div class="card-body">
+                    <h2 style="color:white">Đăng ký các cuộc thi đã mở</h2>
+                    <hr style="width:100%;text-align:left;margin-left:0;color:white">
+                    <h5 style="color:white">Chọn cuộc thi bạn muốn tham gia và nhấn xem chi tiết để đăng ký.</h5>
+                </div>
+            </div>
+        </div>
+        <!--Item contest-->
         @foreach (var item in Model)
         {
             <div class="col-md-4">
