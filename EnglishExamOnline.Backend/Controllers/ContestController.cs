@@ -29,7 +29,7 @@ namespace EnglishExamOnline.Backend.Controllers
         [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<ContestVm>>> GetContests()
         {
-            return await _context.Contests
+            return await _context.Contests.Include(c => c.ContestRegists)
                 .Select(x => new ContestVm
                 {
                     ContestId = x.ContestId,
@@ -37,6 +37,9 @@ namespace EnglishExamOnline.Backend.Controllers
                     Description = x.Description,
                     CreatedDate = x.CreatedDate,
                     Status = x.Status,
+                    CountRegists = x.ContestRegists.Count,
+                    Length = x.ContestSchedule.Length,
+                    StartTime = x.ContestSchedule.StartTime
                 })
                 .ToListAsync();
         }

@@ -16,6 +16,12 @@ namespace EnglishExamOnline.Shared.ViewModels
 
         public DateTime CreatedDate { get; set; }
 
+        public DateTime StartTime { get; set; }
+
+        public int CountRegists { get; set; }
+
+        public int Length { get; set; }
+
         public bool Status { get; set; }
     }
 }

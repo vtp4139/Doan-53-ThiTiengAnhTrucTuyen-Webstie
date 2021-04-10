@@ -1,0 +1,21 @@
+﻿body {
+    background-color: #F2F2F2;
+}
+
+#item-contest {
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    text-decoration: none !important;
+    color: black;
+}
+
+#item-contest:hover {
+    border: 1px solid #0094FF;
+}
+
+.card {
+    border: none;
+}
+
+.card-text {
+    font-size:15px;
+}

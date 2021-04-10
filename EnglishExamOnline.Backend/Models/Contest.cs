@@ -22,6 +22,11 @@ namespace EnglishExamOnline.Backend.Models
 
         public bool Status { get; set; }
 
+        //Set foreign key
+        [ForeignKey("ContestSchedule")]
+        public int ContestScheduleId { get; set; }
+        public virtual ContestSchedule ContestSchedule { get; set; }
+
         //Set foreign access to primary key
         public virtual ICollection<QuestionDetail> QuestionDetails { get; set; }
 

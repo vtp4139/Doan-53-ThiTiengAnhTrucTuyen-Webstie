@@ -14,7 +14,7 @@ namespace EnglishExamOnline.Backend.Models
 
         public DateTime StartTime { get; set; }
 
-        public DateTime EndTime { get; set; }
+        public int Length { get; set; }
 
         //Set foreign access to primary key
         public virtual ICollection<Contest> Contests { get; set; }

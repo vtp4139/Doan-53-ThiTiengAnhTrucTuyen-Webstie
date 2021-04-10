@@ -1,7 +1,29 @@
 ﻿@model IList<EnglishExamOnline.Shared.ViewModels.ContestVm>
 
-@foreach (var item in Model)
-{
-    @item.ContestId
-    @item.ContestName
-}
+<div class="container">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4">
+                <a class="card mb-4" id="item-contest" href="#">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.ContestName</h5>
+                        @if (item.Status == true)
+                        {
+                            <p><span class="badge badge-success">Mở đăng ký</span></p>
+                        }
+                        else
+                        {
+                            <p><span class="badge badge-danger">Kết thúc</span></p>
+                        }
+                        <hr style="width:100%;text-align:left;margin-left:0">
+                        <p class="card-text"><b>Thời gian mở:</b> @item.CreatedDate</p>
+                        <p class="card-text"><b>Thời gian thi:</b> @item.StartTime</p>
+                        <p class="card-text"><b>Thời lượng:</b> @item.Length phút</p>
+                        <p class="card-text"><small class="text-muted">Số người đăng ký: @item.CountRegists</small></p>
+                    </div>
+                </a>
+            </div>
+        }
+    </div>
+</div>
