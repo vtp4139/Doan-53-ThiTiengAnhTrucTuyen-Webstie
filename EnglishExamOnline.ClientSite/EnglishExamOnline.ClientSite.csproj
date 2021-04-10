@@ -8,4 +8,8 @@
     <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="5.0.4" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\EnglishExamOnline.Shared\EnglishExamOnline.Shared.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,5 +1,7 @@
 ﻿using EnglishExamOnline.ClientSite.Models;
+using EnglishExamOnline.ClientSite.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -12,15 +14,21 @@ namespace EnglishExamOnline.ClientSite.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IContestClient _contestApiClient;
+        private readonly IConfiguration _configuration;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IContestClient contestApiClient, IConfiguration configuration)
         {
             _logger = logger;
+            _contestApiClient = contestApiClient; 
+            _configuration = configuration;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> IndexAsync()
         {
-            return View();
+            var contests = await _contestApiClient.GetContests();
+           
+            return View(contests);
         }
 
         public IActionResult Privacy()
