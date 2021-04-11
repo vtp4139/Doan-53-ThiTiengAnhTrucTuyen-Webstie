@@ -42,6 +42,7 @@ namespace EnglishExamOnline.Backend.Data
             modelBuilder.Entity<User>()
                 .ToTable("AspNetUsers");
 
+            //seed data cau hoi
             modelBuilder.Entity<Question>().HasData(
                 new Question
                 {
@@ -144,7 +145,141 @@ namespace EnglishExamOnline.Backend.Data
                     CorrectAnswer = "Formerly"
                 }
                 );
-            
+            //seed data lich thi
+            modelBuilder.Entity<ContestSchedule>().HasData(
+                new ContestSchedule
+                {
+                    ContestScheduleId = 1,
+                    StartTime = new DateTime(2021, 4, 12, 10, 30, 0),
+                    Length = 60
+                },
+                new ContestSchedule
+                {
+                    ContestScheduleId = 2,
+                    StartTime = new DateTime(2021, 5, 25, 10, 30, 0),
+                    Length = 60
+                },
+                new ContestSchedule
+                {
+                    ContestScheduleId = 3,
+                    StartTime = new DateTime(2021, 5, 25, 15, 30, 0),
+                    Length = 60
+                },
+                new ContestSchedule
+                {
+                    ContestScheduleId = 4,
+                    StartTime = new DateTime(2021, 5, 25, 20, 0, 0),
+                    Length = 60
+                },
+                new ContestSchedule
+                {
+                    ContestScheduleId = 5,
+                    StartTime = new DateTime(2021, 5, 27, 20, 0, 0),
+                    Length = 60
+                }
+                );
+            //seed data cuoc thi
+            modelBuilder.Entity<Contest>().HasData(
+                new Contest
+                {
+                    ContestId = 100,
+                    ContestName = "English Test (Morning) - ETS 21",
+                    Description = "The ETS is an international standardized test of English language proficiency for non-native speakers. It is intentionally designed to measure the everyday English skills of people working in an international environment.",
+                    CreatedDate = DateTime.Now,
+                    Status = true,
+                    ContestScheduleId = 1,
+                },
+                new Contest
+                {
+                    ContestId = 101,
+                    ContestName = "English Test (Morning) - ETS 21",
+                    Description = "The ETS is an international standardized test of English language proficiency for non-native speakers. It is intentionally designed to measure the everyday English skills of people working in an international environment.",
+                    CreatedDate = DateTime.Now,
+                    Status = true,
+                    ContestScheduleId = 1,
+                },
+                new Contest
+                {
+                    ContestId = 102,
+                    ContestName = "English Test (Morning) - ETS 21",
+                    Description = "The ETS is an international standardized test of English language proficiency for non-native speakers. It is intentionally designed to measure the everyday English skills of people working in an international environment.",
+                    CreatedDate = DateTime.Now,
+                    Status = true,
+                    ContestScheduleId = 2,
+                },
+                new Contest
+                {
+                    ContestId = 103,
+                    ContestName = "English Test (Afternoon) - ETS 21",
+                    Description = "The ETS is an international standardized test of English language proficiency for non-native speakers. It is intentionally designed to measure the everyday English skills of people working in an international environment.",
+                    CreatedDate = DateTime.Now,
+                    Status = true,
+                    ContestScheduleId = 2,
+                },
+                new Contest
+                {
+                    ContestId = 104,
+                    ContestName = "English Test (Night) - ETS 21",
+                    Description = "The ETS is an international standardized test of English language proficiency for non-native speakers. It is intentionally designed to measure the everyday English skills of people working in an international environment.",
+                    CreatedDate = DateTime.Now,
+                    Status = true,
+                    ContestScheduleId = 2,
+                },
+                new Contest
+                {
+                    ContestId = 105,
+                    ContestName = "English Test (Afternoon) - ETS 21",
+                    Description = "The ETS is an international standardized test of English language proficiency for non-native speakers. It is intentionally designed to measure the everyday English skills of people working in an international environment.",
+                    CreatedDate = DateTime.Now,
+                    Status = true,
+                    ContestScheduleId = 3,
+                },
+                new Contest
+                {
+                    ContestId = 106,
+                    ContestName = "English Test (Morning) - ETS 21",
+                    Description = "The ETS is an international standardized test of English language proficiency for non-native speakers. It is intentionally designed to measure the everyday English skills of people working in an international environment.",
+                    CreatedDate = DateTime.Now,
+                    Status = false,
+                    ContestScheduleId = 1,
+                },
+                new Contest
+                {
+                    ContestId = 107,
+                    ContestName = "English Test (Afternoon) - ETS 21",
+                    Description = "The ETS is an international standardized test of English language proficiency for non-native speakers. It is intentionally designed to measure the everyday English skills of people working in an international environment.",
+                    CreatedDate = DateTime.Now,
+                    Status = false,
+                    ContestScheduleId = 1,
+                },
+                new Contest
+                {
+                    ContestId = 108,
+                    ContestName = "English Test (Night) - ETS 21",
+                    Description = "The ETS is an international standardized test of English language proficiency for non-native speakers. It is intentionally designed to measure the everyday English skills of people working in an international environment.",
+                    CreatedDate = DateTime.Now,
+                    Status = false,
+                    ContestScheduleId = 1,
+                },
+                new Contest
+                {
+                    ContestId = 109,
+                    ContestName = "English Test (Night) - ETS 21",
+                    Description = "The ETS is an international standardized test of English language proficiency for non-native speakers. It is intentionally designed to measure the everyday English skills of people working in an international environment.",
+                    CreatedDate = DateTime.Now,
+                    Status = false,
+                    ContestScheduleId = 1,
+                },
+                new Contest
+                {
+                    ContestId = 110,
+                    ContestName = "English Test (Afternoon) - ETS 21",
+                    Description = "The ETS is an international standardized test of English language proficiency for non-native speakers. It is intentionally designed to measure the everyday English skills of people working in an international environment.",
+                    CreatedDate = DateTime.Now,
+                    Status = false,
+                    ContestScheduleId = 1,
+                }
+                );
         }
     }
 }
