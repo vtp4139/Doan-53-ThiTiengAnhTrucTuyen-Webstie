@@ -1,7 +1,27 @@
 ﻿@model EnglishExamOnline.Shared.ViewModels.ContestVm
+    
+<!--Add css file to razor view-->
+@section Styles {
+    <link href="@Url.Content("~/css/detail.css")" rel="stylesheet" type="text/css" />
+}
 
-@Model.ContestId
-@Model.ContestName
-@Model.CreatedDate
-@Model.CountRegists
-@Model.StartTime
+<div class="container" id="item-detail">
+    <hr class="bg-primary" id="line-head">
+    <div class="row justify-content-md-center">
+        <div class="col-md-10" style="text-align:center">
+            <h2>@Model.ContestName</h2>
+            <hr style="width:100%;text-align:left;margin-left:0">
+        </div>
+    </div>
+    <div class="row justify-content-md-center">
+        <!--p: padding, m: margin / mb: margin-bottom -->
+        <div class="col-md-5 p-2 mb-3" style=" border-right: 1px solid #E5E5E5;">@Model.Description</div>
+        <div class="col-md-5 p-2 mb-3">
+            <p><b>Thời gian mở đăng ký: </b>@Model.CreatedDate</p>
+            <p><b>Lịch thi: </b>@Model.StartTime</p>
+            <p><b>Thời lượng thi: </b>@Model.Length phút</p>
+            <p><i>Có @Model.CountRegists thí sinh đã đăng ký</i></p>
+            <button type="button" class="btn btn-warning" id="btn-regist">Đăng ký</button>
+        </div>
+    </div>
+</div>
