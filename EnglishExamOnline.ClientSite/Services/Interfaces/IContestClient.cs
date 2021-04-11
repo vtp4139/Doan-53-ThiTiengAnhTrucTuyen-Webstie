@@ -9,5 +9,7 @@ namespace EnglishExamOnline.ClientSite.Services.Interfaces
     public interface IContestClient
     {
         Task<IList<ContestVm>> GetContests();
+
+        Task<ContestVm> GetContest(int id);
     }
 }

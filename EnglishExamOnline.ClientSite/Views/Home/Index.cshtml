@@ -16,7 +16,7 @@
         @foreach (var item in Model)
         {
             <div class="col-md-4">
-                <a class="card mb-4" id="item-contest" href="#">
+                <a class="card mb-4" id="item-contest" asp-controller="Contest" asp-action="Detail" asp-route-id="@item.ContestId">
                     <div class="card-body">
                         <h5 class="card-title">@item.ContestName</h5>
                         @if (item.Status == true)

@@ -48,20 +48,25 @@ namespace EnglishExamOnline.Backend.Controllers
         [AllowAnonymous]
         public async Task<ActionResult<ContestVm>> GetContest(int id)
         {
-            var Contest = await _context.Contests.FindAsync(id);
+            //Include schedule and regist
+            var x = await _context.Contests.Include(c => c.ContestRegists).Include(c => c.ContestSchedule)
+                .FirstOrDefaultAsync(x => x.ContestId == id);
 
-            if (Contest == null)
+            if (x == null)
             {
                 return NotFound();
             }
 
             var ContestVm = new ContestVm
             {
-                ContestId = Contest.ContestId,
-                ContestName = Contest.ContestName,
-                Description = Contest.Description,
-                CreatedDate = Contest.CreatedDate,
-                Status = Contest.Status,
+                ContestId = x.ContestId,
+                ContestName = x.ContestName,
+                Description = x.Description,
+                CreatedDate = x.CreatedDate,
+                Status = x.Status,
+                CountRegists = x.ContestRegists.Count,
+                Length = x.ContestSchedule.Length,
+                StartTime = x.ContestSchedule.StartTime
             };
 
             return ContestVm;

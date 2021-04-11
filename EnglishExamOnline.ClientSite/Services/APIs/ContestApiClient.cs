@@ -20,13 +20,21 @@ namespace EnglishExamOnline.ClientSite.Services.APIs
             _httpClientFactory = httpClientFactory;
             _configuration = configuration;
         }
-
+     
         public async Task<IList<ContestVm>> GetContests()
         {
             var client = _httpClientFactory.CreateClient();
             var response = await client.GetAsync(_configuration["BackendUrl:Default"] + "/api/Contest");
             response.EnsureSuccessStatusCode();
             return await response.Content.ReadFromJsonAsync<IList<ContestVm>>();
+        }
+
+        public async Task<ContestVm> GetContest(int id)
+        {
+            var client = _httpClientFactory.CreateClient();
+            var response = await client.GetAsync(_configuration["BackendUrl:Default"] + "/api/Contest/" + id);
+            response.EnsureSuccessStatusCode();
+            return await response.Content.ReadFromJsonAsync<ContestVm>();
         }
     }
 }
