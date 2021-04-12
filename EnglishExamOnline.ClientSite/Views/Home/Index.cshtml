@@ -1,5 +1,6 @@
 ﻿@model IList<EnglishExamOnline.Shared.ViewModels.ContestVm>
 
+<!--Get contest open regist-->
 <div class="container">
     <!--Title of regis-->
     <div class="row">
@@ -15,26 +16,53 @@
         <!--Item contest-->
         @foreach (var item in Model)
         {
-            <div class="col-md-4">
-                <a class="card mb-4" id="item-contest" asp-controller="Contest" asp-action="Detail" asp-route-id="@item.ContestId">
-                    <div class="card-body">
-                        <h5 class="card-title">@item.ContestName</h5>
-                        @if (item.Status == true)
-                        {
+            if (item.Status == true)
+            {
+                <div class="col-md-4">
+                    <a class="card mb-4" id="item-contest" asp-controller="Contest" asp-action="Detail" asp-route-id="@item.ContestId">
+                        <div class="card-body">
+                            <h5 class="card-title">@item.ContestName</h5>
                             <p><span class="badge badge-success">Mở đăng ký</span></p>
-                        }
-                        else
-                        {
-                            <p><span class="badge badge-danger">Kết thúc</span></p>
-                        }
-                        <hr style="width:100%;text-align:left;margin-left:0">
-                        <p class="card-text"><b>Thời gian mở:</b> @item.CreatedDate</p>
-                        <p class="card-text"><b>Thời gian thi:</b> @item.StartTime</p>
-                        <p class="card-text"><b>Thời lượng:</b> @item.Length phút</p>
-                        <p class="card-text"><small class="text-muted">Số người đăng ký: @item.CountRegists</small></p>
-                    </div>
-                </a>
+                            <hr style="width:100%;text-align:left;margin-left:0">
+                            <p class="card-text"><b>Thời gian mở:</b> @item.CreatedDate</p>
+                            <p class="card-text"><b>Lịch thi:</b> @item.StartTime</p>
+                            <p class="card-text"><b>Thời lượng:</b> @item.Length phút</p>
+                            <p class="card-text"><small class="text-muted">Số người đăng ký: @item.CountRegists</small></p>
+                        </div>
+                    </a>
+                </div>
+            }
+        }
+    </div>
+</div>
+
+<!--Get contest ended-->
+<div class="container">
+    <!--Title of regis-->
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card mb-4 bg-secondary" style="height:176px">
+                <div class="card-body">
+                    <h2 style="color:white">Các cuộc thi đã kết thúc</h2>               
+                </div>
             </div>
+        </div>
+        <!--Item contest-->
+        @foreach (var item in Model)
+        {
+            if (item.Status == false)
+            {
+                <div class="col-md-4">
+                    <a class="card mb-4" id="item-contest" asp-controller="Contest" asp-action="Detail" asp-route-id="@item.ContestId">
+                        <div class="card-body">
+                            <h5 class="card-title">@item.ContestName</h5>
+                            <p><span class="badge badge-secondary">Đã kết thúc</span></p>
+                            <p class="card-text"><small class="text-muted">Lịch thi: @item.StartTime</small></p>
+                            <p class="card-text"><small class="text-muted">Có @item.CountRegists thí sinh đã tham gia thi.</small></p>
+                        </div>
+                    </a>
+                </div>
+            }
         }
     </div>
 </div>
