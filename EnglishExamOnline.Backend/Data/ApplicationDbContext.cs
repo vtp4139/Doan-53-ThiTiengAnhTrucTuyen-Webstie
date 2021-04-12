@@ -280,6 +280,68 @@ namespace EnglishExamOnline.Backend.Data
                     ContestScheduleId = 1,
                 }
                 );
+            modelBuilder.Entity<QuestionDetail>().HasData(
+                new QuestionDetail
+                {
+                    QuestionId = 1,
+                    ContestId = 100,
+                    Index = 1
+                },
+                new QuestionDetail
+                {
+                    QuestionId = 2,
+                    ContestId = 100,
+                    Index = 2
+                },
+                new QuestionDetail
+                {
+                    QuestionId = 3,
+                    ContestId = 100,
+                    Index = 3
+                },
+                new QuestionDetail
+                {
+                    QuestionId = 4,
+                    ContestId = 100,
+                    Index = 4
+                },
+                new QuestionDetail
+                {
+                    QuestionId = 5,
+                    ContestId = 100,
+                    Index = 5
+                },
+                new QuestionDetail
+                {
+                    QuestionId = 6,
+                    ContestId = 100,
+                    Index = 6
+                },
+                new QuestionDetail
+                {
+                    QuestionId = 7,
+                    ContestId = 100,
+                    Index = 7
+                },
+                new QuestionDetail
+                {
+                    QuestionId = 8,
+                    ContestId = 100,
+                    Index = 8
+                },
+                new QuestionDetail
+                {
+                    QuestionId = 9,
+                    ContestId = 100,
+                    Index = 9
+                },
+                new QuestionDetail
+                {
+                    QuestionId = 10,
+                    ContestId = 100,
+                    Index = 10
+                }
+                );
         }
     }
 }
