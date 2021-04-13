@@ -8,11 +8,17 @@ namespace EnglishExamOnline.Shared.ViewModels
 {
     public class ContestRegistVm
     {
-        public int UserId { get; set; }
+        public string UserId { get; set; }
 
-        public int ContestId { get; set; }
+        public string UserName { get; set; }
 
         public int ContestRegistId { get; set; }
+
+        public string ContestName { get; set; }
+
+        public DateTime StartTime { get; set; }
+
+        public int Length { get; set; }
 
         public DateTime RegistDate { get; set; }
     }

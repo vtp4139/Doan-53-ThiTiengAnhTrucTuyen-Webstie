@@ -1,0 +1,16 @@
+﻿#item-detail {
+    background-color: white;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    padding: unset;
+    width: 65%;
+}
+
+#line-head {
+    height: 10px;
+    border-width: 0;
+}
+
+#btn-back {
+    width: 170px;
+    font-size: 18px;
+}

@@ -5,6 +5,7 @@ using EnglishExamOnline.Shared.FormViewModels;
 using EnglishExamOnline.Shared.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,24 +26,35 @@ namespace EnglishExamOnline.Backend.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<ContestRegistVm>> PostQuest(ContestRegistFormVm createRequest)
+        public async Task<ActionResult<ContestRegistVm>> PostContestRegists(ContestRegistFormVm createRequest)
         {
-            var x = new ContestRegist
+            var contestRegist = new ContestRegist
             {
                 UserId = createRequest.UserId,
                 ContestId = createRequest.ContestId,
                 RegistDate = createRequest.RegistDate,
             };
+            _context.ContestRegists.Add(contestRegist);
 
-            _context.ContestRegists.Add(x);
+            //Get conteset regist info
             await _context.SaveChangesAsync();
+            var x = await _context.ContestRegists
+                .Include(c => c.Users)
+                .Include(c => c.Contest)
+                .ThenInclude(ct => ct.ContestSchedule)
+                .FirstOrDefaultAsync(c => c.ContestRegistId == contestRegist.ContestRegistId);
 
+            //Return contest regist to show on view confirm
             return new ContestRegistVm
             {
                 UserId = x.UserId,
-                ContestId = x.ContestId,
+                UserName = x.Users.FullName,
+                ContestRegistId = x.ContestRegistId,
+                ContestName = x.Contest.ContestName,
+                StartTime = x.Contest.ContestSchedule.StartTime,
+                Length = x.Contest.ContestSchedule.Length,
                 RegistDate = x.RegistDate,
-            });
+            };
         }
 
     }

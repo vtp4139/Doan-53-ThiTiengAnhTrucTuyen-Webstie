@@ -1,0 +1,37 @@
+﻿@model EnglishExamOnline.Shared.ViewModels.ContestRegistVm
+<!--Add css file to razor view-->
+@section Styles {
+    <link href="@Url.Content("~/css/regist-confirm.css")" rel="stylesheet" type="text/css" />
+}
+
+<div class="container" id="item-detail">
+    <hr class="bg-success" id="line-head">
+    <div class="row justify-content-md-center">
+        <div class="col-md-10" style="text-align:center">
+            <h2>Đăng ký thành công</h2>
+            <p>Mã phiếu thi: @Model.ContestRegistId. Vui lòng kiểm tra lại thông tin phiếu thi bên dưới.</p>
+            <hr style="width:100%;text-align:left;margin-left:0">
+        </div>
+    </div>
+    <div class="row justify-content-md-center">
+        <!--p: padding, m: margin / mb: margin-bottom -->
+        <div class="col-md-5 p-2 mb-3" style=" border-right: 1px solid #E5E5E5;">
+            <p><span class="badge badge-primary">Thông tin cuộc thi</span></p>
+            <p><b>Tên cuộc thi: </b>@Model.ContestName</p>
+            <p><b>Lịch thi: </b>@Model.StartTime</p>
+            <p><b>Thời lượng thi: </b>@Model.Length phút</p>
+        </div>
+        <div class="col-md-5 p-2 mb-3">
+            <p><span class="badge badge-warning">Thông tin thí sinh</span></p>
+            <p><b>Mã tài khoản: </b>@Model.UserId</p>
+            <p><b>Tên thí sinh: </b>@Model.UserName</p>
+            <p><b>Đăng ký vào: </b>@Model.RegistDate phút</p>
+        </div>
+    </div>
+    <div class="row justify-content-md-center">
+        <div class="col-md-10" style="text-align:center">
+            <hr style="width:100%;text-align:left;margin-left:0">
+            <a type="button" class="btn btn-secondary p-2 mb-3" id="btn-back" asp-controller="Home" asp-action="Index">Trở về trang chủ</a>
+        </div>
+    </div>
+</div>

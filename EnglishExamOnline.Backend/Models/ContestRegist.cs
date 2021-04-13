@@ -16,7 +16,7 @@ namespace EnglishExamOnline.Backend.Models
         //Foreign key
 
         [ForeignKey("User")]
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         public virtual User Users { get; set; }
 
         [ForeignKey("Contest")]

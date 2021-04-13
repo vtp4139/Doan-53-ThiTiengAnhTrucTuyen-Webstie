@@ -2,9 +2,11 @@ using EnglishExamOnline.ClientSite.Services.APIs;
 using EnglishExamOnline.ClientSite.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -56,7 +58,9 @@ namespace EnglishExamOnline.ClientSite
                 });
 
             services.AddHttpClient();
+            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IContestClient, ContestApiClient>();
+            services.AddTransient<IContestRegistClient, ContestRegistApiClient>();
 
             services.AddControllersWithViews();
         }
