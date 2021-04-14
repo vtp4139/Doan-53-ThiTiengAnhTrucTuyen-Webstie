@@ -1,4 +1,10 @@
 ﻿@model IList<EnglishExamOnline.Shared.ViewModels.ContestVm>
+@using System.Security.Claims;
+
+@if (User.Identity.IsAuthenticated)
+{
+    @await Component.InvokeAsync("ContestRegisted", new { id = User.FindFirstValue(ClaimTypes.NameIdentifier) })
+}
 
 <!--Get contest open regist-->
 <div class="container">
@@ -43,7 +49,7 @@
         <div class="col-md-4">
             <div class="card mb-4 bg-secondary" style="height:176px">
                 <div class="card-body">
-                    <h2 style="color:white">Các cuộc thi đã kết thúc</h2>               
+                    <h2 style="color:white">Các cuộc thi đã kết thúc</h2>
                 </div>
             </div>
         </div>

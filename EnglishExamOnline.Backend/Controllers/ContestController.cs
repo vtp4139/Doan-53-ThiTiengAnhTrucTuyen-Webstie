@@ -44,6 +44,63 @@ namespace EnglishExamOnline.Backend.Controllers
                 .ToListAsync();
         }
 
+        [HttpGet("Registed/{id}")]
+        [AllowAnonymous]
+        //[Authorize]
+        public async Task<ActionResult<IEnumerable<ContestVm>>> GetContestRegisted(string id)
+        {
+            //Get list of contest user registed
+            return await _context.Contests
+                .Include(c => c.ContestRegists)
+                .Include(c => c.ContestSchedule)
+                .Where(x => x.Status == true && x.ContestRegists.FirstOrDefault(ct => ct.UserId == id) != null)
+                   .Select(x => new ContestVm
+                   {
+                       ContestId = x.ContestId,
+                       ContestName = x.ContestName,
+                       Description = x.Description,
+                       CreatedDate = x.CreatedDate,
+                       Status = x.Status,
+                       CountRegists = x.ContestRegists.Count,
+                       Length = x.ContestSchedule.Length,
+                       StartTime = x.ContestSchedule.StartTime
+                   }).ToListAsync(); ;        
+        }
+
+        [HttpGet("ExceptRegisted/{id}")]
+        [AllowAnonymous]
+        //[Authorize]
+        public async Task<ActionResult<IEnumerable<ContestVm>>> GetContestExceptRegisted(string id)
+        {
+            var listCon = await _context.Contests
+                .Include(c => c.ContestRegists)
+                .Include(c => c.ContestSchedule)
+                .ToListAsync();
+
+            List<ContestVm> listItem = new List<ContestVm>();
+
+            //Get contest except contest user registed
+            foreach (var x in listCon)
+            {
+                //Check contest has user registed 
+                if (x.Status == true && x.ContestRegists.FirstOrDefault(x => x.UserId == id) != null)
+                    continue;
+
+                ContestVm newCon = new ContestVm();
+                newCon.ContestId = x.ContestId;
+                newCon.ContestName = x.ContestName;
+                newCon.Description = x.Description;
+                newCon.CreatedDate = x.CreatedDate;
+                newCon.Status = x.Status;
+                newCon.CountRegists = x.ContestRegists.Count;
+                newCon.Length = x.ContestSchedule.Length;
+                newCon.StartTime = x.ContestSchedule.StartTime;
+
+                listItem.Add(newCon);
+            }
+            return listItem;
+        }
+
         [HttpGet("{id}")]
         [AllowAnonymous]
         public async Task<ActionResult<ContestVm>> GetContest(int id)

@@ -10,6 +10,10 @@ namespace EnglishExamOnline.ClientSite.Services.Interfaces
     {
         Task<IList<ContestVm>> GetContests();
 
+        Task<IList<ContestVm>> GetContestRegisted(string id);
+
+        Task<IList<ContestVm>> GetContestExceptRegisted(string id);
+
         Task<ContestVm> GetContest(int id);
     }
 }
