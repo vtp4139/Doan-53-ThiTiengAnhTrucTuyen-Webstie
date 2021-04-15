@@ -143,7 +143,108 @@ namespace EnglishExamOnline.Backend.Data
                     AnswerC = "Formerly",
                     AnswerD = "Frequently",
                     CorrectAnswer = "Formerly"
+                },
+                new Question
+                {
+                    QuestionId = 11,
+                    QuestionInfo = "Remarkably, neither Ms. Chen ------- Mr. Gillespie had been notified that the board meeting was canceled.",
+                    AnswerA = "or",
+                    AnswerB = "and",
+                    AnswerC = "with",
+                    AnswerD = "nor",
+                    CorrectAnswer = "nor"
+                },
+                new Question
+                {
+                    QuestionId = 12,
+                    QuestionInfo = "The new microwave soup containers are ------- than the previous ones.",
+                    AnswerA = "rigid",
+                    AnswerB = "most rigidly",
+                    AnswerC = "rigidly",
+                    AnswerD = "more rigid",
+                    CorrectAnswer = "more rigid"
+                },
+                new Question
+                {
+                    QuestionId = 13,
+                    QuestionInfo = "The Banly Tourism Society is ------- to present the first issue of its publication, The Banly Quarterly.",
+                    AnswerA = "regular",
+                    AnswerB = "general",
+                    AnswerC = "proud",
+                    AnswerD = "favorite",
+                    CorrectAnswer = "proud"
+                },
+                new Question
+                {
+                    QuestionId = 14,
+                    QuestionInfo = "Konixer Printers is conducting a thorough ------- of current requests for equipment upgrades.",
+                    AnswerA = "evaluate",
+                    AnswerB = "evaluation",
+                    AnswerC = "evaluator",
+                    AnswerD = "evaluative",
+                    CorrectAnswer = "evaluation"
+                },
+                new Question
+                {
+                    QuestionId = 15,
+                    QuestionInfo = "------- the addition of 300 spaces, the ferry terminal’s parking area is still full by 9:00 A.M. every day.",
+                    AnswerA = "Despite",
+                    AnswerB = "Across",
+                    AnswerC = "Besides",
+                    AnswerD = "Inside",
+                    CorrectAnswer = "Despite"
+                },
+                new Question
+                {
+                    QuestionId = 16,
+                    QuestionInfo = "Justlox, Inc., is planning to ------- redesign Model 543Q with its partners in Britain to ensure a better product.",
+                    AnswerA = "collaboration",
+                    AnswerB = "collaborative",
+                    AnswerC = "collaboratively",
+                    AnswerD = "collaborate",
+                    CorrectAnswer = "collaboratively"
+                },
+                new Question
+                {
+                    QuestionId = 17,
+                    QuestionInfo = "Each box of Lane Permanent Markers contains an ------- of surprising colors.",
+                    AnswerA = "assortment",
+                    AnswerB = "excitement",
+                    AnswerC = "account",
+                    AnswerD = "industry",
+                    CorrectAnswer = "assortment"
+                },
+                new Question
+                {
+                    QuestionId = 18,
+                    QuestionInfo = "We were pleased by the ------- and courteous reply we received from Astella Airlines concerning the change in itinerary.",
+                    AnswerA = "safe",
+                    AnswerB = "close",
+                    AnswerC = "clean",
+                    AnswerD = "prompt",
+                    CorrectAnswer = "prompt"
+                },
+                new Question
+                {
+                    QuestionId = 19,
+                    QuestionInfo = "The rising employment rate is one factor contributing to ------- in the housing construction trade.",
+                    AnswerA = "grow",
+                    AnswerB = "growth",
+                    AnswerC = "grew",
+                    AnswerD = "grown",
+                    CorrectAnswer = "growth"
+                },
+                new Question
+                {
+                    QuestionId = 20,
+                    QuestionInfo = "The color of the new chairs was not ------- on the invoice",
+                    AnswerA = "specify",
+                    AnswerB = "specified",
+                    AnswerC = "specifying",
+                    AnswerD = "specification",
+                    CorrectAnswer = "specified"
                 }
+
                 );
             //seed data lich thi
             modelBuilder.Entity<ContestSchedule>().HasData(
@@ -340,6 +441,66 @@ namespace EnglishExamOnline.Backend.Data
                     QuestionId = 10,
                     ContestId = 100,
                     Index = 10
+                },
+                new QuestionDetail
+                {
+                    QuestionId = 11,
+                    ContestId = 100,
+                    Index = 11
+                },
+                new QuestionDetail
+                {
+                    QuestionId = 12,
+                    ContestId = 100,
+                    Index = 12
+                },
+                new QuestionDetail
+                {
+                    QuestionId = 13,
+                    ContestId = 100,
+                    Index = 13
+                },
+                new QuestionDetail
+                {
+                    QuestionId = 14,
+                    ContestId = 100,
+                    Index = 14
+                },
+                new QuestionDetail
+                {
+                    QuestionId = 15,
+                    ContestId = 100,
+                    Index = 15
+                },
+                new QuestionDetail
+                {
+                    QuestionId = 16,
+                    ContestId = 100,
+                    Index = 16
+                },
+                new QuestionDetail
+                {
+                    QuestionId = 17,
+                    ContestId = 100,
+                    Index = 17
+                },
+                new QuestionDetail
+                {
+                    QuestionId = 18,
+                    ContestId = 100,
+                    Index = 18
+                },
+                new QuestionDetail
+                {
+                    QuestionId = 19,
+                    ContestId = 100,
+                    Index = 19
+                },
+                new QuestionDetail
+                {
+                    QuestionId = 20,
+                    ContestId = 100,
+                    Index = 20
                 }
                 );
         }
