@@ -1,3 +1,32 @@
 ﻿@model IList<EnglishExamOnline.Shared.ViewModels.ContestVm>
 
-@Model.ElementAt(0).ContestId
+<!--Get contest has registed-->
+<div class="container">
+    <!--Title of regis-->
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card mb-4 bg-danger" style="height:176px">
+                <div class="card-body">
+                    <h2 style="color:white">Cuộc thi đã đăng ký</h2>
+                    <hr style="width:100%;text-align:left;margin-left:0;color:white">
+                    <h5 style="color:white">Hãy kiểm tra lịch thi thường xuyên và tham gia thi đúng giờ.</h5>
+                </div>
+            </div>
+        </div>
+        <!--Item contest-->
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4">
+                <a class="card mb-4" id="item-contest" asp-controller="Contest" asp-action="Detail" asp-route-id="@item.ContestId">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.ContestName</h5>
+                        <p><span class="badge badge-danger">Đã đăng ký</span></p>
+                        <p class="card-text"><small class="text-muted" style="color:red">Lịch thi: @item.StartTime</small></p>
+                        <p class="card-text"><small class="text-muted">Có @item.CountRegists thí sinh đã đăng ký.</small></p>
+                    </div>
+                </a>
+            </div>
+        }
+    </div>
+</div>
+<hr style="width:100%;text-align:left;margin-left:0">
