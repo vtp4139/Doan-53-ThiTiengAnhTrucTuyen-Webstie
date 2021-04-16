@@ -445,61 +445,61 @@ namespace EnglishExamOnline.Backend.Data
                 new QuestionDetail
                 {
                     QuestionId = 11,
-                    ContestId = 100,
+                    ContestId = 101,
                     Index = 11
                 },
                 new QuestionDetail
                 {
                     QuestionId = 12,
-                    ContestId = 100,
+                    ContestId = 101,
                     Index = 12
                 },
                 new QuestionDetail
                 {
                     QuestionId = 13,
-                    ContestId = 100,
+                    ContestId = 101,
                     Index = 13
                 },
                 new QuestionDetail
                 {
                     QuestionId = 14,
-                    ContestId = 100,
+                    ContestId = 101,
                     Index = 14
                 },
                 new QuestionDetail
                 {
                     QuestionId = 15,
-                    ContestId = 100,
+                    ContestId = 101,
                     Index = 15
                 },
                 new QuestionDetail
                 {
                     QuestionId = 16,
-                    ContestId = 100,
+                    ContestId = 101,
                     Index = 16
                 },
                 new QuestionDetail
                 {
                     QuestionId = 17,
-                    ContestId = 100,
+                    ContestId = 101,
                     Index = 17
                 },
                 new QuestionDetail
                 {
                     QuestionId = 18,
-                    ContestId = 100,
+                    ContestId = 101,
                     Index = 18
                 },
                 new QuestionDetail
                 {
                     QuestionId = 19,
-                    ContestId = 100,
+                    ContestId = 101,
                     Index = 19
                 },
                 new QuestionDetail
                 {
                     QuestionId = 20,
-                    ContestId = 100,
+                    ContestId = 101,
                     Index = 20
                 }
                 );
