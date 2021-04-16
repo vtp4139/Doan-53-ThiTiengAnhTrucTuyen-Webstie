@@ -10,5 +10,7 @@ namespace EnglishExamOnline.ClientSite.Services.Interfaces
     public interface IContestRegistClient
     {
         Task<ContestRegistVm> PostContestRegist(ContestRegistFormVm createRequest);
+
+        Task<ContestRegistVm> DeleteContestRegist(ContestRegistFormVm createRequest);
     }
 }

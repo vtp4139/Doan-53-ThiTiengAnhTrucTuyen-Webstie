@@ -1,3 +1,4 @@
+using EnglishExamOnline.ClientSite.Services;
 using EnglishExamOnline.ClientSite.Services.APIs;
 using EnglishExamOnline.ClientSite.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
@@ -61,6 +62,7 @@ namespace EnglishExamOnline.ClientSite
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IContestClient, ContestApiClient>();
             services.AddTransient<IContestRegistClient, ContestRegistApiClient>();
+            services.AddTransient<ISendToken, SendToken>();
 
             services.AddControllersWithViews();
         }

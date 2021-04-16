@@ -26,5 +26,13 @@ namespace EnglishExamOnline.ClientSite.Controllers
             
             return View(product);
         }
+
+        public async Task<IActionResult> DetailRegisted(int id)
+        {
+            var product = await _contestApiClient.GetContest(id);
+
+            return View(product);
+        }
+
     }
 }

@@ -1,0 +1,51 @@
+﻿@model EnglishExamOnline.Shared.ViewModels.ContestVm
+<!--Add css file to razor view-->
+@section Styles {
+    <link href="@Url.Content("~/css/detail.css")" rel="stylesheet" type="text/css" />
+}
+
+<div class="container" id="item-detail">
+    <hr class="bg-danger" id="line-head">
+    <div class="row justify-content-md-center">
+        <div class="col-md-10" style="text-align:center">
+            <h2>@Model.ContestName</h2>
+            <hr style="width:100%;text-align:left;margin-left:0">
+        </div>
+    </div>
+    <div class="row justify-content-md-center">
+        <!--p: padding, m: margin / mb: margin-bottom -->
+        <div class="col-md-5 p-2 mb-3" style=" border-right: 1px solid #E5E5E5;">@Model.Description</div>
+        <div class="col-md-5 p-2 mb-3">
+            <p><b>Thời gian mở đăng ký: </b>@Model.CreatedDate</p>
+            <p><b>Lịch thi: </b>@Model.StartTime</p>
+            <p><b>Thời lượng thi: </b>@Model.Length phút</p>
+            <p><i>Có @Model.CountRegists thí sinh đã đăng ký</i></p>
+            <button type="button" class="btn btn-danger" id="btn-regist" data-toggle="modal" data-target="#confirm-delete">Hủy đăng ký</button>
+
+        </div>
+    </div>
+
+    <!--Modal confirm Yes/No-->
+    <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p>Xác nhận hủy đăng ký cuộc thi ?</p>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Thoát</button>
+                    <a class="btn btn-danger btn-ok" asp-controller="ContestRegist" asp-action="RemoveRegist" asp-route-id="@Model.ContestId">Xác nhận</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Handle modal-->
+<script type="text/javascript">
+    $('#confirm-delete').on('show.bs.modal', function (e) {
+        $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+
+        $('.debug-url').html('Delete URL: <strong>' + $(this).find('.btn-ok').attr('href') + '</strong>');
+    });
+</script>

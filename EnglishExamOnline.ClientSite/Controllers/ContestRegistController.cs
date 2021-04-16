@@ -33,5 +33,14 @@ namespace EnglishExamOnline.ClientSite.Controllers
 
             return View(_contestRegistApiClient.PostContestRegist(x).Result);
         }
+
+        public IActionResult RemoveRegist(int id)
+        {
+            ContestRegistFormVm x = new ContestRegistFormVm();
+            x.ContestId = id;
+            x.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            _contestRegistApiClient.DeleteContestRegist(x);
+            return View();
+        }
     }
 }

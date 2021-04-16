@@ -8,8 +8,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text;
@@ -21,30 +19,39 @@ namespace EnglishExamOnline.ClientSite.Services.APIs
     {
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly IConfiguration _configuration;
-        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly ISendToken _request;
 
-        public ContestRegistApiClient(IHttpClientFactory httpClientFactory, IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
+        public ContestRegistApiClient(IHttpClientFactory httpClientFactory, IConfiguration configuration, ISendToken request)
         {
             _httpClientFactory = httpClientFactory;
             _configuration = configuration;
-            _httpContextAccessor = httpContextAccessor;
+            _request = request;
         }
 
         public async Task<ContestRegistVm> PostContestRegist(ContestRegistFormVm createRequest)
         {
-            //Send access token
-            var client = _httpClientFactory.CreateClient();
-            var accessToken = await _httpContextAccessor.HttpContext.GetTokenAsync(OpenIdConnectParameterNames.AccessToken);
-            client.SetBearerToken(accessToken);
+            var client = _request.SendAccessToken().Result;
 
-            //Send json with body
             HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(createRequest),
                 Encoding.UTF8, "application/json");
             var response = await client.PostAsync(_configuration["BackendUrl:Default"] + "/api/ContestRegist", httpContent);
 
             response.EnsureSuccessStatusCode();
             return await response.Content.ReadFromJsonAsync<ContestRegistVm>();
-            //return null;
+        }
+
+        public async Task<ContestRegistVm> DeleteContestRegist(ContestRegistFormVm createRequest)
+        {
+            var client = _request.SendAccessToken().Result;
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Delete,
+                RequestUri = new Uri(_configuration["BackendUrl:Default"] + "/api/ContestRegist"),
+                Content = new StringContent(JsonConvert.SerializeObject(createRequest), Encoding.UTF8, "application/json")
+            };
+            var response = await client.SendAsync(request);
+
+            return await response.Content.ReadFromJsonAsync<ContestRegistVm>();
         }
     }
 }

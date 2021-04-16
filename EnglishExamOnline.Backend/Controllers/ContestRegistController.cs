@@ -57,5 +57,18 @@ namespace EnglishExamOnline.Backend.Controllers
             };
         }
 
+        [HttpDelete]
+        public async Task<ActionResult<ContestRegistVm>> DeleteContestRegist(ContestRegistFormVm createRequest)
+        {
+            var ContestRegist = await _context.ContestRegists.Where(x => x.ContestId == createRequest.ContestId && x.UserId == createRequest.UserId).FirstOrDefaultAsync(x => x.ContestId == createRequest.ContestId);
+            if (ContestRegist == null)
+            {
+                return NotFound();
+            }
+
+            _context.ContestRegists.Remove(ContestRegist);
+            await _context.SaveChangesAsync();
+            return Ok(ContestRegist);
+        }
     }
 }
