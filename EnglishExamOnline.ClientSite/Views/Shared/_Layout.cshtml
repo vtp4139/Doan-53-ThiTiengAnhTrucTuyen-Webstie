@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/content.css" />
+    <!-- Fontawesome -->
+    <link rel="stylesheet" href="../fontawesome-free-5.15.2-web/css/all.css">
     @RenderSection("JavaScript", required: false)
     @RenderSection("Styles", false)
 </head>
@@ -14,22 +16,24 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">EnglishExamOnline.ClientSite</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><span id="textlogo"><b style="color:blue">V-P</b><span style="color:orange">english</span></span></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <partial name="_LoginPartial" />
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">                  
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" style="font-size:18px" asp-area="" asp-controller="Home" asp-action="Index"><i class="fas fa-home"></i> Trang chủ</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-dark" style="font-size:18px" asp-area="" asp-controller="Home" asp-action="Privacy">Chính sách</a>
                         </li>
                     </ul>
                 </div>
+                <form class="d-flex">
+                    <partial name="_LoginPartial" />                   
+                </form>
             </div>
         </nav>
     </header>
@@ -39,17 +43,14 @@
         </main>
     </div>
 
-    <footer >
+    <footer class="bg-white text-lg-start">
         <div class="container">
             <div>
-                <p>Nhóm 47</p>
-                <p>Điện thoại: 0312345678</p>
+                <p>&copy;Nhóm 47 - Đồ án tốt nghiệp - Đề tài 53</p>
+                <p>Điện thoại: 0312345678/0984544712</p>
                 <p>Địa chỉ: <a href="https://goo.gl/maps/GHe94isW3MGuN53QA">12 Nguyễn Văn Bảo, Phường 4, Gò Vấp, Thành phố Hồ Chí Minh, Vietnam</a></p>
+                <p><a asp-area="" asp-controller="Home" asp-action="Privacy">Chính sách</a></p>
             </div>
-            <div>
-                <a asp-area="" asp-controller="Home" asp-action="Privacy">Chính sách</a>
-            </div>
-            &copy; ETS 2021 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
