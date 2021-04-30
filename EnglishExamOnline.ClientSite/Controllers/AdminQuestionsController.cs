@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using EnglishExamOnline.ClientSite.Services.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,9 +9,18 @@ namespace EnglishExamOnline.ClientSite.Controllers
 {
     public class AdminQuestionsController : Controller
     {
-        public IActionResult Index()
+        private readonly IQuestionClient _questionApiClient;
+
+        public AdminQuestionsController(IQuestionClient questionApiClient)
         {
-            return View();
+            _questionApiClient = questionApiClient;
+        }
+
+        public async Task<IActionResult> IndexAsync()
+        {
+            var questions = await _questionApiClient.GetQuestions();
+
+            return View(questions);
         }
     }
 }

@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
-namespace EnglishExamOnline.Shared
+namespace EnglishExamOnline.Shared.ViewModels
 {
     public class QuestionVm
     {
@@ -16,6 +11,5 @@ namespace EnglishExamOnline.Shared
         public string AnswerC { get; set; }
         public string AnswerD { get; set; }
         public string CorrectAnswer { get; set; }
-
     }
 }
