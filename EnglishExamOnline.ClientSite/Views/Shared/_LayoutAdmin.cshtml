@@ -9,58 +9,70 @@
     <link rel="stylesheet" href="~/css/content.css" />
     <!-- Fontawesome -->
     <link rel="stylesheet" href="../fontawesome/css/all.css">
-    <link href="css/styles.css" rel="stylesheet" />
     @RenderSection("JavaScript", required: false)
     @RenderSection("Styles", false)
 </head>
 <body>
-    <div class="d-flex" id="wrapper">
-        <!-- Sidebar-->
-        <div class="bg-light border-right" id="sidebar-wrapper">
-            <div class="sidebar-heading"><i class="fas fa-toolbox mr-2"></i><b>V-P english</b> <p>Quản trị</p></div>
-            <div class="list-group list-group-flush">
-                <a class="list-group-item list-group-item-action bg-light">
-                    <i class="fas fa-home mr-2"></i>Tổng quan
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-light border-bottom box-shadow mb-3 text-white">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <i class="fas fa-toolbox mr-2"></i><b>V-P english</b> Quản trị
                 </a>
-                <a class="list-group-item list-group-item-action bg-light" asp-controller="AdminQuestions" asp-action="Index">
-                    <i class="fas fa-university mr-2"></i>Ngân hàng câu hỏi
-                </a>
-                <a class="list-group-item list-group-item-action bg-light" href="#!">
-                    <i class="fas fa-graduation-cap mr-2"></i>Cuộc thi
-                </a>
-                <a class="list-group-item list-group-item-action bg-light" href="#!">
-                    <i class="fas fa-calendar-alt mr-2"></i>Lịch thi
-                </a>
-                <a class="list-group-item list-group-item-action bg-light" href="#!">
-                    <i class="fas fa-users mr-2"></i>Thí sinh
-                </a>
-            </div>
-        </div>
-        <!-- Page Content-->
-        <div id="page-content-wrapper">
-            <nav class="navbar navbar-expand-lg navbar-light bg-primary border-bottom">
-                <button class="btn btn-light" id="menu-toggle"><i class="fas fa-bars"></i></button>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link text-light" style="font-size:18px" href="#!"><i class="fas fa-user-circle mr-2"></i>Admin</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item active">
+                            <a class="nav-link" style="font-size:17px" asp-area="" asp-controller="Home" asp-action="Index">
+                                <i class="fas fa-home mr-2"></i>Tổng quan
+                            </a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" style="font-size:17px" asp-controller="AdminQuestions" asp-action="Index">
+                                <i class="fas fa-university mr-2"></i>Ngân hàng câu hỏi
+                            </a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" style="font-size:17px" asp-area="" asp-controller="Home" asp-action="Privacy">
+                                <i class="fas fa-graduation-cap mr-2"></i>Cuộc thi
+                            </a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" style="font-size:17px" asp-area="" asp-controller="Home" asp-action="Privacy">
+                                <i class="fas fa-users mr-2"></i>Thí sinh
+                            </a>
                         </li>
                     </ul>
                 </div>
-            </nav>
-            <div class="container">
-                <main role="main" class="pb-3">
-                    @RenderBody()
-                </main>
+                @*<form class="d-flex">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <span class="nav-link text-dark">
+                                <a class="text-dark" asp-controller="Account" asp-action="MyProfile">
+                                    <i class="fas fa-user-circle mr-2"></i>Admin
+                                </a>
+                            </span>
+                        </li>
+                        <li class="nav-item">
+                            <span class="badge badge-danger"><a class="nav-link text-white" asp-controller="Account" asp-action="SignOut">Thoát</a></span>
+                        </li>
+                    </ul>
+                </form>*@
             </div>
-        </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
     </div>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    <!-- Core theme JS-->
-    <script src="js/scripts.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

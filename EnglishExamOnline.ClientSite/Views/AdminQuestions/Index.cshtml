@@ -4,7 +4,19 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<table class="table border bg-white mt-3" style=" box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;">
+@if (TempData["message"] != null)
+{
+    <div class="alert alert-success">
+        <strong>TempData["message"]</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+<a type="button" class="btn btn-success mb-2 mt-2" asp-controller="AdminQuestions" asp-action="Create">
+    <i class="fas fa-plus-circle mr-2"></i>Thêm mới
+</a>
+<table class="table border bg-white" style=" box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;">
     <tr>
         <th>Mã</th>
         <th>Nội dung</th>

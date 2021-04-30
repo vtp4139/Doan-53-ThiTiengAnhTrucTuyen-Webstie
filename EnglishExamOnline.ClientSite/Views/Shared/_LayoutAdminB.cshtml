@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - EnglishExamOnline.ClientSite</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/content.css" />
+    <!-- Fontawesome -->
+    <link rel="stylesheet" href="../fontawesome/css/all.css">
+    <link href="~/css/styles.css" rel="stylesheet" />
+    @RenderSection("JavaScript", required: false)
+    @RenderSection("Styles", false)
+</head>
+<body>
+    <div class="d-flex" id="wrapper">
+        <!-- Sidebar-->
+        <div class="bg-light border-right" id="sidebar-wrapper">
+            <div class="sidebar-heading"><i class="fas fa-toolbox mr-2"></i><b>V-P english</b> <p>Quản trị</p></div>
+            <div class="list-group list-group-flush">
+                <a class="list-group-item list-group-item-action bg-light">
+                    <i class="fas fa-home mr-2"></i>Tổng quan
+                </a>
+                <a class="list-group-item list-group-item-action bg-light" asp-controller="AdminQuestions" asp-action="Index">
+                    <i class="fas fa-university mr-2"></i>Ngân hàng câu hỏi
+                </a>
+                <a class="list-group-item list-group-item-action bg-light" href="#!">
+                    <i class="fas fa-graduation-cap mr-2"></i>Cuộc thi
+                </a>
+                <a class="list-group-item list-group-item-action bg-light" href="#!">
+                    <i class="fas fa-calendar-alt mr-2"></i>Lịch thi
+                </a>
+                <a class="list-group-item list-group-item-action bg-light" href="#!">
+                    <i class="fas fa-users mr-2"></i>Thí sinh
+                </a>
+            </div>
+        </div>
+        <!-- Page Content-->
+        <div id="page-content-wrapper">
+            <nav class="navbar navbar-expand-lg navbar-light bg-primary border-bottom">
+                <button class="btn btn-light" id="menu-toggle"><i class="fas fa-bars"></i></button>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link text-light" style="font-size:18px" href="#!"><i class="fas fa-user-circle mr-2"></i>Admin</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="container">
+                <main role="main" class="pb-3">
+                    @RenderBody()
+                </main>
+            </div>
+        </div>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <!-- Core theme JS-->
+    <script src="~/js/scripts.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+
+
