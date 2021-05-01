@@ -1,0 +1,35 @@
+﻿@model IList<EnglishExamOnline.Shared.ViewModels.ContestScheduleVm>
+@{
+    ViewBag.Title = "Danh sách lịch thi";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<a type="button" class="btn btn-success mb-2 mt-2" asp-controller="AdminContestSchedule" asp-action="Create">
+    <i class="fas fa-plus-circle mr-2"></i>Thêm mới
+</a>
+<table class="table border bg-white" style=" box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;">
+    <tr>
+        <th>Mã</th>
+        <th>Thời gian bắt đầu</th>
+        <th>Thời lượng thi</th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td scope="row">@Html.DisplayFor(modelItem => item.ContestScheduleId)</td>
+            <td> @Html.DisplayFor(modelItem => item.StartTime)</td>
+            <td class="text-danger"> @Html.DisplayFor(modelItem => item.Length) phút</td>
+            <td>
+                <a class="badge badge-primary" style="width:30px; height:30px" asp-action="Edit" asp-route-id="@item.ContestScheduleId">
+                    <h5><i class="fas fa-edit"></i></h5>
+                </a>
+                <a class="badge badge-danger" style="width:30px; height:30px" asp-action="Delete" asp-route-id="@item.ContestScheduleId">
+                    <h5><i class="fas fa-trash-alt"></i></h5>
+                </a>
+            </td>
+        </tr>
+    }
+</table>
+

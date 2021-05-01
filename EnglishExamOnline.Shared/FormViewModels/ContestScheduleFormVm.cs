@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EnglishExamOnline.Shared.ViewModels
+namespace EnglishExamOnline.Shared.FormViewModels
 {
-    public class ContestScheduleVm
+    public class ContestScheduleFormVm
     {
-        public int ContestScheduleId { get; set; }
-
+        [Required]
         public DateTime StartTime { get; set; }
 
+        [Required]
         public int Length { get; set; }
     }
 }

@@ -30,16 +30,6 @@ namespace EnglishExamOnline.ClientSite.Controllers
             return View();
         }
 
-        public async Task<ActionResult> Detail(int id)
-        {
-            var quest = await _questionApiClient.GetQuestion(id);
-            if (quest == null)
-            {
-                return Content("Item not found");
-            }
-            return View(quest);
-        }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> CreateAsync(QuestionFormVm questionRequest)
@@ -50,6 +40,16 @@ namespace EnglishExamOnline.ClientSite.Controllers
             await _questionApiClient.PostQuestion(questionRequest);
             _notyf.Success("Thêm câu hỏi mới thành công!", 4);
             return RedirectToAction("Index");
+        }
+
+        public async Task<ActionResult> Detail(int id)
+        {
+            var quest = await _questionApiClient.GetQuestion(id);
+            if (quest == null)
+            {
+                return Content("Item not found");
+            }
+            return View(quest);
         }
 
         public async Task<ActionResult> EditAsync(int id)
