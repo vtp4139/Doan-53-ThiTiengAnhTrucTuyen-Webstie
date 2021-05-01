@@ -21,13 +21,7 @@ namespace EnglishExamOnline.ClientSite.Controllers
         public async Task<IActionResult> IndexAsync()
         {
             var questions = await _questionApiClient.GetQuestions();
-          
-            //Show message of action success
-            if(TempData["message"] != null)
-            {
-                _notyf.Success(TempData["message"].ToString(), 4);
-                TempData["message"] = "";
-            }     
+              
             return View(questions);
         }
 
@@ -44,7 +38,7 @@ namespace EnglishExamOnline.ClientSite.Controllers
                 return Content("Item not found");
 
             await _questionApiClient.PostQuestion(questionRequest);
-            TempData["message"] = "Thêm câu hỏi mới thành công!";
+            _notyf.Success("Thêm câu hỏi mới thành công!", 4);
             return RedirectToAction("Index");
         }
 
@@ -74,7 +68,7 @@ namespace EnglishExamOnline.ClientSite.Controllers
             request.CorrectAnswer = question.CorrectAnswer;
 
             await _questionApiClient.PutQuestion(question.QuestionId, request);
-            TempData["message"] = "Cập nhật câu hỏi mới thành công!";
+            _notyf.Success("Cập nhật câu hỏi mới thành công!", 4);
             return RedirectToAction("Index");
         }
 
@@ -83,7 +77,7 @@ namespace EnglishExamOnline.ClientSite.Controllers
             if(id.Equals(null))
                  return Content("Item not found");
             await _questionApiClient.DeleteQuestion(id);
-            TempData["message"] = "Xóa câu hỏi mới thành công!";
+            _notyf.Success("Xóa câu hỏi mới thành công!", 4);
             return RedirectToAction("Index");
         }
     }
