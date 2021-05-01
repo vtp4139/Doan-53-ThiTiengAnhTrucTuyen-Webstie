@@ -1,3 +1,5 @@
+using AspNetCoreHero.ToastNotification;
+using AspNetCoreHero.ToastNotification.Extensions;
 using EnglishExamOnline.ClientSite.Services;
 using EnglishExamOnline.ClientSite.Services.APIs;
 using EnglishExamOnline.ClientSite.Services.Interfaces;
@@ -66,6 +68,7 @@ namespace EnglishExamOnline.ClientSite
             services.AddTransient<ISendToken, SendToken>();
 
             services.AddControllersWithViews();
+            services.AddNotyf(config => { config.DurationInSeconds = 10; config.IsDismissable = true; config.Position = NotyfPosition.BottomRight; });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -88,6 +91,7 @@ namespace EnglishExamOnline.ClientSite
 
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseNotyf();
 
             app.UseEndpoints(endpoints =>
             {

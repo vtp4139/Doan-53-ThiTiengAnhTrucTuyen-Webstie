@@ -67,7 +67,7 @@ namespace EnglishExamOnline.Backend.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutQuest(int id, QuestionFormVm questCreateRequest)
+        public async Task<ActionResult<QuestionVm>> PutQuest(int id, QuestionFormVm questCreateRequest)
         {
             var question = await _context.Questions.FindAsync(id);
 
@@ -85,7 +85,7 @@ namespace EnglishExamOnline.Backend.Controllers
 
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok(question);
         }
 
         [HttpPost]
@@ -118,7 +118,7 @@ namespace EnglishExamOnline.Backend.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteQuest(int id)
+        public async Task<ActionResult<QuestionVm>> DeleteQuest(int id)
         {
             var question = await _context.Questions.FindAsync(id);
             if (question == null)
@@ -129,7 +129,7 @@ namespace EnglishExamOnline.Backend.Controllers
             _context.Questions.Remove(question);
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok(question);
         }
     }
 }

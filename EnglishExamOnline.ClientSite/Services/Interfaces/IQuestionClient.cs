@@ -11,10 +11,12 @@ namespace EnglishExamOnline.ClientSite.Services.Interfaces
     {
         Task<IList<QuestionVm>> GetQuestions();
 
-        Task<IList<QuestionVm>> GetQuestion(int id);
+        Task<QuestionVm> GetQuestion(int id);
 
         Task<QuestionVm> PostQuestion(QuestionFormVm question);
 
         Task<QuestionVm> PutQuestion(int id, QuestionFormVm question);
+
+        Task<QuestionVm> DeleteQuestion(int id);
     }
 }

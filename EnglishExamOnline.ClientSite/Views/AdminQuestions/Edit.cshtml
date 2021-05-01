@@ -1,0 +1,65 @@
+﻿@model EnglishExamOnline.Shared.ViewModels.QuestionVm
+
+@{
+    ViewData["Title"] = "Cập nhật câu hỏi";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="container" style=" background-color: white; box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; padding: unset; width: 80%">
+    <hr class="bg-warning" style=" height: 10px; border-width: 0;">
+    <div class="row justify-content-md-center">
+        <div class="col-md-10" style="text-align:center">
+            <h3>Cập nhật câu hỏi</h3>
+            <hr style="width:100%;text-align:left;margin-left:0">
+        </div>
+    </div>
+    <div class="row justify-content-md-center">
+        <div class="col-md-9">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="QuestionId" class="control-label"></label>
+                    <input asp-for="QuestionId" class="form-control" />
+                    <span asp-validation-for="QuestionId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="QuestionInfo" class="control-label"></label>
+                    <textarea asp-for="QuestionInfo" class="form-control"></textarea>
+                    <span asp-validation-for="QuestionInfo" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="AnswerA" class="control-label"></label>
+                    <input asp-for="AnswerA" class="form-control" />
+                    <span asp-validation-for="AnswerA" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="AnswerB" class="control-label"></label>
+                    <input asp-for="AnswerB" class="form-control" />
+                    <span asp-validation-for="AnswerB" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="AnswerC" class="control-label"></label>
+                    <input asp-for="AnswerC" class="form-control" />
+                    <span asp-validation-for="AnswerC" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="AnswerD" class="control-label"></label>
+                    <input asp-for="AnswerD" class="form-control" />
+                    <span asp-validation-for="AnswerD" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CorrectAnswer" class="control-label"></label>
+                    <input asp-for="CorrectAnswer" class="form-control" />
+                    <span asp-validation-for="CorrectAnswer" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
