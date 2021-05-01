@@ -1,0 +1,27 @@
+﻿@model EnglishExamOnline.Shared.ViewModels.QuestionVm
+
+@{
+    ViewData["Title"] = "Cập nhật câu hỏi";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="container" style=" background-color: white; box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; padding: unset; width: 60%">
+    <hr class="bg-warning" style=" height: 10px; border-width: 0;">
+    <div class="row justify-content-md-center">
+        <div class="col-md-10" style="text-align:center">
+            <h3>Chi tiết câu hỏi</h3>
+            <hr style="width:100%;text-align:left;margin-left:0">
+        </div>
+    </div>
+    <div class="row justify-content-md-center">
+        <div class="col-md-8">
+            <p><b>Mã câu hỏi: </b>@Model.QuestionId</p>
+            <p><b>Nội dung: </b>@Model.QuestionInfo</p>
+            <p><b>A. </b>@Model.AnswerA</p>
+            <p><b>B. </b>@Model.AnswerB</p>
+            <p><b>C. </b>@Model.AnswerC</p>
+            <p><b>D. </b>@Model.AnswerD</p>
+            <p><b>Đáp án đúng: </b>@Model.CorrectAnswer</p>
+        </div>
+    </div>
+</div>

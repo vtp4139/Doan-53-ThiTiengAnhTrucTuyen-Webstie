@@ -31,10 +31,10 @@
             <td> @Html.DisplayFor(modelItem => item.CorrectAnswer)</td>
 
             <td>
-                <a class="badge badge-warning" style="width:50px" href="">
+                <a class="badge badge-warning" style="width:50px" asp-action="Detail" asp-route-id="@item.QuestionId">
                     <i class="fas fa-eye"></i>
                 </a>
-                <a class="badge badge-info" style="width:50px" asp-action="Edit" asp-route-id="@item.QuestionId">
+                <a class="badge badge-primary" style="width:50px" asp-action="Edit" asp-route-id="@item.QuestionId">
                     <i class="fas fa-edit"></i>
                 </a>
                 <a class="badge badge-danger" style="width:50px" asp-action="Delete" asp-route-id="@item.QuestionId">

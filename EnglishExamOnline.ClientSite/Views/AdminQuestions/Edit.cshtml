@@ -5,8 +5,8 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<div class="container" style=" background-color: white; box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; padding: unset; width: 80%">
-    <hr class="bg-warning" style=" height: 10px; border-width: 0;">
+<div class="container" style=" background-color: white; box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; padding: unset; width: 60%">
+    <hr class="bg-primary" style=" height: 10px; border-width: 0;">
     <div class="row justify-content-md-center">
         <div class="col-md-10" style="text-align:center">
             <h3>Cập nhật câu hỏi</h3>
@@ -14,13 +14,11 @@
         </div>
     </div>
     <div class="row justify-content-md-center">
-        <div class="col-md-9">
+        <div class="col-md-8">
             <form asp-action="Edit">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
-                    <label asp-for="QuestionId" class="control-label"></label>
-                    <input asp-for="QuestionId" class="form-control" />
-                    <span asp-validation-for="QuestionId" class="text-danger"></span>
+                    <input asp-for="QuestionId" class="form-control" type="hidden"/>
                 </div>
                 <div class="form-group">
                     <label asp-for="QuestionInfo" class="control-label"></label>
@@ -53,7 +51,7 @@
                     <span asp-validation-for="CorrectAnswer" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <input type="submit" value="Save" class="btn btn-primary" />
+                    <input type="submit" value="Cập nhật" class="btn btn-primary" />
                 </div>
             </form>
         </div>

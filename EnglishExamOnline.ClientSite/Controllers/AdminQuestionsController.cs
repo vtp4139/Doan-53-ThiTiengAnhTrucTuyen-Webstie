@@ -30,6 +30,16 @@ namespace EnglishExamOnline.ClientSite.Controllers
             return View();
         }
 
+        public async Task<ActionResult> Detail(int id)
+        {
+            var quest = await _questionApiClient.GetQuestion(id);
+            if (quest == null)
+            {
+                return Content("Item not found");
+            }
+            return View(quest);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> CreateAsync(QuestionFormVm questionRequest)
@@ -68,7 +78,7 @@ namespace EnglishExamOnline.ClientSite.Controllers
             request.CorrectAnswer = question.CorrectAnswer;
 
             await _questionApiClient.PutQuestion(question.QuestionId, request);
-            _notyf.Success("Cập nhật câu hỏi mới thành công!", 4);
+            _notyf.Success("Cập nhật câu hỏi thành công!", 4);
             return RedirectToAction("Index");
         }
 
@@ -77,7 +87,7 @@ namespace EnglishExamOnline.ClientSite.Controllers
             if(id.Equals(null))
                  return Content("Item not found");
             await _questionApiClient.DeleteQuestion(id);
-            _notyf.Success("Xóa câu hỏi mới thành công!", 4);
+            _notyf.Success("Xóa câu hỏi thành công!", 4);
             return RedirectToAction("Index");
         }
     }
