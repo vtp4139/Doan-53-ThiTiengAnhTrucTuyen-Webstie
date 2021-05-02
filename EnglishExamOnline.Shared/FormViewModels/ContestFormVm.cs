@@ -17,10 +17,11 @@ namespace EnglishExamOnline.Shared.FormViewModels
         [StringLength(500, ErrorMessage = "Not exceed 500 characters !")]
         public string Description { get; set; }
 
+        [Required(ErrorMessage = "Choose schedule!")]
+        public int ContestScheduleId { get; set; }
+
         public DateTime CreatedDate { get; set; }
 
         public bool Status { get; set; }
-
-        public virtual List<int> QuestionDetails { get; set; }
     }
 }

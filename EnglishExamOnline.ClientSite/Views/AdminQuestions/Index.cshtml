@@ -8,40 +8,44 @@
     <i class="fas fa-plus-circle mr-2"></i>Thêm mới
 </a>
 <table class="table border bg-white" style=" box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;">
-    <tr>
-        <th>Mã</th>
-        <th>Nội dung</th>
-        <th>Đáp án A</th>
-        <th>Đáp án B</th>
-        <th>Đáp án C</th>
-        <th>Đáp án D</th>
-        <th>Đáp án đúng</th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
+    <thead>
         <tr>
-            <td scope="row">@Html.DisplayFor(modelItem => item.QuestionId)</td>
-            <td> @Html.DisplayFor(modelItem => item.QuestionInfo)</td>
-            <td> @Html.DisplayFor(modelItem => item.AnswerA)</td>
-            <td> @Html.DisplayFor(modelItem => item.AnswerB)</td>
-            <td> @Html.DisplayFor(modelItem => item.AnswerC)</td>
-            <td> @Html.DisplayFor(modelItem => item.AnswerD)</td>
-            <td> @Html.DisplayFor(modelItem => item.CorrectAnswer)</td>
-
-            <td>
-                <a class="badge badge-warning" style="width:50px" asp-action="Detail" asp-route-id="@item.QuestionId">
-                    <i class="fas fa-eye"></i>
-                </a>
-                <a class="badge badge-primary" style="width:50px" asp-action="Edit" asp-route-id="@item.QuestionId">
-                    <i class="fas fa-edit"></i>
-                </a>
-                <a class="badge badge-danger" style="width:50px" asp-action="Delete" asp-route-id="@item.QuestionId">
-                    <i class="fas fa-trash-alt"></i>
-                </a>
-            </td>
+            <th>Mã</th>
+            <th>Nội dung</th>
+            <th>Đáp án A</th>
+            <th>Đáp án B</th>
+            <th>Đáp án C</th>
+            <th>Đáp án D</th>
+            <th>Đáp án đúng</th>
+            <th></th>
         </tr>
-    }
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td scope="row">@Html.DisplayFor(modelItem => item.QuestionId)</td>
+                <td> @Html.DisplayFor(modelItem => item.QuestionInfo)</td>
+                <td> @Html.DisplayFor(modelItem => item.AnswerA)</td>
+                <td> @Html.DisplayFor(modelItem => item.AnswerB)</td>
+                <td> @Html.DisplayFor(modelItem => item.AnswerC)</td>
+                <td> @Html.DisplayFor(modelItem => item.AnswerD)</td>
+                <td> @Html.DisplayFor(modelItem => item.CorrectAnswer)</td>
+
+                <td>
+                    <a class="badge badge-warning" style="width:50px" asp-action="Detail" asp-route-id="@item.QuestionId">
+                        <i class="fas fa-eye"></i>
+                    </a>
+                    <a class="badge badge-primary" style="width:50px" asp-action="Edit" asp-route-id="@item.QuestionId">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <a class="badge badge-danger" style="width:50px" asp-action="Delete" asp-route-id="@item.QuestionId">
+                        <i class="fas fa-trash-alt"></i>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
 

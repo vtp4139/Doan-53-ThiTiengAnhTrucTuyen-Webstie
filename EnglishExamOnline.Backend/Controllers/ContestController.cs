@@ -64,7 +64,7 @@ namespace EnglishExamOnline.Backend.Controllers
                        CountRegists = x.ContestRegists.Count,
                        Length = x.ContestSchedule.Length,
                        StartTime = x.ContestSchedule.StartTime
-                   }).ToListAsync(); ;        
+                   }).ToListAsync(); ;
         }
 
         [HttpGet("ExceptRegisted/{id}")]
@@ -158,10 +158,43 @@ namespace EnglishExamOnline.Backend.Controllers
                 Description = ContestCreateRequest.Description,
                 CreatedDate = ContestCreateRequest.CreatedDate,
                 Status = ContestCreateRequest.Status,
+                ContestScheduleId = ContestCreateRequest.ContestScheduleId,
             };
 
             _context.Contests.Add(Contest);
             await _context.SaveChangesAsync();
+
+            //Random question
+            var questList = _context.Questions.ToListAsync();
+            Random r = new Random();
+            List<int> listRand = new List<int>();
+
+            //List random without duplicate. Random 10 questions
+            while (listRand.Count < 10)
+            {
+                int indexRand = r.Next(questList.Result.Count() - 1);
+
+                if (listRand.Contains(indexRand))
+                    continue;
+                else listRand.Add(indexRand);
+            }
+
+            int i = 1;
+            //Get info of question to save question detail
+            foreach (int index in listRand)
+            {
+                Question q = questList.Result.ElementAt(index);
+                if (q != null)
+                {
+                    QuestionDetail x = new QuestionDetail();
+                    x.ContestId = Contest.ContestId;
+                    x.QuestionId = q.QuestionId;
+                    x.Index = i;
+                    _context.QuestionDetails.Add(x);
+                    await _context.SaveChangesAsync();
+                    i++;
+                }
+            }
 
             return CreatedAtAction("GetContest",
                 new { id = Contest.ContestId },
