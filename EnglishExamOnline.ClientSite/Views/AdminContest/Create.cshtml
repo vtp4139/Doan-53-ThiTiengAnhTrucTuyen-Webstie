@@ -1,0 +1,52 @@
+﻿@model EnglishExamOnline.Shared.FormViewModels.ContestFormVm
+@using EnglishExamOnline.Shared.ViewModels
+
+@{
+    ViewData["Title"] = "Thêm mới cuộc thi";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="container" style=" background-color: white; box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; padding: unset; width: 60%">
+    <hr class="bg-success" style=" height: 10px; border-width: 0;">
+    <div class="row justify-content-md-center">
+        <div class="col-md-10" style="text-align:center">
+            <h3>Thêm mới cuộc thi</h3>
+            <hr style="width:100%;text-align:left;margin-left:0">
+        </div>
+    </div>
+    <div class="row justify-content-md-center">
+        <div class="col-md-8">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="ContestName" class="control-label"></label>
+                    <input asp-for="ContestName" class="form-control" />
+                    <span asp-validation-for="ContestName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label"></label>
+                    <textarea asp-for="Description" class="form-control"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="ContestScheduleId" class="control-label"></label>
+                    <select asp-for="ContestScheduleId" class="form-control">
+                        @foreach (var data in ViewBag.scheduleList as IEnumerable<ContestScheduleVm>)
+                        {
+                            <option value="@data.ContestScheduleId">@data.StartTime - @data.Length phút</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

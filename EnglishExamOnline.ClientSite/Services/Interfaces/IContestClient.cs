@@ -1,4 +1,6 @@
-﻿using EnglishExamOnline.Shared.ViewModels;
+﻿using EnglishExamOnline.Shared;
+using EnglishExamOnline.Shared.FormViewModels;
+using EnglishExamOnline.Shared.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,5 +17,7 @@ namespace EnglishExamOnline.ClientSite.Services.Interfaces
         Task<IList<ContestVm>> GetContestExceptRegisted(string id);
 
         Task<ContestVm> GetContest(int id);
+
+        Task<ContestVm> PostContest(ContestFormVm contest);
     }
 }

@@ -46,7 +46,6 @@ namespace EnglishExamOnline.Backend.Controllers
 
         [HttpGet("Registed/{id}")]
         [AllowAnonymous]
-        //[Authorize]
         public async Task<ActionResult<IEnumerable<ContestVm>>> GetContestRegisted(string id)
         {
             //Get list of contest user registed
@@ -69,7 +68,6 @@ namespace EnglishExamOnline.Backend.Controllers
 
         [HttpGet("ExceptRegisted/{id}")]
         [AllowAnonymous]
-        //[Authorize]
         public async Task<ActionResult<IEnumerable<ContestVm>>> GetContestExceptRegisted(string id)
         {
             var listCon = await _context.Contests
@@ -141,8 +139,6 @@ namespace EnglishExamOnline.Backend.Controllers
 
             contest.ContestName = ContestCreateRequest.ContestName;
             contest.Description = ContestCreateRequest.Description;
-            contest.CreatedDate = ContestCreateRequest.CreatedDate;
-            contest.Status = ContestCreateRequest.Status;
 
             await _context.SaveChangesAsync();
 
@@ -156,8 +152,8 @@ namespace EnglishExamOnline.Backend.Controllers
             {
                 ContestName = ContestCreateRequest.ContestName,
                 Description = ContestCreateRequest.Description,
-                CreatedDate = ContestCreateRequest.CreatedDate,
-                Status = ContestCreateRequest.Status,
+                CreatedDate = DateTime.Now,
+                Status = true,
                 ContestScheduleId = ContestCreateRequest.ContestScheduleId,
             };
 
@@ -196,15 +192,13 @@ namespace EnglishExamOnline.Backend.Controllers
                 }
             }
 
-            return CreatedAtAction("GetContest",
-                new { id = Contest.ContestId },
-                new ContestVm
-                {
-                    ContestName = ContestCreateRequest.ContestName,
-                    Description = ContestCreateRequest.Description,
-                    CreatedDate = ContestCreateRequest.CreatedDate,
-                    Status = ContestCreateRequest.Status,
-                });
+            return Ok(new ContestVm {
+                ContestId = Contest.ContestId,
+                ContestName = Contest.ContestName,
+                Description = Contest.Description,
+                CreatedDate = Contest.CreatedDate,
+                Status = Contest.Status,
+            });
         }
 
         [HttpDelete("{id}")]

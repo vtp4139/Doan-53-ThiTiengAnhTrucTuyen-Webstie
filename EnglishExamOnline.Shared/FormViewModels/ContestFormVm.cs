@@ -19,9 +19,5 @@ namespace EnglishExamOnline.Shared.FormViewModels
 
         [Required(ErrorMessage = "Choose schedule!")]
         public int ContestScheduleId { get; set; }
-
-        public DateTime CreatedDate { get; set; }
-
-        public bool Status { get; set; }
     }
 }
