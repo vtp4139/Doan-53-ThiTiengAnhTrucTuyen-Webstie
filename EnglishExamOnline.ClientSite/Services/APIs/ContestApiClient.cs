@@ -69,5 +69,26 @@ namespace EnglishExamOnline.ClientSite.Services.APIs
             response.EnsureSuccessStatusCode();
             return await response.Content.ReadFromJsonAsync<ContestVm>();
         }
+
+        public async Task<ContestVm> PutContest(int id, ContestFormVm contest)
+        {
+            var client = _request.SendAccessToken().Result;
+
+            HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(contest),
+                Encoding.UTF8, "application/json");
+            var response = await client.PutAsync(_configuration["BackendUrl:Default"] + "/api/Contest/" + id, httpContent);
+
+            response.EnsureSuccessStatusCode();
+            return await response.Content.ReadFromJsonAsync<ContestVm>();
+        }
+
+        public async Task<ContestVm> DeleteContest(int id)
+        {
+            var client = _request.SendAccessToken().Result;
+
+            var response = await client.DeleteAsync(_configuration["BackendUrl:Default"] + "/api/Contest/" + id);
+            response.EnsureSuccessStatusCode();
+            return await response.Content.ReadFromJsonAsync<ContestVm>();
+        }
     }
 }

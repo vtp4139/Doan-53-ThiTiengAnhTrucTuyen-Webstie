@@ -121,7 +121,8 @@ namespace EnglishExamOnline.Backend.Controllers
                 Status = x.Status,
                 CountRegists = x.ContestRegists.Count,
                 Length = x.ContestSchedule.Length,
-                StartTime = x.ContestSchedule.StartTime
+                StartTime = x.ContestSchedule.StartTime,
+                ContestScheduleId = x.ContestScheduleId
             };
 
             return ContestVm;
@@ -142,7 +143,14 @@ namespace EnglishExamOnline.Backend.Controllers
 
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok(new ContestVm
+            {
+                ContestId = contest.ContestId,
+                ContestName = contest.ContestName,
+                Description = contest.Description,
+                CreatedDate = contest.CreatedDate,
+                Status = contest.Status,
+            });
         }
 
         [HttpPost]
@@ -213,7 +221,14 @@ namespace EnglishExamOnline.Backend.Controllers
             _context.Contests.Remove(Contest);
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok(new ContestVm
+            {
+                ContestId = Contest.ContestId,
+                ContestName = Contest.ContestName,
+                Description = Contest.Description,
+                CreatedDate = Contest.CreatedDate,
+                Status = Contest.Status,
+            });
         }
     }
 }

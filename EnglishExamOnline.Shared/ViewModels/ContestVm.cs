@@ -23,5 +23,7 @@ namespace EnglishExamOnline.Shared.ViewModels
         public int Length { get; set; }
 
         public bool Status { get; set; }
+
+        public int ContestScheduleId { get; set; }
     }
 }

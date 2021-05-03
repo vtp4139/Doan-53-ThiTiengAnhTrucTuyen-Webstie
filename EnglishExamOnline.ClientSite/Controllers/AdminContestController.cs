@@ -48,5 +48,45 @@ namespace EnglishExamOnline.ClientSite.Controllers
             _notyf.Success("Thêm cuộc thi mới thành công!", 4);
             return RedirectToAction("Index");
         }
+
+        public async Task<ActionResult> EditAsync(int id)
+        {
+            //Set viewbag list schedule to load dropdown list
+            IList<ContestScheduleVm> listSchedule = _contestScheduleApiClient.GetContestSchedule().Result;
+            ViewBag.scheduleList = listSchedule;
+
+            var quest = await _contestApiClient.GetContest(id);
+            if (quest == null)
+            {
+                return Content("Item not found");
+            }
+            return View(quest);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> EditAsync(ContestVm contest)
+        {
+            if (contest == null)
+                return Content("Item not found");
+
+            ContestFormVm request = new ContestFormVm();
+            request.ContestName = contest.ContestName;
+            request.Description = contest.Description;
+            request.ContestScheduleId = contest.ContestScheduleId;
+
+            await _contestApiClient.PutContest(contest.ContestId, request);
+            _notyf.Success("Cập nhật cuộc thi thành công!", 4);
+            return RedirectToAction("Index");
+        }
+
+        public async Task<ActionResult> DeleteAsync(int id)
+        {
+            if (id.Equals(null))
+                return Content("Item not found");
+            await _contestApiClient.DeleteContest(id);
+            _notyf.Success("Xóa cuộc thi thành công!", 4);
+            return RedirectToAction("Index");
+        }
     }
 }
