@@ -1,4 +1,5 @@
 ﻿using EnglishExamOnline.Backend.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -42,7 +43,58 @@ namespace EnglishExamOnline.Backend.Data
             modelBuilder.Entity<User>()
                 .ToTable("AspNetUsers");
 
-            //seed data cau hoi
+            //Seeding roles
+            modelBuilder.Entity<IdentityRole>().HasData(
+                new IdentityRole
+                {
+                    Id = "7200984639",
+                    Name = "Admin",
+                    NormalizedName = "Admin".ToUpper()
+                }); ; ;
+            modelBuilder.Entity<IdentityRole>().HasData(
+               new IdentityRole
+               {
+                   Id = "4835914310",
+                   Name = "User",
+                   NormalizedName = "User".ToUpper()
+               });
+
+            var hasher = new PasswordHasher<User>();
+            modelBuilder.Entity<User>().HasData(new User
+            {
+                Id = "2243634607",
+                UserName = "admin",
+                NormalizedUserName = "admin",
+                Email = "admin@vp.com",
+                NormalizedEmail = "admin@vp.com".ToUpper(),
+                PasswordHash = hasher.HashPassword(null, "Phuong_99"),
+                SecurityStamp = string.Empty
+            });
+
+            modelBuilder.Entity<User>().HasData(new User
+            {
+                Id = "4695426118",
+                UserName = "user",
+                NormalizedUserName = "user",
+                Email = "user@vp.com",
+                NormalizedEmail = "user@vp.com".ToUpper(),
+                PasswordHash = hasher.HashPassword(null, "Phuong_99"),
+                SecurityStamp = string.Empty
+            });
+
+            //Add role to user
+            modelBuilder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
+            {
+                RoleId = "7200984639",
+                UserId = "2243634607"
+            });
+
+            modelBuilder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
+            {
+                RoleId = "4835914310",
+                UserId = "4695426118"
+            });
+            //Seeding data
             modelBuilder.Entity<Question>().HasData(
                 new Question
                 {

@@ -118,7 +118,7 @@ namespace EnglishExamOnline.Backend.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<QuestionVm>> DeleteQuest(int id)
+        public async Task<ActionResult> DeleteQuest(int id)
         {
             var question = await _context.Questions.FindAsync(id);
             if (question == null)
@@ -129,7 +129,7 @@ namespace EnglishExamOnline.Backend.Controllers
             _context.Questions.Remove(question);
             await _context.SaveChangesAsync();
 
-            return Ok(question);
+            return Ok();
         }
     }
 }

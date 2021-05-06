@@ -24,8 +24,11 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="Length" class="control-label"></label>
-                    <input asp-for="Length" class="form-control" />
-                    <span asp-validation-for="Length" class="text-danger"></span>
+                    <select asp-for="Length" class="form-control">
+                        <option value="60">60 phút</option>
+                        <option value="90">90 phút</option>
+                        <option value="120">120 phút</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <input type="submit" value="Thêm mới" class="btn btn-primary" />
