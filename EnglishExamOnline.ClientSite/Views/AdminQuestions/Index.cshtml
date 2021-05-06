@@ -3,6 +3,10 @@
     ViewBag.Title = "Danh sách câu hỏi";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
+<link href="~/css/questions.css" rel="stylesheet" />
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/js/pagination.min.js"></script>
+
 
 <a type="button" class="btn btn-success mb-2 mt-2" asp-controller="AdminQuestions" asp-action="Create">
     <i class="fas fa-plus-circle mr-2"></i>Thêm mới
@@ -21,7 +25,7 @@
         </tr>
     </thead>
 
-    <tbody>
+    <tbody id="data-container">
         @foreach (var item in Model)
         {
             <tr>
@@ -48,4 +52,23 @@
         }
     </tbody>
 </table>
+<div id="pagination"></div>
 
+<script>
+    let rows = []
+    $('table tbody tr').each(function (i, row) {
+        return rows.push(row);
+    });
+
+    $('#pagination').pagination({
+        dataSource: rows,
+        pageSize: 10,
+        showGoInput: true,
+        showGoButton: true,
+        callback: function (data, pagination) {
+            var html = template(data);
+            $('tbody').html(data);
+        }
+    })
+
+</script>
