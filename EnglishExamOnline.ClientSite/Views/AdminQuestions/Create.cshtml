@@ -44,8 +44,12 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="CorrectAnswer" class="control-label"></label>
-                    <input asp-for="CorrectAnswer" class="form-control" />
-                    <span asp-validation-for="CorrectAnswer" class="text-danger"></span>
+                    <select asp-for="CorrectAnswer" class="form-control">
+                        <option value="A">Đáp án A</option>
+                        <option value="B">Đáp án B</option>
+                        <option value="C">Đáp án C</option>
+                        <option value="D">Đáp án D</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <input type="submit" value="Thêm mới" class="btn btn-primary" />
