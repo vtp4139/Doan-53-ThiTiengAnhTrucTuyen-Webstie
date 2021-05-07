@@ -21,7 +21,7 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">                  
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
                             <a class="nav-link text-dark" style="font-size:18px" asp-area="" asp-controller="Home" asp-action="Index"><i class="fas fa-home"></i> Trang chủ</a>
@@ -29,10 +29,18 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" style="font-size:18px" asp-area="" asp-controller="Home" asp-action="Privacy">Chính sách</a>
                         </li>
+                        @if (TempData["role"] as string == "admin")
+                        {
+                            <li class="nav-item">
+                                <a class="btn btn-danger" asp-controller="Admin" asp-action="Index">
+                                    <i class="fas fa-toolbox mr-2"></i>Bảng quản trị
+                                </a>
+                            </li>
+                        }
                     </ul>
                 </div>
                 <form class="d-flex">
-                    <partial name="_LoginPartial" />                   
+                    <partial name="_LoginPartial" />
                 </form>
             </div>
         </nav>
@@ -56,6 +64,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    @await Component.InvokeAsync("Notyf")
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

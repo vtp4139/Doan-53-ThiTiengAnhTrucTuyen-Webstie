@@ -66,10 +66,20 @@ namespace EnglishExamOnline.ClientSite
             services.AddTransient<IContestRegistClient, ContestRegistApiClient>();
             services.AddTransient<IQuestionClient, QuestionApiClient>();
             services.AddTransient<IContestScheduleClient, ContestScheduleApiClient>();
+            services.AddTransient<IUserClient, UserApiClient>();
             services.AddTransient<ISendToken, SendToken>();
 
             services.AddControllersWithViews();
             services.AddNotyf(config => { config.DurationInSeconds = 10; config.IsDismissable = true; config.Position = NotyfPosition.BottomRight; });
+
+            services.AddDistributedMemoryCache();
+
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromSeconds(10);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -93,6 +103,7 @@ namespace EnglishExamOnline.ClientSite
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseNotyf();
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {

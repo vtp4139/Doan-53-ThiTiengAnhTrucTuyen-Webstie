@@ -1,16 +1,14 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using EnglishExamOnline.ClientSite.Services;
 using EnglishExamOnline.ClientSite.Services.Interfaces;
-using EnglishExamOnline.Shared;
 using EnglishExamOnline.Shared.FormViewModels;
 using EnglishExamOnline.Shared.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace EnglishExamOnline.ClientSite.Controllers
 {
+    [RedirectingAction]
     public class AdminContestScheduleController : Controller
     {
         private readonly IContestScheduleClient _contestScheduleApiClient;

@@ -1,11 +1,14 @@
 ﻿<ul class="navbar-nav">
     @if (User.Identity.IsAuthenticated)
     {
-        <li class="nav-item">
-            <span class="nav-link text-dark"><a class="text-dark" asp-controller="Account" asp-action="MyProfile">@User.Identity.Name</a></span>
-        </li>
-        <li class="nav-item">
-            <span class="badge badge-danger"><a class="nav-link text-white" asp-controller="Account" asp-action="SignOut">Thoát</a></span>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-user-circle mr-2"></i>@User.Identity.Name
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" asp-controller="Account" asp-action="MyProfile">Tài khoản</a>
+                <a class="dropdown-item" asp-controller="Account" asp-action="SignOut">Đăng xuất</a>
+            </div>
         </li>
     }
     else

@@ -1,4 +1,5 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using EnglishExamOnline.ClientSite.Services;
 using EnglishExamOnline.ClientSite.Services.Interfaces;
 using EnglishExamOnline.Shared;
 using EnglishExamOnline.Shared.ViewModels;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace EnglishExamOnline.ClientSite.Controllers
 {
+    [RedirectingAction]
     public class AdminQuestionsController : Controller
     {
         private readonly IQuestionClient _questionApiClient;
