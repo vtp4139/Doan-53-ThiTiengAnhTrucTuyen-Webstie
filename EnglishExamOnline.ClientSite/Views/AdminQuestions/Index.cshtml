@@ -11,17 +11,17 @@
 <a type="button" class="btn btn-success mb-2 mt-2" asp-controller="AdminQuestions" asp-action="Create">
     <i class="fas fa-plus-circle mr-2"></i>Thêm mới
 </a>
-<table class="table border bg-white" style=" box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;">
+<table class="table border bg-white" style="box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;table-layout: fixed;width: 100%;">
     <thead>
         <tr>
             <th>Mã</th>
-            <th>Nội dung</th>
-            <th>Đáp án A</th>
-            <th>Đáp án B</th>
-            <th>Đáp án C</th>
-            <th>Đáp án D</th>
-            <th>Đáp án đúng</th>
-            <th></th>
+            <th style="width:25%;">Nội dung</th>
+            <th style="width:11%;">Đáp án A</th>
+            <th style="width:11%;">Đáp án B</th>
+            <th style="width:11%;">Đáp án C</th>
+            <th style="width:11%;">Đáp án D</th>
+            <th style="width:15%;">Đáp án đúng</th>
+            <th style="width:10%;"></th>
         </tr>
     </thead>
 
@@ -63,8 +63,6 @@
     $('#pagination').pagination({
         dataSource: rows,
         pageSize: 10,
-        showGoInput: true,
-        showGoButton: true,
         callback: function (data, pagination) {
             $('tbody').html(data);
         }

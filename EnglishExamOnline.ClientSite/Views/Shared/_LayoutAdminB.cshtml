@@ -21,7 +21,7 @@
             z-index: 1;
             top: 0;
             left: 0;
-            background-color: #007BFF;
+            background-color: white;
             overflow-x: hidden;
             transition: 0.5s;
             padding-top: 59px;
@@ -29,8 +29,6 @@
 
             .sidenav a {
                 padding: 8px 8px 8px 32px;
-                text-decoration: none;
-                color: #818181;
                 display: block;
                 transition: 0.2s;
             }
@@ -53,22 +51,25 @@
     <div class="d-flex" id="wrapper">
         <!-- Sidebar-->
         <div id="mySidenav" class="sidenav">
-            <a href="" class="closebtn" onclick="closeNav()">&times;</a>
-            <div class="sidebar-heading"><i class="fas fa-toolbox mr-2"></i><b>V-P english</b> <p>Quản trị</p></div>
+            <a href="javascipt:void(0);" class="closebtn" onclick="closeNav()">&times;</a>
+            <a class="list-group-item list-group-item-action" asp-area="" asp-controller="Admin" asp-action="Index">
+                <i class="fas fa-toolbox mr-2"></i><b>V-P english</b> <p>Quản trị</p>
+            </a>
+
             <div class="list-group list-group-flush">
-                <a class="list-group-item list-group-item-action bg-light">
+                <a class="list-group-item list-group-item-action" asp-area="" asp-controller="Home" asp-action="Index">
                     <i class="fas fa-home mr-2"></i>Tổng quan
                 </a>
-                <a class="list-group-item list-group-item-action bg-light" asp-controller="AdminQuestions" asp-action="Index">
+                <a class="list-group-item list-group-item-action" asp-controller="AdminQuestions" asp-action="Index">
                     <i class="fas fa-university mr-2"></i>Ngân hàng câu hỏi
                 </a>
-                <a class="list-group-item list-group-item-action bg-light" href="#!">
+                <a class="list-group-item list-group-item-action" asp-controller="AdminContest" asp-action="Index">
                     <i class="fas fa-graduation-cap mr-2"></i>Cuộc thi
                 </a>
-                <a class="list-group-item list-group-item-action bg-light" href="#!">
+                <a class="list-group-item list-group-item-action" asp-controller="AdminContestSchedule" asp-action="Index">
                     <i class="fas fa-calendar-alt mr-2"></i>Lịch thi
                 </a>
-                <a class="list-group-item list-group-item-action bg-light" href="#!">
+                <a class="list-group-item list-group-item-action" asp-controller="Home" asp-action="Privacy">
                     <i class="fas fa-users mr-2"></i>Thí sinh
                 </a>
             </div>
@@ -88,7 +89,7 @@
                 </div>
             </nav>
 
-            <div class="container">
+            <div>
                 <main role="main" id="main" class="pb-3">
                     @RenderBody()
                 </main>
@@ -106,11 +107,33 @@
         function openNav() {
             document.getElementById("mySidenav").style.width = "250px";
             document.getElementById("main").style.marginLeft = "250px";
+            //dùng webStoreage để lưu sidebar ~ giống như localStorage
+            if (typeof (Storage) !== "undefined") {
+                localStorage.setItem("sidebar", "opened");
+            }
+
+        }
+
+        if (typeof (Storage) !== "undefined") {
+            if (localStorage.getItem("sidebar") == "opened") {
+                document.getElementById("mySidenav").style.width = "250px";
+                document.getElementById("main").style.marginLeft = "250px";
+            }
         }
 
         function closeNav() {
             document.getElementById("mySidenav").style.width = "0";
             document.getElementById("main").style.marginLeft = "0";
+            if (typeof (Storage) !== "undefined") {
+                localStorage.setItem("sidebar", "closed");
+            }
+        }
+
+        if (typeof (Storage) !== "undefined") {
+            if (localStorage.getItem("sidebar") == "closed") {
+                document.getElementById("mySidenav").style.width = "0";
+                document.getElementById("main").style.marginLeft = "0";
+            }
         }
     </script>
 </body >
