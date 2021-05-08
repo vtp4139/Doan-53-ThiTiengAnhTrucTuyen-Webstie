@@ -36,6 +36,23 @@ namespace EnglishExamOnline.Backend.Controllers
                     StartTime = x.StartTime,
                     Length = x.Length,
                 })
+                .OrderByDescending(x => x.StartTime)
+                .ToListAsync();
+        }
+
+        [HttpGet("getavailabe")]
+        [AllowAnonymous]
+        public async Task<ActionResult<IEnumerable<ContestScheduleVm>>> GetContestSchedulesAvailabe()
+        {
+            return await _context.ContestSchedules
+                .Select(x => new ContestScheduleVm
+                {
+                    ContestScheduleId = x.ContestScheduleId,
+                    StartTime = x.StartTime,
+                    Length = x.Length,
+                })
+                .Where(x => x.StartTime > DateTime.Now.AddDays(5) && x.StartTime < DateTime.Now.AddDays(30))
+                .OrderByDescending(x => x.StartTime)
                 .ToListAsync();
         }
 

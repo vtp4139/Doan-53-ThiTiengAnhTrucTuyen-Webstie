@@ -34,6 +34,15 @@ namespace EnglishExamOnline.ClientSite.Services.APIs
             return await response.Content.ReadFromJsonAsync<IList<ContestScheduleVm>>();
         }
 
+        public async Task<IList<ContestScheduleVm>> GetContestSchedulesAvailabe()
+        {
+            var client = _httpClientFactory.CreateClient();
+            var response = await client.GetAsync(_configuration["BackendUrl:Default"] + "/api/ContestSchedule/getavailabe");
+            response.EnsureSuccessStatusCode();
+            return await response.Content.ReadFromJsonAsync<IList<ContestScheduleVm>>();
+
+        }
+
         public async Task<ContestScheduleVm> GetContestSchedule(int id)
         {
             var client = _httpClientFactory.CreateClient();

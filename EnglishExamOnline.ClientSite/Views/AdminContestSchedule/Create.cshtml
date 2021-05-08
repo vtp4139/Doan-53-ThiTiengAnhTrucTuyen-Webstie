@@ -19,8 +19,8 @@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="StartTime" class="control-label"></label>
-                    <input asp-for="StartTime" class="form-control" />
-                    <span asp-validation-for="StartTime" class="text-danger"></span>
+                    <input asp-for="StartTime" class="form-control" type="datetime-local" id="dateStart" onchange="validationDate()"/>
+                    <span class="text-danger" id="dateError"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Length" class="control-label"></label>
@@ -31,12 +31,33 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <input type="submit" value="Thêm mới" class="btn btn-primary" />
+                    <input type="submit" value="Thêm mới" class="btn btn-primary" id="btnSubmit" disabled/>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    function validationDate() {
+        var dateString = document.getElementById('dateStart').value;
+        var myDate = new Date(dateString);
+        var dateMin = new Date();
+        var dateMax = new Date();
+
+        dateMin.setDate(dateMin.getDate() + 5);
+        dateMax.setDate(dateMax.getDate() + 30);
+
+        if (myDate >= dateMin && myDate < dateMax) {
+            document.getElementById('dateError').innerHTML = "";
+            document.getElementById("btnSubmit").disabled = false;
+            return true;
+        }
+        document.getElementById('dateError').innerHTML = "Lịch thi phải cách ngày hôm nay (không được nhỏ hơn) tối thiểu 5 ngày và không vượt quá 30 ngày để thí sinh có thể đăng ký!";
+        document.getElementById("btnSubmit").disabled = true;
+        return false;
+    }
+</script>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

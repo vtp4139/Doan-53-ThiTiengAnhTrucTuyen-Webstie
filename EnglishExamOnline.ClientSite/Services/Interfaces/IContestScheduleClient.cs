@@ -12,6 +12,8 @@ namespace EnglishExamOnline.ClientSite.Services.Interfaces
     {
         Task<IList<ContestScheduleVm>> GetContestSchedule();
 
+        Task<IList<ContestScheduleVm>> GetContestSchedulesAvailabe();
+
         Task<ContestScheduleVm> GetContestSchedule(int id);
 
         Task<ContestScheduleVm> PostContestSchedule(ContestScheduleFormVm contestSchedule);

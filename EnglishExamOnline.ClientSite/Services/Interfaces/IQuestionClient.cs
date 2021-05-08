@@ -1,8 +1,7 @@
 ﻿using EnglishExamOnline.Shared;
 using EnglishExamOnline.Shared.ViewModels;
-using System;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace EnglishExamOnline.ClientSite.Services.Interfaces
@@ -17,6 +16,6 @@ namespace EnglishExamOnline.ClientSite.Services.Interfaces
 
         Task<QuestionVm> PutQuestion(int id, QuestionFormVm question);
 
-        Task<QuestionVm> DeleteQuestion(int id);
+        Task<int> DeleteQuestion(int id);
     }
 }

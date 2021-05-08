@@ -1,6 +1,7 @@
 ﻿using EnglishExamOnline.ClientSite.Services.Interfaces;
 using EnglishExamOnline.Shared;
 using EnglishExamOnline.Shared.ViewModels;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System;
@@ -66,13 +67,13 @@ namespace EnglishExamOnline.ClientSite.Services.APIs
             return await response.Content.ReadFromJsonAsync<QuestionVm>();
         }
 
-        public async Task<QuestionVm> DeleteQuestion(int id)
+        public async Task<int> DeleteQuestion(int id)
         {
             var client = _request.SendAccessToken().Result;
 
             var response = await client.DeleteAsync(_configuration["BackendUrl:Default"] + "/api/Questions/" + id);
             response.EnsureSuccessStatusCode();
-            return await response.Content.ReadFromJsonAsync<QuestionVm>();
+            return (int)response.StatusCode; ;
         }
     }
 }

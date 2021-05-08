@@ -32,7 +32,7 @@ namespace EnglishExamOnline.ClientSite.Controllers
         public ActionResult Create()
         {
             //Set viewbag list schedule to load dropdown list
-            IList<ContestScheduleVm> listSchedule = _contestScheduleApiClient.GetContestSchedule().Result;
+            IList<ContestScheduleVm> listSchedule = _contestScheduleApiClient.GetContestSchedulesAvailabe().Result;
             ViewBag.scheduleList = listSchedule;
             return View();
         }
@@ -52,7 +52,7 @@ namespace EnglishExamOnline.ClientSite.Controllers
         public async Task<ActionResult> EditAsync(int id)
         {
             //Set viewbag list schedule to load dropdown list
-            IList<ContestScheduleVm> listSchedule = _contestScheduleApiClient.GetContestSchedule().Result;
+            IList<ContestScheduleVm> listSchedule = _contestScheduleApiClient.GetContestSchedulesAvailabe().Result;
             ViewBag.scheduleList = listSchedule;
 
             var quest = await _contestApiClient.GetContest(id);

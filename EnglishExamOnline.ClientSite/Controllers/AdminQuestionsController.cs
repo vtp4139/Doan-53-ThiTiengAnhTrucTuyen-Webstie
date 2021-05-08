@@ -88,9 +88,14 @@ namespace EnglishExamOnline.ClientSite.Controllers
         {
             if(id.Equals(null))
                  return Content("Item not found");
-            await _questionApiClient.DeleteQuestion(id);
-            _notyf.Success("Xóa câu hỏi thành công!", 4);
-            return RedirectToAction("Index");
+            int result = await _questionApiClient.DeleteQuestion(id);
+
+            if(result == 200)
+            {
+                _notyf.Success("Xóa câu hỏi thành công!", 4);
+                return RedirectToAction("Index");
+            }
+            return NotFound();
         }
     }
 }
