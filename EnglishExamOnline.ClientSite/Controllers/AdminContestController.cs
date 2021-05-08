@@ -37,6 +37,16 @@ namespace EnglishExamOnline.ClientSite.Controllers
             return View();
         }
 
+        public async Task<ActionResult> Detail(int id)
+        {
+            var quest = await _contestApiClient.GetContest(id);
+            if (quest == null)
+            {
+                return Content("Item not found");
+            }
+            return View(quest);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> CreateAsync(ContestFormVm request)

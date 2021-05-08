@@ -104,7 +104,11 @@ namespace EnglishExamOnline.Backend.Controllers
         public async Task<ActionResult<ContestVm>> GetContest(int id)
         {
             //Include schedule and regist
-            var x = await _context.Contests.Include(c => c.ContestRegists).Include(c => c.ContestSchedule)
+            var x = await _context.Contests
+                .Include(c => c.ContestRegists)
+                .Include(c => c.ContestSchedule)
+                .Include(c => c.QuestionDetails)
+                .ThenInclude(c => c.Question)
                 .FirstOrDefaultAsync(x => x.ContestId == id);
 
             if (x == null)
@@ -122,10 +126,26 @@ namespace EnglishExamOnline.Backend.Controllers
                 CountRegists = x.ContestRegists.Count,
                 Length = x.ContestSchedule.Length,
                 StartTime = x.ContestSchedule.StartTime,
-                ContestScheduleId = x.ContestScheduleId
+                ListQuestion = new List<QuestionVm>()
             };
 
-            return ContestVm;
+            //Get the list of question contest has
+            foreach (var item in x.QuestionDetails)
+            {
+                QuestionVm newItem = new QuestionVm();
+
+                newItem.QuestionId = item.QuestionId;
+                newItem.QuestionInfo = item.Question.QuestionInfo;
+                newItem.AnswerA = item.Question.AnswerA;
+                newItem.AnswerB = item.Question.AnswerB;
+                newItem.AnswerC = item.Question.AnswerC;
+                newItem.AnswerD = item.Question.AnswerD;
+                newItem.CorrectAnswer = item.Question.CorrectAnswer;
+
+                ContestVm.ListQuestion.Add(newItem);
+            }
+
+            return Ok(ContestVm);
         }
 
         [HttpPut("{id}")]
@@ -200,7 +220,8 @@ namespace EnglishExamOnline.Backend.Controllers
                 }
             }
 
-            return Ok(new ContestVm {
+            return Ok(new ContestVm
+            {
                 ContestId = Contest.ContestId,
                 ContestName = Contest.ContestName,
                 Description = Contest.Description,

@@ -25,5 +25,9 @@ namespace EnglishExamOnline.Shared.ViewModels
         public bool Status { get; set; }
 
         public int ContestScheduleId { get; set; }
+
+        public List<QuestionVm> ListQuestion { get; set; }
+
+
     }
 }

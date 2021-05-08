@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/content.css" />
     <!-- Fontawesome -->
-    <link rel="stylesheet" href="../fontawesome/css/all.css">
+    <link rel="stylesheet" href="~/fontawesome/css/all.css">
     @RenderSection("JavaScript", required: false)
     @RenderSection("Styles", false)
 </head>
@@ -51,7 +51,7 @@
         </main>
     </div>
 
-    <footer class="bg-white text-lg-start">
+    @*<footer class="bg-white text-lg-start">
         <div class="container">
             <div>
                 <p>&copy;Nhóm 47 - Đồ án tốt nghiệp - Đề tài 53</p>
@@ -60,7 +60,13 @@
                 <p><a asp-area="" asp-controller="Home" asp-action="Privacy">Chính sách</a></p>
             </div>
         </div>
-    </footer>
+    </footer>*@
+    @*<footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; Đồ án tốt nghiệp/Đề tài 53 - Nhóm 47 - Nguyễn Vĩnh Long Vinh/17036561 - Võ Tuấn Phương/17030061
+        </div>
+    </footer>*@
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
