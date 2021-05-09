@@ -12,6 +12,8 @@ namespace EnglishExamOnline.ClientSite.Services.Interfaces
     {
         Task<IList<ContestVm>> GetContests();
 
+        Task<IList<ContestVm>> FindContests(string find);
+
         Task<IList<ContestVm>> GetContestRegisted(string id);
 
         Task<IList<ContestVm>> GetContestExceptRegisted(string id);

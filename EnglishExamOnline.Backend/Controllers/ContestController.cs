@@ -44,6 +44,53 @@ namespace EnglishExamOnline.Backend.Controllers
                 .ToListAsync();
         }
 
+        [HttpGet("find/{find}")]
+        [AllowAnonymous]
+        public async Task<ActionResult<IEnumerable<ContestVm>>> FindContests(string find)
+        {
+            var checkName = await _context.Contests
+                .Include(c => c.ContestRegists)
+                .Where(c => c.ContestName.Contains(find))
+                .Select(x => new ContestVm
+                {
+                    ContestId = x.ContestId,
+                    ContestName = x.ContestName,
+                    Description = x.Description,
+                    CreatedDate = x.CreatedDate,
+                    Status = x.Status,
+                    CountRegists = x.ContestRegists.Count,
+                    Length = x.ContestSchedule.Length,
+                    StartTime = x.ContestSchedule.StartTime
+                })
+                .ToListAsync();
+
+            if (checkName.Count > 0)
+                return checkName;
+
+            int id;
+            bool isNumeric = int.TryParse(find, out id);
+            if (isNumeric)
+            {
+                var checkId = await _context.Contests
+               .Include(c => c.ContestRegists)
+               .Where(c => c.ContestId == id)
+          .Select(x => new ContestVm
+          {
+              ContestId = x.ContestId,
+              ContestName = x.ContestName,
+              Description = x.Description,
+              CreatedDate = x.CreatedDate,
+              Status = x.Status,
+              CountRegists = x.ContestRegists.Count,
+              Length = x.ContestSchedule.Length,
+              StartTime = x.ContestSchedule.StartTime
+          })
+          .ToListAsync();
+                return checkId;
+            }
+            return NoContent();
+        }
+
         [HttpGet("Registed/{id}")]
         [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<ContestVm>>> GetContestRegisted(string id)

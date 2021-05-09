@@ -29,6 +29,24 @@ namespace EnglishExamOnline.ClientSite.Controllers
             return View(contests);
         }
 
+        public async Task<IActionResult> Find(string find)
+        {
+            if (find == null)
+            {
+                _notyf.Error("Hãy nhập kí tự bạn muốn tìm kiếm!", 4);
+                return RedirectToAction("Index");
+            }
+
+            var contests = await _contestApiClient.FindContests(find);
+
+            if(contests == null)
+            {
+                _notyf.Error("Không tìm thấy cuộc thi nào!", 4);
+                return RedirectToAction("Index");
+            }
+            return View(contests);
+        }
+
         public ActionResult Create()
         {
             //Set viewbag list schedule to load dropdown list

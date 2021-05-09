@@ -34,6 +34,18 @@ namespace EnglishExamOnline.ClientSite.Services.APIs
             return await response.Content.ReadFromJsonAsync<IList<ContestVm>>();
         }
 
+        public async Task<IList<ContestVm>> FindContests(string find)
+        {
+            var client = _httpClientFactory.CreateClient();
+            var response = await client.GetAsync(_configuration["BackendUrl:Default"] + "/api/Contest/find/" + find);
+            response.EnsureSuccessStatusCode();
+
+            if ((int)response.StatusCode == 204)
+                return null;
+
+            return await response.Content.ReadFromJsonAsync<IList<ContestVm>>();
+        }
+
         public async Task<IList<ContestVm>> GetContestRegisted(string id)
         {
             var client = _httpClientFactory.CreateClient();
