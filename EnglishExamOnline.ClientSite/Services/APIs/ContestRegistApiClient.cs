@@ -1,4 +1,5 @@
-﻿using EnglishExamOnline.ClientSite.Services.Interfaces;
+﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using EnglishExamOnline.ClientSite.Services.Interfaces;
 using EnglishExamOnline.Shared.FormViewModels;
 using EnglishExamOnline.Shared.ViewModels;
 using IdentityModel.Client;
@@ -37,6 +38,10 @@ namespace EnglishExamOnline.ClientSite.Services.APIs
             var response = await client.PostAsync(_configuration["BackendUrl:Default"] + "/api/ContestRegist", httpContent);
 
             response.EnsureSuccessStatusCode();
+
+            if ((int)response.StatusCode == 204)
+                return null;
+
             return await response.Content.ReadFromJsonAsync<ContestRegistVm>();
         }
 

@@ -1,4 +1,4 @@
-﻿using EnglishExamOnline.Backend.Data;
+﻿    using EnglishExamOnline.Backend.Data;
 using EnglishExamOnline.Backend.Models;
 using EnglishExamOnline.Shared;
 using EnglishExamOnline.Shared.FormViewModels;
@@ -28,6 +28,17 @@ namespace EnglishExamOnline.Backend.Controllers
         [HttpPost]
         public async Task<ActionResult<ContestRegistVm>> PostContestRegists(ContestRegistFormVm createRequest)
         {
+            //Check user regis contests as same time
+            var getContest = await _context.Contests
+                .FirstOrDefaultAsync(ct => ct.ContestId == createRequest.ContestId);
+
+            var testRegis = await _context.ContestRegists
+                .Include(ct => ct.Contest)
+                .Where(ct => ct.UserId == createRequest.UserId && ct.Contest.ContestScheduleId == getContest.ContestScheduleId && ct.Contest.Status == true)
+                .ToListAsync();
+            if (testRegis.Count > 0)
+                return NoContent();
+
             var contestRegist = new ContestRegist
             {
                 UserId = createRequest.UserId,

@@ -1,4 +1,5 @@
-﻿using EnglishExamOnline.ClientSite.Services.Interfaces;
+﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using EnglishExamOnline.ClientSite.Services.Interfaces;
 using EnglishExamOnline.Shared.FormViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -14,13 +15,15 @@ namespace EnglishExamOnline.ClientSite.Controllers
     {
         private readonly IContestRegistClient _contestRegistApiClient;
         private readonly IConfiguration _configuration;
+        private readonly INotyfService _notyf;
 
-        public ContestRegistController(IContestRegistClient contestRegistApiClient, IConfiguration configuration)
+        public ContestRegistController(IContestRegistClient contestRegistApiClient, IConfiguration configuration, INotyfService notyf)
         {
             _contestRegistApiClient = contestRegistApiClient;
             _configuration = configuration;
+            _notyf = notyf;
         }
-      
+
         public IActionResult PostRegist(int id)
         {
             if (!User.Identity.IsAuthenticated)
@@ -31,7 +34,13 @@ namespace EnglishExamOnline.ClientSite.Controllers
             x.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             x.RegistDate = DateTime.Now;
 
-            return View(_contestRegistApiClient.PostContestRegist(x).Result);
+            var result = _contestRegistApiClient.PostContestRegist(x).Result;
+            if (result == null)
+            {
+                _notyf.Error("Bạn đã có một cuộc thi khác trong thời gian này!", 4);
+                return RedirectToAction(actionName: "Detail", controllerName: "Contest", new { id = id });
+            }
+            return View(result);
         }
 
         public IActionResult RemoveRegist(int id)
