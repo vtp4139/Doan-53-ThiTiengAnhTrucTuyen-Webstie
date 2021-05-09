@@ -23,6 +23,14 @@ namespace EnglishExamOnline.ClientSite.Services.APIs
             _request = request;
         }
 
+        public async Task<IList<UserVm>> GetUsers()
+        {
+            var client = _httpClientFactory.CreateClient();
+            var response = await client.GetAsync(_configuration["BackendUrl:Default"] + "/api/User");
+            response.EnsureSuccessStatusCode();
+            return await response.Content.ReadFromJsonAsync<IList<UserVm>>();
+        }
+
         public async Task<bool> CheckRoleAdmin(string id)
         {
             var client = _httpClientFactory.CreateClient();

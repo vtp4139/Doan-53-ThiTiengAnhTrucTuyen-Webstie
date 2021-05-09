@@ -28,14 +28,14 @@ namespace EnglishExamOnline.Backend.Controllers
         public async Task<ActionResult<IEnumerable<QuestionVm>>> GetQuests()
         {
             return await _context.Questions
-                .Select(x => new QuestionVm 
-                { 
-                    QuestionId = x.QuestionId, 
+                .Select(x => new QuestionVm
+                {
+                    QuestionId = x.QuestionId,
                     QuestionInfo = x.QuestionInfo,
                     AnswerA = x.AnswerA,
                     AnswerB = x.AnswerB,
                     AnswerC = x.AnswerC,
-                    AnswerD= x.AnswerD,
+                    AnswerD = x.AnswerD,
                     CorrectAnswer = x.CorrectAnswer,
                 })
                 .ToListAsync();
@@ -104,10 +104,10 @@ namespace EnglishExamOnline.Backend.Controllers
             _context.Questions.Add(question);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetQuest", 
-                new { id = question.QuestionId }, 
-                new QuestionVm 
-                { 
+            return CreatedAtAction("GetQuest",
+                new { id = question.QuestionId },
+                new QuestionVm
+                {
                     QuestionInfo = question.QuestionInfo,
                     AnswerA = question.AnswerA,
                     AnswerB = question.AnswerB,
@@ -120,11 +120,12 @@ namespace EnglishExamOnline.Backend.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteQuest(int id)
         {
-            var question = await _context.Questions.FindAsync(id);
+            var question = await _context.Questions.Include(q => q.QuestionDetails).FirstOrDefaultAsync(q => q.QuestionId == id);
+           
             if (question == null)
-            {
                 return NotFound();
-            }
+            if (question.QuestionDetails.Count > 0)
+                return NoContent();
 
             _context.Questions.Remove(question);
             await _context.SaveChangesAsync();

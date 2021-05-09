@@ -111,18 +111,19 @@ namespace EnglishExamOnline.Backend.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<ContestScheduleVm>> DeleteContestSchedule(int id)
+        public async Task<ActionResult> DeleteContestSchedule(int id)
         {
-            var request = await _context.ContestSchedules.FindAsync(id);
+            var request = await _context.ContestSchedules.Include(r => r.Contests).FirstOrDefaultAsync(x => x.ContestScheduleId == id);
+            
             if (request == null)
-            {
                 return NotFound();
-            }
+            if (request.Contests.Count > 0)
+                return NoContent();
 
             _context.ContestSchedules.Remove(request);
             await _context.SaveChangesAsync();
 
-            return Ok(request);
+            return Ok();
         }
     }
 }

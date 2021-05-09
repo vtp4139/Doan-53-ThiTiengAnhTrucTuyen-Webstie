@@ -90,12 +90,13 @@ namespace EnglishExamOnline.ClientSite.Controllers
                  return Content("Item not found");
             int result = await _questionApiClient.DeleteQuestion(id);
 
-            if(result == 200)
+            if(result == 204)
             {
-                _notyf.Success("Xóa câu hỏi thành công!", 4);
+                _notyf.Error("Không thể xóa câu hỏi! Câu hỏi đang tồn tại trong các đề thi.", 4);
                 return RedirectToAction("Index");
             }
-            return NotFound();
+            _notyf.Success("Xóa câu hỏi thành công!", 4);
+            return RedirectToAction("Index");
         }
     }
 }

@@ -1,4 +1,6 @@
 ﻿using EnglishExamOnline.Backend.Data;
+using EnglishExamOnline.Shared.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -17,6 +19,21 @@ namespace EnglishExamOnline.Backend.Controllers
         public UserController(ApplicationDbContext context)
         {
             _context = context;
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<ActionResult<IEnumerable<UserVm>>> GetUsers()
+        {
+            return await _context.Users
+                .Select(x => new UserVm
+                {
+                    UserId = x.Id,
+                    Email = x.Email,
+                    Fullname = x.FullName,
+                    PhoneNumber = x.PhoneNumber
+                })
+                .ToListAsync();
         }
 
         [HttpGet("roleadmin/{idUser}")]

@@ -94,7 +94,15 @@ namespace EnglishExamOnline.ClientSite.Controllers
         {
             if (id.Equals(null))
                 return Content("Item not found");
-            await _contestApiClient.DeleteContest(id);
+
+            var result = await _contestApiClient.DeleteContest(id);
+
+            if (result == 204)
+            {
+                _notyf.Error("Không thể xóa cuộc thi! Đã có thí sinh đăng ký cuộc thi này.", 4);
+                return RedirectToAction("Index");
+            }
+
             _notyf.Success("Xóa cuộc thi thành công!", 4);
             return RedirectToAction("Index");
         }

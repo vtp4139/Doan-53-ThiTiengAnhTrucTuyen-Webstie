@@ -74,7 +74,14 @@ namespace EnglishExamOnline.ClientSite.Controllers
         {
             if (id.Equals(null))
                 return Content("Item not found");
-            await _contestScheduleApiClient.DeleteContestSchedule(id);
+
+            int result = await _contestScheduleApiClient.DeleteContestSchedule(id);
+
+            if(result == 204)
+            {
+                _notyf.Error("Không thể xóa lịch thi khi có cuộc thi tổ chức vào thời gian này!", 4);
+                return RedirectToAction("Index");
+            }
             _notyf.Success("Xóa lịch thi thành công!", 4);
             return RedirectToAction("Index");
         }

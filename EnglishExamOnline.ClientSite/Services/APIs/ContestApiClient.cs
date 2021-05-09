@@ -25,7 +25,7 @@ namespace EnglishExamOnline.ClientSite.Services.APIs
             _configuration = configuration;
             _request = request;
         }
-     
+
         public async Task<IList<ContestVm>> GetContests()
         {
             var client = _httpClientFactory.CreateClient();
@@ -82,13 +82,13 @@ namespace EnglishExamOnline.ClientSite.Services.APIs
             return await response.Content.ReadFromJsonAsync<ContestVm>();
         }
 
-        public async Task<ContestVm> DeleteContest(int id)
+        public async Task<int> DeleteContest(int id)
         {
             var client = _request.SendAccessToken().Result;
 
             var response = await client.DeleteAsync(_configuration["BackendUrl:Default"] + "/api/Contest/" + id);
             response.EnsureSuccessStatusCode();
-            return await response.Content.ReadFromJsonAsync<ContestVm>();
+            return (int)response.StatusCode;
         }
     }
 }

@@ -160,6 +160,7 @@ namespace EnglishExamOnline.Backend.Controllers
 
             contest.ContestName = ContestCreateRequest.ContestName;
             contest.Description = ContestCreateRequest.Description;
+            contest.ContestScheduleId = ContestCreateRequest.ContestScheduleId;
 
             await _context.SaveChangesAsync();
 
@@ -233,23 +234,16 @@ namespace EnglishExamOnline.Backend.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteContest(int id)
         {
-            var Contest = await _context.Contests.FindAsync(id);
+            var Contest = await _context.Contests.Include(c => c.ContestRegists).FirstOrDefaultAsync(x => x.ContestId == id);
             if (Contest == null)
-            {
                 return NotFound();
-            }
+            if (Contest.ContestRegists.Count > 0)
+                return NoContent();
 
             _context.Contests.Remove(Contest);
             await _context.SaveChangesAsync();
 
-            return Ok(new ContestVm
-            {
-                ContestId = Contest.ContestId,
-                ContestName = Contest.ContestName,
-                Description = Contest.Description,
-                CreatedDate = Contest.CreatedDate,
-                Status = Contest.Status,
-            });
+            return Ok();
         }
     }
 }

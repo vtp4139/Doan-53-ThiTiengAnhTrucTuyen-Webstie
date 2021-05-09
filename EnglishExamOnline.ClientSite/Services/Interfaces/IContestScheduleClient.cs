@@ -20,6 +20,6 @@ namespace EnglishExamOnline.ClientSite.Services.Interfaces
 
         Task<ContestScheduleVm> PutContestSchedule(int id, ContestScheduleFormVm contestSchedule);
 
-        Task<ContestScheduleVm> DeleteContestSchedule(int id);
+        Task<int> DeleteContestSchedule(int id);
     }
 }

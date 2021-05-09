@@ -1,0 +1,30 @@
+﻿@model IEnumerable<EnglishExamOnline.Shared.ViewModels.UserVm>
+
+@{
+    ViewData["Title"] = "Danh sách tài khoản";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<table class="table border bg-white mt-2" style=" box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;">
+    <thead>
+        <tr>
+            <th>Mã tài khoản</th>
+            <th>Họ và tên</th>
+            <th>Email</th>
+            <th>SĐT</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td scope="row">@Html.DisplayFor(modelItem => item.UserId)</td>
+                <td> @Html.DisplayFor(modelItem => item.Fullname)</td>
+                <td> @Html.DisplayFor(modelItem => item.Email)</td>
+                <td> @Html.DisplayFor(modelItem => item.PhoneNumber)</td>                         
+            </tr>
+        }
+    </tbody>
+</table>

@@ -75,13 +75,13 @@ namespace EnglishExamOnline.ClientSite.Services.APIs
             return await response.Content.ReadFromJsonAsync<ContestScheduleVm>();
         }
 
-        public async Task<ContestScheduleVm> DeleteContestSchedule(int id)
+        public async Task<int> DeleteContestSchedule(int id)
         {
             var client = _request.SendAccessToken().Result;
 
             var response = await client.DeleteAsync(_configuration["BackendUrl:Default"] + "/api/ContestSchedule/" + id);
             response.EnsureSuccessStatusCode();
-            return await response.Content.ReadFromJsonAsync<ContestScheduleVm>();
+            return (int) response.StatusCode;
         }
     }
 }
