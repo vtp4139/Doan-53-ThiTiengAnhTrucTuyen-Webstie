@@ -15,7 +15,7 @@
         @if (Model.Count == 0)
         {
             <div class="col-md-6">
-                <br/><br /><br />
+                <br /><br /><br />
                 <h2 style="color:gray">Bạn chưa đăng ký cuộc thi nào.</h2>
             </div>
         }
@@ -24,16 +24,32 @@
             <!--Item contest-->
             @foreach (var item in Model)
             {
-                <div class="col-md-4">
-                    <a class="card mb-4" id="item-contest" asp-controller="Contest" asp-action="DetailRegisted" asp-route-id="@item.ContestId">
-                        <div class="card-body">
-                            <h5 class="card-title">@item.ContestName</h5>
-                            <p><span class="badge badge-danger">Đã đăng ký</span></p>
-                            <p class="card-text"><small class="text-muted" style="color:red">Lịch thi: @item.StartTime</small></p>
-                            <p class="card-text"><small class="text-muted">Có @item.CountRegists thí sinh đã đăng ký.</small></p>
-                        </div>
-                    </a>
-                </div>
+                if (DateTime.Now >= item.StartTime && DateTime.Now < item.StartTime.AddMinutes(60))
+                {
+                    <div class="col-md-4">
+                        <a class="card mb-4" id="item-contest" asp-controller="Contest" asp-action="DetailRegisted" asp-route-id="@item.ContestId">
+                            <div class="card-body">
+                                <h5 class="card-title text-danger">@item.ContestName</h5>
+                                <p><span class="badge badge-danger">Đang diễn ra</span></p>
+                                <p class="card-text"><small class="text-danger">Nhận chọn và tham gia ngay bây giờ.</small></p>
+                                <p class="card-text"><small class="text-muted">Có @item.CountRegists thí sinh đã đăng ký.</small></p>
+                            </div>
+                        </a>
+                    </div>
+                }
+                else
+                {
+                    <div class="col-md-4">
+                        <a class="card mb-4" id="item-contest" asp-controller="Contest" asp-action="DetailRegisted" asp-route-id="@item.ContestId">
+                            <div class="card-body">
+                                <h5 class="card-title">@item.ContestName</h5>
+                                <p><span class="badge badge-danger">Đã đăng ký</span></p>
+                                <p class="card-text"><small class="text-muted" style="color:red">Lịch thi: @item.StartTime</small></p>
+                                <p class="card-text"><small class="text-muted">Có @item.CountRegists thí sinh đã đăng ký.</small></p>
+                            </div>
+                        </a>
+                    </div>
+                }
             }
         }
     </div>

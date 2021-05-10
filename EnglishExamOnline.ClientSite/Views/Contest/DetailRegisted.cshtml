@@ -20,8 +20,15 @@
             <p><b>Lịch thi: </b>@Model.StartTime</p>
             <p><b>Thời lượng thi: </b>@Model.Length phút</p>
             <p><i>Có @Model.CountRegists thí sinh đã đăng ký</i></p>
-            <button type="button" class="btn btn-danger" id="btn-regist" data-toggle="modal" data-target="#confirm-delete">Hủy đăng ký</button>
-
+            @if (DateTime.Now >= Model.StartTime && DateTime.Now < Model.StartTime.AddMinutes(60))
+            {
+                <p class="text-danger"><i>Cuộc thi đang được diễn ra. Hãy tham gia thi.</i></p>
+                <a class="btn btn-danger" asp-controller="Contest" asp-action="LoadQuestions" asp-route-id="@Model.ContestId">Bắt đầu thi</a>
+            }
+            else
+            {
+                <button type="button" class="btn btn-danger" id="btn-regist" data-toggle="modal" data-target="#confirm-delete">Hủy đăng ký</button>
+            }
         </div>
     </div>
 

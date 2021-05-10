@@ -1,0 +1,81 @@
+﻿@model EnglishExamOnline.Shared.ViewModels.ContestVm
+
+@{
+    ViewData["Title"] = "Thi tiếng anh";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container" style=" background-color: white; box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; padding: unset; width: 70%">
+    <hr class="bg-warning" style=" height: 10px; border-width: 0;">
+    <div class="row justify-content-md-center">
+        <div class="col-md-10" style="text-align:center">
+            <h3>Chi tiết đề thi</h3>
+            <hr style="width:100%;text-align:left;margin-left:0">
+        </div>
+    </div>
+    <div class="row justify-content-md-center">
+        <div class="col-md-3">
+            <b>Mã đề: </b>@Model.ContestId
+        </div>
+        <div class="col-md-7">
+            <b>Tên cuộc thi: </b>@Model.ContestName
+        </div>
+    </div>
+    <div class="row justify-content-md-center">
+        <div class="col-md-5">
+            <b>Ngày thi: </b>@Model.StartTime
+        </div>
+        <div class="col-md-5">
+            <b>Thời gian: </b>@Model.Length phút
+        </div>
+    </div>
+    <button type="button" class="btn btn-primary" onclick="PostAnswer()">Nộp bài</button>
+    <hr style="width:100%;text-align:left;margin-left:0">
+    <div class="row justify-content-md-center">
+        @{
+            int i = 0;
+            foreach (var item in Model.ListQuestion)
+            {
+                i++;
+                <div class="col-md-10">
+                    <p><b>Câu @i: </b>@item.QuestionInfo</p>
+                    <form>
+                        <div class="radio">
+                            <label><input class="mr-2" type="radio" name="optradio{@i}" value="A">A. @item.AnswerA</label>
+                        </div>
+                        <div class="radio">
+                            <label><input class="mr-2" type="radio" name="optradio{@i}" value="B">B. @item.AnswerB</label>
+                        </div>
+                        <div class="radio ">
+                            <label><input class="mr-2" type="radio" name="optradio{@i}" value="C">C. @item.AnswerC</label>
+                        </div>
+                        <div class="radio disabled">
+                            <label><input class="mr-2" type="radio" name="optradio{@i}" value="D">D. @item.AnswerD</label>
+                        </div>
+                    </form>
+                </div>
+            }
+        }
+    </div>
+</div>
+
+<script type="text/javascript">
+    function PostAnswer() {
+        var listAnswer = [];
+        for (var i = 1; i <= 10; i++) {
+            var answer = $('input[name="optradio{' + i + '}"]:checked').val()
+            if (answer != undefined) {
+                listAnswer.push(answer);
+            }
+            else {
+                listAnswer.push("null");
+            }
+        }
+
+        $.ajax({
+            method: "POST",
+            url: "/result",
+            data: { listAnswer: listAnswer },
+        });
+    }
+</script>

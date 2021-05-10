@@ -34,5 +34,26 @@ namespace EnglishExamOnline.ClientSite.Controllers
             return View(product);
         }
 
+        public async Task<ActionResult> LoadQuestions(int id)
+        {
+            var quest = await _contestApiClient.GetContest(id);
+            if (quest == null)
+            {
+                return Content("Item not found");
+            }
+            return View(quest);
+        }
+
+        [HttpPost("/result")]
+        public async Task<ActionResult> Result(List<string> listAnswer)
+        {
+            //var quest = await _contestApiClient.GetContest(id);
+            //if (quest == null)
+            //{
+            //    return Content("Item not found");
+            //}
+            return View();
+        }
+
     }
 }
