@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace EnglishExamOnline.ClientSite.Controllers
@@ -12,12 +13,14 @@ namespace EnglishExamOnline.ClientSite.Controllers
     public class ContestController : Controller
     {
         private readonly IContestClient _contestApiClient;
+        private readonly IResultClient _resultApiClient;
         private readonly IConfiguration _configuration;
 
-        public ContestController(IContestClient contestApiClient, IConfiguration configuration)
+        public ContestController(IContestClient contestApiClient, IResultClient resultApiClient, IConfiguration configuration)
         {
             _contestApiClient = contestApiClient;
             _configuration = configuration;
+            _resultApiClient = resultApiClient;
         }
 
         public async Task<IActionResult> Detail(int id)
@@ -47,13 +50,9 @@ namespace EnglishExamOnline.ClientSite.Controllers
         [HttpPost("/result")]
         public async Task<ActionResult> Result(List<string> listAnswer)
         {
-            //var quest = await _contestApiClient.GetContest(id);
-            //if (quest == null)
-            //{
-            //    return Content("Item not found");
-            //}
-            return View();
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var result = await _resultApiClient.PostResult(listAnswer, userId);
+            return View(result);
         }
-
     }
 }

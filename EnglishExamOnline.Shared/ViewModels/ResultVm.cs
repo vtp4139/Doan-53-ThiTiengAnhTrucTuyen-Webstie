@@ -10,11 +10,10 @@ namespace EnglishExamOnline.Shared.ViewModels
     public class ResultVm
     {
         public int ResultId { get; set; }
+       
         public int Point { get; set; }
 
         public int NumOfCorrect { get; set; }
-
-        public DateTime StartTime { get; set; }
 
         public DateTime EndTime { get; set; }
     }

@@ -67,6 +67,7 @@ namespace EnglishExamOnline.ClientSite
             services.AddTransient<IQuestionClient, QuestionApiClient>();
             services.AddTransient<IContestScheduleClient, ContestScheduleApiClient>();
             services.AddTransient<IUserClient, UserApiClient>();
+            services.AddTransient<IResultClient, ResultApiClient>();
             services.AddTransient<ISendToken, SendToken>();
 
             services.AddControllersWithViews();

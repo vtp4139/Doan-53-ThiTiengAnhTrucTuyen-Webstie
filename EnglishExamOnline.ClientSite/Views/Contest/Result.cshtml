@@ -1,0 +1,26 @@
+﻿@model EnglishExamOnline.Shared.ViewModels.ResultVm
+
+@section Styles {
+    <link href="@Url.Content("~/css/regist-confirm.css")" rel="stylesheet" type="text/css" />
+}
+
+<div class="container" id="item-detail">
+    <hr class="bg-success" id="line-head">
+    <div class="row justify-content-md-center">
+        <div class="col-md-10" style="text-align:center">
+            <h2>Kết quả thi</h2>
+            <hr style="width:100%;text-align:left;margin-left:0">
+        </div>
+    </div>
+    <div class="row justify-content-md-center">
+        <p>Số điểm: @Model.Point</p>
+        <p>Số câu đúng: @Model.NumOfCorrect / 10</p>
+        <p>Thời gian kết thúc bài: @Model.EndTime</p>
+    </div>
+    <div class="row justify-content-md-center">
+        <div class="col-md-10" style="text-align:center">
+            <hr style="width:100%;text-align:left;margin-left:0">
+            <a type="button" class="btn btn-secondary p-2 mb-3" id="btn-back" asp-controller="Home" asp-action="Index">Xác nhận</a>
+        </div>
+    </div>
+</div>
