@@ -1,33 +1,5 @@
 ﻿@model IEnumerable<EnglishExamOnline.Shared.ViewModels.ContestVm>
 
-@{
-    ViewData["Title"] = "Danh sách cuộc thi";
-    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
-}
-
-<div class="container mb-2">
-    <div class="row">
-        <div class="col-md-2">
-            <a type="button" class="btn btn-success" asp-controller="AdminContest" asp-action="Create">
-                <i class="fas fa-plus-circle mr-2"></i>Thêm mới
-            </a>
-        </div>
-        <div class="col-md-5">
-            @using (Html.BeginForm("Find", "AdminContest"))
-            {
-                <div class="input-group">
-                    <div class="form-outline" style="width:80%">
-                        <input style="width:100%" type="search" id="find" name="find" class="form-control" placeholder="Mã: 100, Tên: English Test (Morning) - ETS 21" />
-                    </div>
-                    <button type="submit" class="btn btn-primary" style="width:70px">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
-            }
-        </div>
-    </div>
-</div>
-
 <table class="table border bg-white" style=" box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;">
     <thead>
         <tr>
@@ -90,3 +62,4 @@
         }
     </tbody>
 </table>
+

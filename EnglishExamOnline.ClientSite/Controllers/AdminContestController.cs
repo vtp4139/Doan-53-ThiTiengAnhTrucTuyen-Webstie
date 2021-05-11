@@ -29,6 +29,7 @@ namespace EnglishExamOnline.ClientSite.Controllers
             return View(contests);
         }
 
+        [HttpPost("/find")]
         public async Task<IActionResult> Find(string find)
         {
             if (find == null)
@@ -44,7 +45,7 @@ namespace EnglishExamOnline.ClientSite.Controllers
                 _notyf.Error("Không tìm thấy cuộc thi nào!", 4);
                 return RedirectToAction("Index");
             }
-            return View(contests);
+            return PartialView("Find", contests);
         }
 
         public ActionResult Create()

@@ -13,80 +13,94 @@
             </a>
         </div>
         <div class="col-md-5">
-            @using (Html.BeginForm("Find", "AdminContest"))
-            {
-                <div class="input-group">
-                    <div class="form-outline" style="width:80%">
-                        <input style="width:100%" type="search" id="find" name="find" class="form-control" placeholder="Mã: 100, Tên: English Test (Morning) - ETS 21"/>
-                    </div>
-                    <button type="submit" class="btn btn-primary" style="width:70px">
-                        <i class="fas fa-search"></i>
-                    </button>
+            <div class="input-group">
+                <div class="form-outline" style="width:80%">
+                    <input style="width:100%" type="search" id="find" name="find" class="form-control" placeholder="Mã: 100, Tên: English Test (Morning) - ETS 21" />
                 </div>
-            }
+                <button type="submit" class="btn btn-primary" style="width:70px" onclick="Find()">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
         </div>
     </div>
 </div>
 
-<table class="table border bg-white" style=" box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;">
-    <thead>
-        <tr>
-            <th>Mã</th>
-            <th>Tên cuộc thi</th>
-            <th>Mô tả</th>
-            <th>Ngày tạo</th>
-            <th>Ngày thi</th>
-            <th>Thời lượng</th>
-            <th>Trạng thái</th>
-            <th></th>
-        </tr>
-    </thead>
-
-    <tbody>
-        @foreach (var item in Model)
-        {
+<div id="render-view">
+    <table class="table border bg-white" style=" box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;">
+        <thead>
             <tr>
-                <td scope="row">@Html.DisplayFor(modelItem => item.ContestId)</td>
-                <td> @Html.DisplayFor(modelItem => item.ContestName)</td>
-                <td> @Html.DisplayFor(modelItem => item.Description)</td>
-                <td> @Html.DisplayFor(modelItem => item.CreatedDate)</td>
-                <td> @Html.DisplayFor(modelItem => item.StartTime)</td>
-                <td class="text-danger"> @Html.DisplayFor(modelItem => item.Length) phút</td>
-
-                @if (item.Status == true)
-                {
-                    <td class="text-danger"> <b>Mở đăng ký</b></td>
-                }
-                else
-                {
-                    <td class="text-secondary"> Đã kết thúc</td>
-                }
-
-
-                @if (item.Status == true)
-                {
-                    <td>
-                        <a class="badge badge-warning" style="width:50px" asp-action="Detail" asp-route-id="@item.ContestId">
-                            <i class="fas fa-eye"></i>
-                        </a>
-                        <a class="badge badge-primary" style="width:50px" asp-action="Edit" asp-route-id="@item.ContestId">
-                            <i class="fas fa-edit"></i>
-                        </a>
-                        <a class="badge badge-danger" style="width:50px" asp-action="Delete" asp-route-id="@item.ContestId">
-                            <i class="fas fa-trash-alt"></i>
-                        </a>
-                    </td>
-                }
-                else
-                {
-                    <td style="text-align:center">
-                        <a class="badge badge-warning" style="width:30px; height:30px" asp-action="Detail" asp-route-id="@item.ContestId">
-                            <h5><i class="fas fa-eye"></i></h5>
-                        </a>
-                    </td>
-                }
-
+                <th>Mã</th>
+                <th>Tên cuộc thi</th>
+                <th>Mô tả</th>
+                <th>Ngày tạo</th>
+                <th>Ngày thi</th>
+                <th>Thời lượng</th>
+                <th>Trạng thái</th>
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td scope="row">@Html.DisplayFor(modelItem => item.ContestId)</td>
+                    <td> @Html.DisplayFor(modelItem => item.ContestName)</td>
+                    <td> @Html.DisplayFor(modelItem => item.Description)</td>
+                    <td> @Html.DisplayFor(modelItem => item.CreatedDate)</td>
+                    <td> @Html.DisplayFor(modelItem => item.StartTime)</td>
+                    <td class="text-danger"> @Html.DisplayFor(modelItem => item.Length) phút</td>
+
+                    @if (item.Status == true)
+                    {
+                        <td class="text-danger"> <b>Mở đăng ký</b></td>
+                    }
+                    else
+                    {
+                        <td class="text-secondary"> Đã kết thúc</td>
+                    }
+
+
+                    @if (item.Status == true)
+                    {
+                        <td>
+                            <a class="badge badge-warning" style="width:50px" asp-action="Detail" asp-route-id="@item.ContestId">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                            <a class="badge badge-primary" style="width:50px" asp-action="Edit" asp-route-id="@item.ContestId">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a class="badge badge-danger" style="width:50px" asp-action="Delete" asp-route-id="@item.ContestId">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                        </td>
+                    }
+                    else
+                    {
+                        <td style="text-align:center">
+                            <a class="badge badge-warning" style="width:30px; height:30px" asp-action="Detail" asp-route-id="@item.ContestId">
+                                <h5><i class="fas fa-eye"></i></h5>
+                            </a>
+                        </td>
+                    }
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+@*Use ajax to find*@
+<script type="text/javascript">
+    function Find() {
+        var findString = $("#find").val();
+
+        $.ajax({
+            method: "POST",
+            url: "/find",
+            data: { find: findString },
+            success: function (result) {
+                $('#render-view').html(result);
+            }
+        });
+    }
+</script>

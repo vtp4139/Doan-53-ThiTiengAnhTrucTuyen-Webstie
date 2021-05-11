@@ -52,7 +52,7 @@ namespace EnglishExamOnline.ClientSite.Controllers
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var result = await _resultApiClient.PostResult(listAnswer, userId);
-            return View(result);
+            return PartialView("Result", result);
         }
     }
 }
