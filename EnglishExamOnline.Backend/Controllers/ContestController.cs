@@ -1,6 +1,5 @@
 ﻿using EnglishExamOnline.Backend.Data;
 using EnglishExamOnline.Backend.Models;
-using EnglishExamOnline.Shared;
 using EnglishExamOnline.Shared.FormViewModels;
 using EnglishExamOnline.Shared.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -97,9 +96,11 @@ namespace EnglishExamOnline.Backend.Controllers
         {
             //Get list of contest user registed
             return await _context.Contests
-                .Include(c => c.ContestRegists)
                 .Include(c => c.ContestSchedule)
-                .Where(x => x.Status == true && x.ContestRegists.FirstOrDefault(ct => ct.UserId == id) != null)
+                .Include(c => c.ContestRegists)
+                .ThenInclude (cr => cr.Result)
+                .Where(x => x.Status == true && x.ContestRegists.FirstOrDefault(ct => ct.UserId == id) != null
+                && x.ContestRegists.FirstOrDefault(ct => ct.UserId == id).Result == null)
                    .Select(x => new ContestVm
                    {
                        ContestId = x.ContestId,

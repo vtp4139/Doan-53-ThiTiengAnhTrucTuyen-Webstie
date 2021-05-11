@@ -9,9 +9,11 @@
         </div>
     </div>
     <div class="row justify-content-md-center">
-        <p>Số điểm: @Model.Point</p>
-        <p>Số câu đúng: @Model.NumOfCorrect / 10</p>
-        <p>Thời gian kết thúc bài: @Model.EndTime</p>
+        <div class="col-md ml-4">
+            <h4>Số điểm:<span class="text-danger"> @Model.Point</span></h4>
+            <h4>Số câu đúng:<span class="text-warning">@Model.NumOfCorrect / 10</span> </h4>
+            <p class="text-muted">Thời gian kết thúc bài: @Model.EndTime</p>
+        </div>
     </div>
     <div class="row justify-content-md-center">
         <div class="col-md-10" style="text-align:center">

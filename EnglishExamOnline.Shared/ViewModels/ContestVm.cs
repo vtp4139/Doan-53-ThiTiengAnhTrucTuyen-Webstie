@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EnglishExamOnline.Shared.ViewModels
 {
@@ -27,7 +24,5 @@ namespace EnglishExamOnline.Shared.ViewModels
         public int ContestScheduleId { get; set; }
 
         public List<QuestionVm> ListQuestion { get; set; }
-
-
     }
 }
