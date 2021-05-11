@@ -33,10 +33,18 @@ namespace EnglishExamOnline.ClientSite.Services.APIs
 
         public async Task<bool> CheckRoleAdmin(string id)
         {
-            var client = _httpClientFactory.CreateClient();
+            var client = _request.SendAccessToken().Result;
             var response = await client.GetAsync(_configuration["BackendUrl:Default"] + "/api/User/roleadmin/" + id);
             response.EnsureSuccessStatusCode();
             return await response.Content.ReadFromJsonAsync<bool>();
+        }
+
+        public async Task<UserVm> GetUser(string id)
+        {
+            var client = _request.SendAccessToken().Result;
+            var response = await client.GetAsync(_configuration["BackendUrl:Default"] + "/api/User/" + id);
+            response.EnsureSuccessStatusCode();
+            return await response.Content.ReadFromJsonAsync<UserVm>();
         }
     }
 }

@@ -16,8 +16,6 @@ namespace EnglishExamOnline.Backend.Models
 
         public int NumOfCorrect { get; set; }
 
-        public DateTime StartTime { get; set; }
-
         public DateTime EndTime { get; set; }
 
         //Set 1-1 relationship

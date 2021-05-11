@@ -19,6 +19,10 @@ namespace EnglishExamOnline.Backend.Models
         [PersonalData]
         public string FullName { get; set; }
 
+        public DateTime DateOfBirth { get; set; }
+
+        public string Address { get; set; }
+
         public virtual ICollection<ContestRegist> ContestRegists { get; set; }
     }
 }

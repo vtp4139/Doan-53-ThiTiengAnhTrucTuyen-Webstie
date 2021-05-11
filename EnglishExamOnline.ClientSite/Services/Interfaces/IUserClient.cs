@@ -11,5 +11,7 @@ namespace EnglishExamOnline.ClientSite.Services.Interfaces
         Task<IList<UserVm>> GetUsers();
 
         Task<bool> CheckRoleAdmin(string id);
+
+        Task<UserVm> GetUser(string id);
     }
 }

@@ -12,6 +12,7 @@ namespace EnglishExamOnline.Backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize("Bearer")]
     public class UserController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -34,6 +35,21 @@ namespace EnglishExamOnline.Backend.Controllers
                     PhoneNumber = x.PhoneNumber
                 })
                 .ToListAsync();
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<UserVm>> GetUser(string id)
+        {
+            return await _context.Users
+                .Select(x => new UserVm
+                {
+                    UserId = x.Id,
+                    Email = x.Email,
+                    Fullname = x.FullName,
+                    PhoneNumber = x.PhoneNumber,
+                    DateOfBirth = x.DateOfBirth,
+                    Address = x.Address
+                }).FirstOrDefaultAsync(x => x.UserId == id);
         }
 
         [HttpGet("roleadmin/{idUser}")]

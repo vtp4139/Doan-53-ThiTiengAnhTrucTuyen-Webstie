@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - EnglishExamOnline.ClientSite</title>
+    <title>@ViewData["Title"] - VTP English</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/content.css" />
@@ -53,24 +53,25 @@
     </div>
 
     @*<footer class="bg-white text-lg-start">
-        <div class="container">
-            <div>
-                <p>&copy;Nhóm 47 - Đồ án tốt nghiệp - Đề tài 53</p>
-                <p>Điện thoại: 0312345678/0984544712</p>
-                <p>Địa chỉ: <a href="https://goo.gl/maps/GHe94isW3MGuN53QA">12 Nguyễn Văn Bảo, Phường 4, Gò Vấp, Thành phố Hồ Chí Minh, Vietnam</a></p>
-                <p><a asp-area="" asp-controller="Home" asp-action="Privacy">Chính sách</a></p>
+            <div class="container">
+                <div>
+                    <p>&copy;Nhóm 47 - Đồ án tốt nghiệp - Đề tài 53</p>
+                    <p>Điện thoại: 0312345678/0984544712</p>
+                    <p>Địa chỉ: <a href="https://goo.gl/maps/GHe94isW3MGuN53QA">12 Nguyễn Văn Bảo, Phường 4, Gò Vấp, Thành phố Hồ Chí Minh, Vietnam</a></p>
+                    <p><a asp-area="" asp-controller="Home" asp-action="Privacy">Chính sách</a></p>
+                </div>
             </div>
-        </div>
-    </footer>*@
+        </footer>*@
     @*<footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; Đồ án tốt nghiệp/Đề tài 53 - Nhóm 47 - Nguyễn Vĩnh Long Vinh/17036561 - Võ Tuấn Phương/17030061
-        </div>
-    </footer>*@
+            <div class="container">
+                &copy; Đồ án tốt nghiệp/Đề tài 53 - Nhóm 47 - Nguyễn Vĩnh Long Vinh/17036561 - Võ Tuấn Phương/17030061
+            </div>
+        </footer>*@
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    @*<script src="~/js/modal.js"></script>*@
     @await Component.InvokeAsync("Notyf")
     @await RenderSectionAsync("Scripts", required: false)
 </body>

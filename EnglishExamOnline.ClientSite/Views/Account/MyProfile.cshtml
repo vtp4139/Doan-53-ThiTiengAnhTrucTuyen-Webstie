@@ -1,32 +1,59 @@
-﻿@using Microsoft.AspNetCore.Authentication
-@using Microsoft.Extensions.Configuration
-
-@inject IConfiguration Configuration
+﻿@model EnglishExamOnline.Shared.ViewModels.UserVm
 
 @{
-    ViewData["Title"] = "My profile";
+    ViewData["Title"] = "Thông tin tài khoản";
 }
 
-<h2><a href="https://localhost:44341/Identity/Account/Manage">My Account</a></h2>
-<br />
-<br />
+<div class="container" style=" background-color: white; box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; padding: unset; width: 60%">
+    <hr class="bg-primary" style=" height: 10px; border-width: 0;">
+    <div class="row justify-content-md-center">
+        <div class="col-md-10" style="text-align:center">
+            <h3><i class="fas fa-id-card-alt mr-2"></i>Thông tin tài khoản</h3>
+            <hr style="width:100%;text-align:left;margin-left:0">
+        </div>
+    </div>
+    <div class="row justify-content-md-center">
+        <div class="col-md-8">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <input asp-for="UserId" type="hidden" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Fullname" class="control-label"></label>
+                    <input asp-for="Fullname" class="form-control" />
+                    <span asp-validation-for="Fullname" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Email" class="control-label"></label>
+                    <input asp-for="Email" class="form-control" disabled/>
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PhoneNumber" class="control-label"></label>
+                    <input asp-for="PhoneNumber" class="form-control"/>
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DateOfBirth" class="control-label"></label>
+                    <input asp-for="DateOfBirth" class="form-control" type="date"/>
+                    <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Address" class="control-label"></label>
+                    <input asp-for="Address" class="form-control" />
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Cập nhật" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
-<h2>Claims</h2>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
 
-<dl>
-    @foreach (var claim in User.Claims)
-    {
-        <dt>@claim.Type</dt>
-        <dd>@claim.Value</dd>
-    }
-</dl>
 
-<h2>Properties</h2>
-
-<dl>
-    @foreach (var prop in (await Context.AuthenticateAsync()).Properties.Items)
-    {
-        <dt>@prop.Key</dt>
-        <dd>@prop.Value</dd>
-    }
-</dl>
