@@ -4,45 +4,48 @@
     <link href="@Url.Content("~/css/detail.css")" rel="stylesheet" type="text/css" />
 }
 
-<div class="container" id="item-detail">
-    <hr class="bg-danger" id="line-head">
-    <div class="row justify-content-md-center">
-        <div class="col-md-10" style="text-align:center">
-            <h2>@Model.ContestName</h2>
-            <hr style="width:100%;text-align:left;margin-left:0">
+<div id="render">
+    <div class="container" id="item-detail">
+        <hr class="bg-danger" id="line-head">
+        <div class="row justify-content-md-center">
+            <div class="col-md-10" style="text-align:center">
+                <h2>@Model.ContestName</h2>
+                <hr style="width:100%;text-align:left;margin-left:0">
+            </div>
         </div>
-    </div>
-    <div class="row justify-content-md-center">
-        <!--p: padding, m: margin / mb: margin-bottom -->
-        <div class="col-md-5 p-2 mb-3" style=" border-right: 1px solid #E5E5E5;">@Model.Description</div>
-        <div class="col-md-5 p-2 mb-3">
-            <p><b>Thời gian mở đăng ký: </b>@Model.CreatedDate</p>
-            <p><b>Lịch thi: </b>@Model.StartTime</p>
-            <p><b>Thời lượng thi: </b>@Model.Length phút</p>
-            <p><i>Có @Model.CountRegists thí sinh đã đăng ký</i></p>
-            @if (DateTime.Now >= Model.StartTime && DateTime.Now < Model.StartTime.AddMinutes(60))
-            {
-                <p class="text-danger"><i>Cuộc thi đang được diễn ra. Hãy tham gia thi.</i></p>
-                <a class="btn btn-danger" asp-controller="Contest" asp-action="LoadQuestions" asp-route-id="@Model.ContestId">Bắt đầu thi</a>
-            }
-            else
-            {
-                <button type="button" class="btn btn-danger" id="btn-regist" data-toggle="modal" data-target="#confirm-delete">Hủy đăng ký</button>
-            }
+        <div class="row justify-content-md-center">
+            <!--p: padding, m: margin / mb: margin-bottom -->
+            <div class="col-md-5 p-2 mb-3" style=" border-right: 1px solid #E5E5E5;">@Model.Description</div>
+            <div class="col-md-5 p-2 mb-3">
+                <p><b>Thời gian mở đăng ký: </b>@Model.CreatedDate</p>
+                <p><b>Lịch thi: </b>@Model.StartTime</p>
+                <p><b>Thời lượng thi: </b>@Model.Length phút</p>
+                <p><i>Có @Model.CountRegists thí sinh đã đăng ký</i></p>
+                @if (DateTime.Now >= Model.StartTime && DateTime.Now < Model.StartTime.AddMinutes(60))
+                {
+                    <p class="text-danger"><i>Cuộc thi đang được diễn ra. Hãy tham gia thi.</i></p>
+                    @*<a class="btn btn-danger" asp-controller="Contest" asp-action="LoadQuestions" asp-route-id="@Model.ContestId">Bắt đầu thi</a>*@
+                    <button type="button" class="btn btn-danger" onclick="LoadQuestions()">Bắt đầu thi</button>
+                }
+                else
+                {
+                    <button type="button" class="btn btn-danger" id="btn-regist" data-toggle="modal" data-target="#confirm-delete">Hủy đăng ký</button>
+                }
+            </div>
         </div>
-    </div>
 
-    <!--Modal confirm Yes/No-->
-    <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <p>Xác nhận hủy đăng ký cuộc thi ?</p>
-                </div>
+        <!--Modal confirm Yes/No-->
+        <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <p>Xác nhận hủy đăng ký cuộc thi ?</p>
+                    </div>
 
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Thoát</button>
-                    <a class="btn btn-danger btn-ok" asp-controller="ContestRegist" asp-action="RemoveRegist" asp-route-id="@Model.ContestId">Xác nhận</a>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Thoát</button>
+                        <a class="btn btn-danger btn-ok" asp-controller="ContestRegist" asp-action="RemoveRegist" asp-route-id="@Model.ContestId">Xác nhận</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -55,4 +58,15 @@
 
         $('.debug-url').html('Delete URL: <strong>' + $(this).find('.btn-ok').attr('href') + '</strong>');
     });
+
+    function LoadQuestions() {
+        $.ajax({
+            method: "GET",
+            url: "/questions",
+            data: { id: @Model.ContestId },
+            success: function (result) {
+                $('#render').html(result);
+            }
+        });
+    }
 </script>

@@ -37,6 +37,7 @@ namespace EnglishExamOnline.ClientSite.Controllers
             return View(product);
         }
 
+        [HttpGet("/questions")]
         public async Task<ActionResult> LoadQuestions(int id)
         {
             var quest = await _contestApiClient.GetContest(id);
@@ -44,7 +45,7 @@ namespace EnglishExamOnline.ClientSite.Controllers
             {
                 return Content("Item not found");
             }
-            return View(quest);
+            return PartialView("LoadQuestions", quest);
         }
 
         [HttpPost("/result")]
