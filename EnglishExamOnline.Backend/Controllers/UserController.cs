@@ -1,7 +1,6 @@
 ﻿using EnglishExamOnline.Backend.Data;
 using EnglishExamOnline.Backend.Models;
 using EnglishExamOnline.Shared.ViewModels;
-using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -20,10 +19,12 @@ namespace EnglishExamOnline.Backend.Controllers
     public class UserController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<User> _userManager;
 
-        public UserController(ApplicationDbContext context)
+        public UserController(ApplicationDbContext context, UserManager<User> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         [HttpGet]
@@ -91,19 +92,24 @@ namespace EnglishExamOnline.Backend.Controllers
         }
 
         [HttpPut("/change-password/")]
-        public async Task<ActionResult<UserVm>> ChangePassword(string userId, string oldPassword)
+        public async Task<ActionResult<bool>> ChangePassword(string userId, string oldPassword, string newPassword)
         {
             var user = await _context.Users.FindAsync(userId);
 
-            PasswordHasher passwordHasher = new PasswordHasher();
+            //Check old password is correct ?
+            var result = _userManager.PasswordHasher.VerifyHashedPassword(user, user.PasswordHash, oldPassword);
 
-            var result = passwordHasher.VerifyHashedPassword("AQAAAAEAACcQAAAAELWFXoATd1jb7HrHJP8JlbCKOfOlsfIAna5J5fYc2PqfbHOzjWtVqDAqoORXbeTCLQ==", "Phuong_99");
-            if (result == PasswordVerificationResult.Success)
+            //Change password
+            if (result.ToString().Equals("Success"))
             {
-                // password is correct 
+                var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+
+                var result_pass = await _userManager.ResetPasswordAsync(user, token, newPassword);
+
+                return Ok(true);
             }
 
-            return Ok(result);
+            return Ok(false);
         }
     }
 }
