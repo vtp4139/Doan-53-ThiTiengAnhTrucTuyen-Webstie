@@ -66,5 +66,24 @@ namespace EnglishExamOnline.Backend.Controllers
             }
             return false;
         }
+
+        [HttpPut]
+        public async Task<ActionResult<UserVm>> PutUser(UserVm request)
+        {
+            var user = await _context.Users.FindAsync(request.UserId);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            user.FullName = request.Fullname;
+            user.PhoneNumber = request.PhoneNumber;
+            user.DateOfBirth = request.DateOfBirth;
+            user.Address = request.Address;
+            await _context.SaveChangesAsync();
+
+            return Ok(user);
+        }
     }
 }
