@@ -23,6 +23,26 @@ namespace EnglishExamOnline.Backend.Controllers
             _context = context;
         }
 
+        [HttpGet("{id}")]
+        public async Task<ActionResult<IEnumerable<ResultVm>>> GetResults(string id)
+        {
+            return await _context.Results
+                .Include(r => r.ContestRegist)
+                .ThenInclude(cr => cr.Contest)
+                .ThenInclude(c => c.ContestSchedule)
+                .Where(r => r.ContestRegist.UserId == id)
+                .Select(r => new ResultVm
+                {
+                    ResultId = r.ResultId,
+                    Point = r.Point,
+                    NumOfCorrect = r.Point,
+                    EndTime = r.EndTime,
+                    ContestName = r.ContestRegist.Contest.ContestName,
+                    StartTime = r.ContestRegist.Contest.ContestSchedule.StartTime,
+                })
+                .ToListAsync();
+        }
+
         [HttpPost("{userId}")]
         public async Task<ActionResult<ResultVm>> PostResult(List<string> listAnswer, string userId)
         {

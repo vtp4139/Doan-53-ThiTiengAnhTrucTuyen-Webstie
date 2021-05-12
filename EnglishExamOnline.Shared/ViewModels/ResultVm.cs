@@ -16,5 +16,9 @@ namespace EnglishExamOnline.Shared.ViewModels
         public int NumOfCorrect { get; set; }
 
         public DateTime EndTime { get; set; }
+
+        public string ContestName { get; set; }
+
+        public DateTime StartTime { get; set; }
     }
 }

@@ -15,12 +15,14 @@ namespace EnglishExamOnline.ClientSite.Controllers
     public class AccountController : Controller
     {
         private readonly IUserClient _UserClient;
+        private readonly IResultClient _ResultClient;
         private readonly INotyfService _notyf;
 
-        public AccountController(IUserClient UserClient, INotyfService notyf)
+        public AccountController(IUserClient UserClient, INotyfService notyf, IResultClient ResultClient)
         {
             _UserClient = UserClient;
             _notyf = notyf;
+            _ResultClient = ResultClient;
         }
 
         public IActionResult SignIn()
@@ -54,6 +56,15 @@ namespace EnglishExamOnline.ClientSite.Controllers
                 return NotFound();
             _notyf.Success("Cập nhật thông tin tài khoản thành công!", 4);
             return RedirectToAction("MyProfile");
+        }
+
+        [Authorize]
+        public ActionResult GetResults()
+        {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var resultList = _ResultClient.GetResults(userId).Result;
+
+            return View(resultList);
         }
     }
 }

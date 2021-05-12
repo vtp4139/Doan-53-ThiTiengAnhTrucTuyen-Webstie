@@ -1,12 +1,16 @@
 ﻿using EnglishExamOnline.Backend.Data;
+using EnglishExamOnline.Backend.Models;
 using EnglishExamOnline.Shared.ViewModels;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using PasswordVerificationResult = Microsoft.AspNet.Identity.PasswordVerificationResult;
 
 namespace EnglishExamOnline.Backend.Controllers
 {
@@ -84,6 +88,22 @@ namespace EnglishExamOnline.Backend.Controllers
             await _context.SaveChangesAsync();
 
             return Ok(user);
+        }
+
+        [HttpPut("/change-password/")]
+        public async Task<ActionResult<UserVm>> ChangePassword(string userId, string oldPassword)
+        {
+            var user = await _context.Users.FindAsync(userId);
+
+            PasswordHasher passwordHasher = new PasswordHasher();
+
+            var result = passwordHasher.VerifyHashedPassword("AQAAAAEAACcQAAAAELWFXoATd1jb7HrHJP8JlbCKOfOlsfIAna5J5fYc2PqfbHOzjWtVqDAqoORXbeTCLQ==", "Phuong_99");
+            if (result == PasswordVerificationResult.Success)
+            {
+                // password is correct 
+            }
+
+            return Ok(result);
         }
     }
 }

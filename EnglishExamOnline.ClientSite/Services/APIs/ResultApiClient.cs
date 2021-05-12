@@ -25,6 +25,13 @@ namespace EnglishExamOnline.ClientSite.Services.APIs
             _request = request;
         }
 
+        public async Task<IList<ResultVm>> GetResults(string id)
+        {
+            var client = _request.SendAccessToken().Result;
+            var response = await client.GetAsync(_configuration["BackendUrl:Default"] + "/api/Result/" + id);
+            response.EnsureSuccessStatusCode();
+            return await response.Content.ReadFromJsonAsync<IList<ResultVm>>();
+        }
         public async Task<ResultVm> PostResult(List<string> listAnswer, string userId)
         {
             var client = _request.SendAccessToken().Result;
