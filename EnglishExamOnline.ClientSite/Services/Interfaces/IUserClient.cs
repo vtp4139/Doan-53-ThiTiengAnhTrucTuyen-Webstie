@@ -1,4 +1,5 @@
-﻿using EnglishExamOnline.Shared.ViewModels;
+﻿using EnglishExamOnline.Shared.FormViewModels;
+using EnglishExamOnline.Shared.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,5 +16,7 @@ namespace EnglishExamOnline.ClientSite.Services.Interfaces
         Task<UserVm> GetUser(string id);
 
         Task<UserVm> PutUser(UserVm request);
+
+        Task<int> ChangePassword(PasswordFormVm request);
     }
 }

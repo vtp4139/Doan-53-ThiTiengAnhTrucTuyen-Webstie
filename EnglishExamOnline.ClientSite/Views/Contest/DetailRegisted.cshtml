@@ -60,6 +60,9 @@
     });
 
     function LoadQuestions() {
+            @*@section  Layout{
+        Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    }*@
         $.ajax({
             method: "GET",
             url: "/questions",

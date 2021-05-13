@@ -1,4 +1,5 @@
 ﻿using EnglishExamOnline.ClientSite.Services.Interfaces;
+using EnglishExamOnline.Shared.FormViewModels;
 using EnglishExamOnline.Shared.ViewModels;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
@@ -59,6 +60,18 @@ namespace EnglishExamOnline.ClientSite.Services.APIs
 
             response.EnsureSuccessStatusCode();
             return await response.Content.ReadFromJsonAsync<UserVm>();
+        }
+
+        public async Task<int> ChangePassword(PasswordFormVm request)
+        {
+            var client = _request.SendAccessToken().Result;
+
+            HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(request),
+                Encoding.UTF8, "application/json");
+            var response = await client.PostAsync(_configuration["BackendUrl:Default"] + "/api/User/change-password", httpContent);
+
+            response.EnsureSuccessStatusCode();
+            return (int)response.StatusCode;
         }
     }
 }

@@ -73,7 +73,7 @@ namespace EnglishExamOnline.ClientSite.Services.APIs
 
             var response = await client.DeleteAsync(_configuration["BackendUrl:Default"] + "/api/Questions/" + id);
             response.EnsureSuccessStatusCode();
-            return (int)response.StatusCode; ;
+            return (int)response.StatusCode;
         }
     }
 }

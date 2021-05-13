@@ -1,5 +1,6 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
 using EnglishExamOnline.ClientSite.Services.Interfaces;
+using EnglishExamOnline.Shared.FormViewModels;
 using EnglishExamOnline.Shared.ViewModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -65,6 +66,30 @@ namespace EnglishExamOnline.ClientSite.Controllers
             var resultList = _ResultClient.GetResults(userId).Result;
 
             return View(resultList);
+        }
+
+        [Authorize]
+        public ActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ChangePassword(PasswordFormVm request)
+        {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            request.userId = userId;
+
+            var result = await _UserClient.ChangePassword(request);
+            if (result == 204)
+            {
+                _notyf.Error("Mật khẩu cũ bạn nhập vào không đúng!", 4);
+                return RedirectToAction("Index");
+            }
+          
+            _notyf.Success("Thay đổi mật khẩu thành công.", 4);
+            return RedirectToAction("ChangePassword");
         }
     }
 }

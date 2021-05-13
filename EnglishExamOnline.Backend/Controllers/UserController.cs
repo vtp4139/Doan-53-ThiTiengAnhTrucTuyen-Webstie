@@ -1,5 +1,6 @@
 ﻿using EnglishExamOnline.Backend.Data;
 using EnglishExamOnline.Backend.Models;
+using EnglishExamOnline.Shared.FormViewModels;
 using EnglishExamOnline.Shared.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -91,25 +92,22 @@ namespace EnglishExamOnline.Backend.Controllers
             return Ok(user);
         }
 
-        [HttpPut("/change-password/")]
-        public async Task<ActionResult<bool>> ChangePassword(string userId, string oldPassword, string newPassword)
+        [HttpPost("change-password")]
+        public async Task<ActionResult> ChangePassword(PasswordFormVm request)
         {
-            var user = await _context.Users.FindAsync(userId);
+            var user = await _context.Users.FindAsync(request.userId);
 
             //Check old password is correct ?
-            var result = _userManager.PasswordHasher.VerifyHashedPassword(user, user.PasswordHash, oldPassword);
+            var result = _userManager.PasswordHasher.VerifyHashedPassword(user, user.PasswordHash, request.oldPassword);
 
             //Change password
             if (result.ToString().Equals("Success"))
             {
-                var token = await _userManager.GeneratePasswordResetTokenAsync(user);
-
-                var result_pass = await _userManager.ResetPasswordAsync(user, token, newPassword);
-
-                return Ok(true);
+                await _userManager.ChangePasswordAsync(user, request.oldPassword, request.newPassword);
+                return Ok();
             }
 
-            return Ok(false);
+            return NoContent();
         }
     }
 }
