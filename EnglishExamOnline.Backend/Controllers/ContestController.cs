@@ -47,47 +47,33 @@ namespace EnglishExamOnline.Backend.Controllers
         [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<ContestVm>>> FindContests(string find)
         {
-            var checkName = await _context.Contests
-                .Include(c => c.ContestRegists)
-                .Where(c => c.ContestName.Contains(find))
-                .Select(x => new ContestVm
-                {
-                    ContestId = x.ContestId,
-                    ContestName = x.ContestName,
-                    Description = x.Description,
-                    CreatedDate = x.CreatedDate,
-                    Status = x.Status,
-                    CountRegists = x.ContestRegists.Count,
-                    Length = x.ContestSchedule.Length,
-                    StartTime = x.ContestSchedule.StartTime
-                })
-                .ToListAsync();
-
-            if (checkName.Count > 0)
-                return checkName;
+            var querry = _context.Contests.AsQueryable();
 
             int id;
             bool isNumeric = int.TryParse(find, out id);
+
             if (isNumeric)
             {
-                var checkId = await _context.Contests
-               .Include(c => c.ContestRegists)
-               .Where(c => c.ContestId == id)
-          .Select(x => new ContestVm
-          {
-              ContestId = x.ContestId,
-              ContestName = x.ContestName,
-              Description = x.Description,
-              CreatedDate = x.CreatedDate,
-              Status = x.Status,
-              CountRegists = x.ContestRegists.Count,
-              Length = x.ContestSchedule.Length,
-              StartTime = x.ContestSchedule.StartTime
-          })
-          .ToListAsync();
-                return checkId;
+                querry = querry.Where(c => c.ContestId == id);
             }
-            return NoContent();
+            else
+            {
+                querry = querry.Where(c => c.ContestName.Contains(find));
+            }
+
+            return await querry.Include(c => c.ContestRegists)
+                 .Select(x => new ContestVm
+                 {
+                     ContestId = x.ContestId,
+                     ContestName = x.ContestName,
+                     Description = x.Description,
+                     CreatedDate = x.CreatedDate,
+                     Status = x.Status,
+                     CountRegists = x.ContestRegists.Count,
+                     Length = x.ContestSchedule.Length,
+                     StartTime = x.ContestSchedule.StartTime
+                 })
+            .ToListAsync();
         }
 
         [HttpGet("Registed/{id}")]
@@ -118,33 +104,31 @@ namespace EnglishExamOnline.Backend.Controllers
         [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<ContestVm>>> GetContestByStatus(int statusIndex)
         {
-            var contestList = await _context.Contests
-                .Include(c => c.ContestRegists)
-                .Include(c => c.ContestSchedule)
-                .ToListAsync();
+            var querry = _context.Contests.AsQueryable();
 
             if (statusIndex == -1)
             {
-                contestList = contestList.Where(c => c.Status == false).ToList();
+                querry = querry.Where(c => c.Status == false);
             }
             else
             {
-                contestList = contestList.Where(c => c.Status == true).ToList();
+                querry = querry.Where(c => c.Status == true);
             }
 
-            var result = contestList.Select(x => new ContestVm
-            {
-                ContestId = x.ContestId,
-                ContestName = x.ContestName,
-                Description = x.Description,
-                CreatedDate = x.CreatedDate,
-                Status = x.Status,
-                CountRegists = x.ContestRegists.Count,
-                Length = x.ContestSchedule.Length,
-                StartTime = x.ContestSchedule.StartTime
-            }).ToList();
-                
-            return result;
+            return await querry
+                .Include(c => c.ContestRegists)
+                .Include(c => c.ContestSchedule)
+                .Select(x => new ContestVm
+                {
+                    ContestId = x.ContestId,
+                    ContestName = x.ContestName,
+                    Description = x.Description,
+                    CreatedDate = x.CreatedDate,
+                    Status = x.Status,
+                    CountRegists = x.ContestRegists.Count,
+                    Length = x.ContestSchedule.Length,
+                    StartTime = x.ContestSchedule.StartTime
+                }).ToListAsync();
         }
 
         [HttpGet("ExceptRegisted/{id}")]
