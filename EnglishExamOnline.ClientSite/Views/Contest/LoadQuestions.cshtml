@@ -13,20 +13,18 @@
             transition: 0.5s;
             margin-top: 90px;
         }
-
-            
-
     </style>
 </head>
 <div id="render-view">
     <div id="mySidenav" class="sidenav">
         <div class="list-group list-group-flush">
             <p class="list-group-item">
-                <i class="fas fa-clock mr-2"></i><span id="status"></span>
+                <span id="test">@Model.StartTime</span>
             </p>
-            
-
-            <a class="list-group-item list-group-item-action bg-success text-white" href="javascipt:void(0);" onclick="PostAnswer()">
+            <h5 class="list-group-item">
+                <i class="fas fa-clock mr-2"></i><strong></b><span id="timeTest"></span></strong>
+            </h5>
+            <a class="list-group-item list-group-item-action bg-success text-white" id="submit" style="cursor:pointer;" onclick="PostAnswer()">
                 <i class="fas fa-check-circle mr-2"></i>Nộp bài
             </a>
         </div>
@@ -107,15 +105,37 @@
             }
         });
     }
-    var secs = 3;
-    timer = setInterval(function () {
-        var element = document.getElementById("status");
-        element.innerHTML = "<span>Bạn có thời gian <b>"+secs+"</b> để hoàn thành bài thi</span>";
-        if (secs < 1){
-            clearInterval(timer);
-            console.log("done!")
-            /*document.getElementById('submit').click();*/
-        }
-        secs--;
-    }, 1000)
+    //count down to submit
+    var sdate = document.getElementById('test').innerHTML;
+    var stime = new Date(sdate);
+    var now = Date.now();
+    var dates = stime.getTime();
+    var compare = now - dates;
+    var minutes = Math.floor(compare / 60000);
+    function startTimer(duration, display) {
+        var start = Date.now();
+        var diff;
+        var minutes;
+        var seconds;
+        async function timer() {
+            diff = duration - (((Date.now() - start) / 1000) | 0);
+            minutes = (diff / 60) | 0;
+            seconds = (diff % 60) | 0;
+
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+
+            display.textContent = minutes + ":" + seconds;
+            if (diff < 0) {
+                clearInterval(timer);
+                document.getElementById('submit').click();
+            }
+        };
+        timer();
+        setInterval(timer, 1000);
+    }
+    var display = document.querySelector('#timeTest');
+    /*startTimer(3600-(minutes*60), display);*/
+    startTimer(3600-(minutes*60), display);
+
 </script>
