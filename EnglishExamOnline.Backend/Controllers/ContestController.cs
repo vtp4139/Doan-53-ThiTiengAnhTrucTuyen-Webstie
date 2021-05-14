@@ -28,7 +28,7 @@ namespace EnglishExamOnline.Backend.Controllers
         [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<ContestVm>>> GetContests()
         {
-            return await _context.Contests.Include(c => c.ContestRegists)
+            return await _context.Contests.Include(c => c.ContestRegists).Include(c => c.ContestSchedule)
                 .Select(x => new ContestVm
                 {
                     ContestId = x.ContestId,
@@ -47,47 +47,33 @@ namespace EnglishExamOnline.Backend.Controllers
         [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<ContestVm>>> FindContests(string find)
         {
-            var checkName = await _context.Contests
-                .Include(c => c.ContestRegists)
-                .Where(c => c.ContestName.Contains(find))
-                .Select(x => new ContestVm
-                {
-                    ContestId = x.ContestId,
-                    ContestName = x.ContestName,
-                    Description = x.Description,
-                    CreatedDate = x.CreatedDate,
-                    Status = x.Status,
-                    CountRegists = x.ContestRegists.Count,
-                    Length = x.ContestSchedule.Length,
-                    StartTime = x.ContestSchedule.StartTime
-                })
-                .ToListAsync();
-
-            if (checkName.Count > 0)
-                return checkName;
+            var querry = _context.Contests.AsQueryable();
 
             int id;
             bool isNumeric = int.TryParse(find, out id);
+
             if (isNumeric)
             {
-                var checkId = await _context.Contests
-               .Include(c => c.ContestRegists)
-               .Where(c => c.ContestId == id)
-          .Select(x => new ContestVm
-          {
-              ContestId = x.ContestId,
-              ContestName = x.ContestName,
-              Description = x.Description,
-              CreatedDate = x.CreatedDate,
-              Status = x.Status,
-              CountRegists = x.ContestRegists.Count,
-              Length = x.ContestSchedule.Length,
-              StartTime = x.ContestSchedule.StartTime
-          })
-          .ToListAsync();
-                return checkId;
+                querry = querry.Where(c => c.ContestId == id);
             }
-            return NoContent();
+            else
+            {
+                querry = querry.Where(c => c.ContestName.Contains(find));
+            }
+
+            return await querry.Include(c => c.ContestRegists)
+                 .Select(x => new ContestVm
+                 {
+                     ContestId = x.ContestId,
+                     ContestName = x.ContestName,
+                     Description = x.Description,
+                     CreatedDate = x.CreatedDate,
+                     Status = x.Status,
+                     CountRegists = x.ContestRegists.Count,
+                     Length = x.ContestSchedule.Length,
+                     StartTime = x.ContestSchedule.StartTime
+                 })
+            .ToListAsync();
         }
 
         [HttpGet("Registed/{id}")]
@@ -98,7 +84,7 @@ namespace EnglishExamOnline.Backend.Controllers
             return await _context.Contests
                 .Include(c => c.ContestSchedule)
                 .Include(c => c.ContestRegists)
-                .ThenInclude (cr => cr.Result)
+                .ThenInclude(cr => cr.Result)
                 .Where(x => x.Status == true && x.ContestRegists.FirstOrDefault(ct => ct.UserId == id) != null
                 && x.ContestRegists.FirstOrDefault(ct => ct.UserId == id).Result == null)
                    .Select(x => new ContestVm
@@ -112,6 +98,37 @@ namespace EnglishExamOnline.Backend.Controllers
                        Length = x.ContestSchedule.Length,
                        StartTime = x.ContestSchedule.StartTime
                    }).ToListAsync(); ;
+        }
+
+        [HttpGet("get-by-status/{statusIndex}")]
+        [AllowAnonymous]
+        public async Task<ActionResult<IEnumerable<ContestVm>>> GetContestByStatus(int statusIndex)
+        {
+            var querry = _context.Contests.AsQueryable();
+
+            if (statusIndex == -1)
+            {
+                querry = querry.Where(c => c.Status == false);
+            }
+            else
+            {
+                querry = querry.Where(c => c.Status == true);
+            }
+
+            return await querry
+                .Include(c => c.ContestRegists)
+                .Include(c => c.ContestSchedule)
+                .Select(x => new ContestVm
+                {
+                    ContestId = x.ContestId,
+                    ContestName = x.ContestName,
+                    Description = x.Description,
+                    CreatedDate = x.CreatedDate,
+                    Status = x.Status,
+                    CountRegists = x.ContestRegists.Count,
+                    Length = x.ContestSchedule.Length,
+                    StartTime = x.ContestSchedule.StartTime
+                }).ToListAsync();
         }
 
         [HttpGet("ExceptRegisted/{id}")]

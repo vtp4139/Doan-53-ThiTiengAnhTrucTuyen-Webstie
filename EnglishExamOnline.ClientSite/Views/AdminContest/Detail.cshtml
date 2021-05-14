@@ -31,17 +31,20 @@
     </div>
     <hr style="width:100%;text-align:left;margin-left:0">
     <div class="row justify-content-md-center">
-        @foreach (var item in Model.ListQuestion)
-        {
-            <div class="col-md-10">
-                <p><b>Mã câu hỏi: </b>@item.QuestionId</p>
-                <p><b>Nội dung: </b>@item.QuestionInfo</p>
-                <p><b>A. </b>@item.AnswerA</p>
-                <p><b>B. </b>@item.AnswerB</p>
-                <p><b>C. </b>@item.AnswerC</p>
-                <p><b>D. </b>@item.AnswerD</p>
-                <p><b>Đáp án đúng: </b>@item.CorrectAnswer</p>
-            </div>
+        @{
+            int i = 0;
+            foreach (var item in Model.ListQuestion)
+            {
+                i++;
+                <div class="col-md-10">
+                    <p><b>Câu @i: </b>@item.QuestionInfo</p>
+                    <p><b>A. </b>@item.AnswerA</p>
+                    <p><b>B. </b>@item.AnswerB</p>
+                    <p><b>C. </b>@item.AnswerC</p>
+                    <p><b>D. </b>@item.AnswerD</p>
+                    <p><b>Đáp án đúng: </b><span class="text-danger">@item.CorrectAnswer</span></p>
+                </div>
+            }
         }
     </div>
 </div>
