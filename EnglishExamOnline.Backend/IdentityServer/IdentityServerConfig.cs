@@ -53,7 +53,9 @@ namespace EnglishExamOnline.Backend.IdentityServer
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
                         "english_exam.api"
-                    }
+                    },
+
+                     AccessTokenLifetime = 86400,
               },
 
                 new Client

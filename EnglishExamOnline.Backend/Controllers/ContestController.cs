@@ -28,7 +28,7 @@ namespace EnglishExamOnline.Backend.Controllers
         [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<ContestVm>>> GetContests()
         {
-            return await _context.Contests.Include(c => c.ContestRegists)
+            return await _context.Contests.Include(c => c.ContestRegists).Include(c => c.ContestSchedule)
                 .Select(x => new ContestVm
                 {
                     ContestId = x.ContestId,
@@ -98,7 +98,7 @@ namespace EnglishExamOnline.Backend.Controllers
             return await _context.Contests
                 .Include(c => c.ContestSchedule)
                 .Include(c => c.ContestRegists)
-                .ThenInclude (cr => cr.Result)
+                .ThenInclude(cr => cr.Result)
                 .Where(x => x.Status == true && x.ContestRegists.FirstOrDefault(ct => ct.UserId == id) != null
                 && x.ContestRegists.FirstOrDefault(ct => ct.UserId == id).Result == null)
                    .Select(x => new ContestVm
@@ -112,6 +112,39 @@ namespace EnglishExamOnline.Backend.Controllers
                        Length = x.ContestSchedule.Length,
                        StartTime = x.ContestSchedule.StartTime
                    }).ToListAsync(); ;
+        }
+
+        [HttpGet("get-by-status/{statusIndex}")]
+        [AllowAnonymous]
+        public async Task<ActionResult<IEnumerable<ContestVm>>> GetContestByStatus(int statusIndex)
+        {
+            var contestList = await _context.Contests
+                .Include(c => c.ContestRegists)
+                .Include(c => c.ContestSchedule)
+                .ToListAsync();
+
+            if (statusIndex == -1)
+            {
+                contestList = contestList.Where(c => c.Status == false).ToList();
+            }
+            else
+            {
+                contestList = contestList.Where(c => c.Status == true).ToList();
+            }
+
+            var result = contestList.Select(x => new ContestVm
+            {
+                ContestId = x.ContestId,
+                ContestName = x.ContestName,
+                Description = x.Description,
+                CreatedDate = x.CreatedDate,
+                Status = x.Status,
+                CountRegists = x.ContestRegists.Count,
+                Length = x.ContestSchedule.Length,
+                StartTime = x.ContestSchedule.StartTime
+            }).ToList();
+                
+            return result;
         }
 
         [HttpGet("ExceptRegisted/{id}")]

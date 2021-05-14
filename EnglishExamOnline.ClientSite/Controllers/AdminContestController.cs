@@ -32,20 +32,32 @@ namespace EnglishExamOnline.ClientSite.Controllers
         [HttpPost("/find")]
         public async Task<IActionResult> Find(string find)
         {
+            var getAllcontests = await _contestApiClient.GetContests();
             if (find == null)
             {
-                _notyf.Error("Hãy nhập kí tự bạn muốn tìm kiếm!", 4);
-                return RedirectToAction("Index");
+                return PartialView("Find", getAllcontests);
             }
 
             var contests = await _contestApiClient.FindContests(find);
 
-            if(contests == null)
+            if (contests == null)
             {
                 _notyf.Error("Không tìm thấy cuộc thi nào!", 4);
-                return RedirectToAction("Index");
+                return PartialView("Find", getAllcontests);
             }
             return PartialView("Find", contests);
+        }
+
+        [HttpPost("/get-by-status")]
+        public async Task<IActionResult> GetContestByStatus(int statusIndex)
+        {
+            if (statusIndex == 0)
+            {
+                var contestsList = await _contestApiClient.GetContests();
+                return PartialView("Find", contestsList);
+            }
+            var contestsFilter = await _contestApiClient.GetContestByStatus(statusIndex);
+            return PartialView("Find", contestsFilter);
         }
 
         public ActionResult Create()
