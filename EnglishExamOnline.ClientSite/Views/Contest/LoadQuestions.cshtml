@@ -1,6 +1,36 @@
 ﻿@model EnglishExamOnline.Shared.ViewModels.ContestVm
+<head>
+    <style>
+        .sidenav {
+            height: 100%;
+            width: 250px;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            right: 0;
+            background-color: white;
+            overflow-x: hidden;
+            transition: 0.5s;
+            margin-top: 90px;
+        }
 
+            
+
+    </style>
+</head>
 <div id="render-view">
+    <div id="mySidenav" class="sidenav">
+        <div class="list-group list-group-flush">
+            <p class="list-group-item">
+                <i class="fas fa-clock mr-2"></i><span id="status"></span>
+            </p>
+            
+
+            <a class="list-group-item list-group-item-action bg-success text-white" href="javascipt:void(0);" onclick="PostAnswer()">
+                <i class="fas fa-check-circle mr-2"></i>Nộp bài
+            </a>
+        </div>
+    </div>
     <div class="container" style=" background-color: white; box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; padding: unset; width: 70%">
         <hr class="bg-warning" style=" height: 10px; border-width: 0;">
         <div class="row justify-content-md-center">
@@ -25,7 +55,7 @@
                 <b>Thời gian: </b>@Model.Length phút
             </div>
         </div>
-        <button type="button" class="btn btn-primary" onclick="PostAnswer()">Nộp bài</button>
+        @*<button type="button" class="btn btn-primary" id="submit" onclick="PostAnswer()">Nộp bài</button>*@
         <hr style="width:100%;text-align:left;margin-left:0">
         <div class="row justify-content-md-center">
             @{
@@ -77,4 +107,15 @@
             }
         });
     }
+    var secs = 3;
+    timer = setInterval(function () {
+        var element = document.getElementById("status");
+        element.innerHTML = "<span>Bạn có thời gian <b>"+secs+"</b> để hoàn thành bài thi</span>";
+        if (secs < 1){
+            clearInterval(timer);
+            console.log("done!")
+            /*document.getElementById('submit').click();*/
+        }
+        secs--;
+    }, 1000)
 </script>
