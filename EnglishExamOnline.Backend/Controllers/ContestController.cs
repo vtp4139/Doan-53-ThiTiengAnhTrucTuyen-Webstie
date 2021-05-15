@@ -80,6 +80,9 @@ namespace EnglishExamOnline.Backend.Controllers
         [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<ContestVm>>> GetContestRegisted(string id)
         {
+            if (string.IsNullOrEmpty(id))
+                return NotFound();
+
             //Get list of contest user registed
             return await _context.Contests
                 .Include(c => c.ContestSchedule)
@@ -135,6 +138,9 @@ namespace EnglishExamOnline.Backend.Controllers
         [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<ContestVm>>> GetContestExceptRegisted(string id)
         {
+            if (string.IsNullOrEmpty(id))
+                return NotFound();
+
             var listCon = await _context.Contests
                 .Include(c => c.ContestRegists)
                 .Include(c => c.ContestSchedule)

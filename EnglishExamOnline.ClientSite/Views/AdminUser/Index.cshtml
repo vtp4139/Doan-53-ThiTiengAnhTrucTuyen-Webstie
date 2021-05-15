@@ -23,7 +23,21 @@
                 <td scope="row">@Html.DisplayFor(modelItem => item.UserId)</td>
                 <td> @Html.DisplayFor(modelItem => item.Fullname)</td>
                 <td> @Html.DisplayFor(modelItem => item.Email)</td>
-                <td> @Html.DisplayFor(modelItem => item.PhoneNumber)</td>                         
+                <td> @Html.DisplayFor(modelItem => item.PhoneNumber)</td>
+                <td>
+                    @if (item.LockEnd != null)
+                    {
+                        <a class="badge badge-success" style="width:100px; height:30px" asp-action="ChangeStatusUser" asp-route-UserId="@item.UserId" asp-route-index="1">
+                            <h6><i class="fas fa-lock"></i> Mở khoá</h6>
+                        </a>
+                    }
+                    else
+                    {
+                        <a class="badge badge-danger" style="width:100px; height:30px" asp-action="ChangeStatusUser" asp-route-UserId="@item.UserId" asp-route-index="-1">
+                            <h6><i class="fas fa-lock-open mr-2"></i>Khóa</h6>
+                        </a>
+                    }
+                </td>
             </tr>
         }
     </tbody>

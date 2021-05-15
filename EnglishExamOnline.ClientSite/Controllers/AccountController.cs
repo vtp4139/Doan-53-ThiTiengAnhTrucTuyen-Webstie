@@ -87,7 +87,7 @@ namespace EnglishExamOnline.ClientSite.Controllers
                 _notyf.Error("Mật khẩu cũ bạn nhập vào không đúng!", 4);
                 return RedirectToAction("ChangePassword");
             }
-          
+
             _notyf.Success("Thay đổi mật khẩu thành công.", 4);
             return RedirectToAction("ChangePassword");
         }

@@ -38,6 +38,7 @@ namespace EnglishExamOnline.Backend.Controllers
                     UserId = x.Id,
                     Email = x.Email,
                     Fullname = x.FullName,
+                    LockEnd = x.LockoutEnd.ToString(),
                     PhoneNumber = x.PhoneNumber
                 })
                 .ToListAsync();
@@ -108,6 +109,38 @@ namespace EnglishExamOnline.Backend.Controllers
             }
 
             return NoContent();
+        }
+
+        [HttpPost("lock-user/{id}")]
+        public async Task<ActionResult> LockUser(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+                return NotFound();
+
+            var user = await  _context.Users.Where(u => u.Id == id).FirstOrDefaultAsync();
+            if (user == null)
+                return NotFound();
+
+            user.LockoutEnd = DateTimeOffset.Parse(DateTime.Today.AddDays(365).ToString());
+            _context.Update(user);
+            await _context.SaveChangesAsync();
+            return Ok(user);
+        }
+
+        [HttpPost("unlock-user/{id}")]
+        public async Task<ActionResult> UnlockUser(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+                return NotFound();
+
+            var user = await _context.Users.Where(u => u.Id == id).FirstOrDefaultAsync();
+            if (user == null)
+                return NotFound();
+
+            user.LockoutEnd = null;
+            _context.Update(user);
+            await _context.SaveChangesAsync();
+            return Ok(user);
         }
     }
 }

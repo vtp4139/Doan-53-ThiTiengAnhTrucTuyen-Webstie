@@ -73,5 +73,23 @@ namespace EnglishExamOnline.ClientSite.Services.APIs
             response.EnsureSuccessStatusCode();
             return (int)response.StatusCode;
         }
+
+        public async Task<UserVm> LockUser(string id)
+        {
+            var client = _request.SendAccessToken().Result;
+            var response = await client.PostAsync(_configuration["BackendUrl:Default"] + "/api/User/lock-user/" + id, null);
+
+            response.EnsureSuccessStatusCode();
+            return await response.Content.ReadFromJsonAsync<UserVm>();
+        }
+
+        public async Task<UserVm> UnLockUser(string id)
+        {
+            var client = _request.SendAccessToken().Result;
+            var response = await client.PostAsync(_configuration["BackendUrl:Default"] + "/api/User/unlock-user/" + id, null);
+
+            response.EnsureSuccessStatusCode();
+            return await response.Content.ReadFromJsonAsync<UserVm>();
+        }
     }
 }

@@ -23,5 +23,7 @@ namespace EnglishExamOnline.Shared.ViewModels
 
         [Display(Name = "Địa chỉ")]
         public string Address { get; set; }
+
+        public string? LockEnd { get; set; }
     }
 }

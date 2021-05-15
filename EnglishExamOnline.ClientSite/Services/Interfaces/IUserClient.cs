@@ -18,5 +18,10 @@ namespace EnglishExamOnline.ClientSite.Services.Interfaces
         Task<UserVm> PutUser(UserVm request);
 
         Task<int> ChangePassword(PasswordFormVm request);
+
+        Task<UserVm> LockUser(string id);
+
+        Task<UserVm> UnLockUser(string id);
+
     }
 }
