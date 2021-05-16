@@ -31,8 +31,7 @@ namespace EnglishExamOnline.Shared
         public string AnswerD { get; set; }
 
         [Display(Name = "Đáp án đúng")]
-        [Required(ErrorMessage = "Enter correct answer!")]
-        [StringLength(500, ErrorMessage = "Not exceed 100 characters !")]
+        [StringLength(1)]
         public string CorrectAnswer { get; set; }
     }
 }

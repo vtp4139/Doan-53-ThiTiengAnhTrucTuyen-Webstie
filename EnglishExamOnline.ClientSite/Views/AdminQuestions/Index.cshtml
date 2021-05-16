@@ -35,7 +35,7 @@
                 <td> @Html.DisplayFor(modelItem => item.AnswerB)</td>
                 <td> @Html.DisplayFor(modelItem => item.AnswerC)</td>
                 <td> @Html.DisplayFor(modelItem => item.AnswerD)</td>
-                <td> @Html.DisplayFor(modelItem => item.CorrectAnswer)</td>
+                <td class="text-danger"><b> @Html.DisplayFor(modelItem => item.CorrectAnswer)</b></td>
 
                 <td>
                     <a class="badge badge-warning" style="width:50px" asp-action="Detail" asp-route-id="@item.QuestionId">
