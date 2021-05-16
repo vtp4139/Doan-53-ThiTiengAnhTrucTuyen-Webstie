@@ -27,6 +27,25 @@ namespace EnglishExamOnline.ClientSite.Controllers
             return View(questions);
         }
 
+        [HttpPost("find-quest")]
+        public async Task<IActionResult> Find(string find)
+        {
+            var getAll = await _questionApiClient.GetQuestions();
+            if (find == null)
+            {
+                return PartialView("Find", getAll);
+            }
+
+            var quest = await _questionApiClient.FindQuests(find);
+
+            if (quest == null)
+            {
+                _notyf.Error("Không tìm thấy câu hỏi nào!", 4);
+                return PartialView("Find", getAll);
+            }
+            return PartialView("Find", quest);
+        }
+
         public ActionResult Create()
         {
             return View();

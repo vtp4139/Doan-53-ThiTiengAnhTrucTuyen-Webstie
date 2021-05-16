@@ -35,6 +35,15 @@ namespace EnglishExamOnline.ClientSite.Services.APIs
             return await response.Content.ReadFromJsonAsync<IList<QuestionVm>>();
         }
 
+        public async Task<IList<QuestionVm>> FindQuests(string find)
+        {
+            var client = _httpClientFactory.CreateClient();
+            var response = await client.GetAsync(_configuration["BackendUrl:Default"] + "/api/Questions/find/" + find);
+            response.EnsureSuccessStatusCode();
+
+            return await response.Content.ReadFromJsonAsync<IList<QuestionVm>>();
+        }
+
         public async Task<QuestionVm> GetQuestion(int id)
         {
             var client = _httpClientFactory.CreateClient();

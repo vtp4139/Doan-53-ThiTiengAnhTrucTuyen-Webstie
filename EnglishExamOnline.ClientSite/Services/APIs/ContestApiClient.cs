@@ -40,9 +40,6 @@ namespace EnglishExamOnline.ClientSite.Services.APIs
             var response = await client.GetAsync(_configuration["BackendUrl:Default"] + "/api/Contest/find/" + find);
             response.EnsureSuccessStatusCode();
 
-            if ((int)response.StatusCode == 204)
-                return null;
-
             return await response.Content.ReadFromJsonAsync<IList<ContestVm>>();
         }
 

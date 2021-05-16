@@ -10,6 +10,8 @@ namespace EnglishExamOnline.ClientSite.Services.Interfaces
     {
         Task<IList<QuestionVm>> GetQuestions();
 
+        Task<IList<QuestionVm>> FindQuests(string find);
+
         Task<QuestionVm> GetQuestion(int id);
 
         Task<QuestionVm> PostQuestion(QuestionFormVm question);

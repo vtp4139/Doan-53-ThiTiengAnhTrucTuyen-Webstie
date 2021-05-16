@@ -41,6 +41,38 @@ namespace EnglishExamOnline.Backend.Controllers
                 .ToListAsync();
         }
 
+        [HttpGet("find/{find}")]
+        [AllowAnonymous]
+        public async Task<ActionResult<IEnumerable<QuestionVm>>> FindQuests(string find)
+        {
+            var querry = _context.Questions.AsQueryable();
+
+            int id;
+            bool isNumeric = int.TryParse(find, out id);
+
+            if (isNumeric)
+            {
+                querry = querry.Where(c => c.QuestionId == id);
+            }
+            else
+            {
+                querry = querry.Where(c => c.QuestionInfo.Contains(find));
+            }
+
+            return await querry
+                 .Select(x => new QuestionVm
+                 {
+                     QuestionId = x.QuestionId,
+                     QuestionInfo = x.QuestionInfo,
+                     AnswerA = x.AnswerA,
+                     AnswerB = x.AnswerB,
+                     AnswerC = x.AnswerC,
+                     AnswerD = x.AnswerD,
+                     CorrectAnswer = x.CorrectAnswer,
+                 })
+                .ToListAsync();
+        }
+
         [HttpGet("{id}")]
         [AllowAnonymous]
         public async Task<ActionResult<QuestionVm>> GetQuest(int id)

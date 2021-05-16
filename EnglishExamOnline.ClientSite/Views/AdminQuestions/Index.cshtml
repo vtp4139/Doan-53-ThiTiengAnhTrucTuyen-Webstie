@@ -7,52 +7,70 @@
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script src="~/js/pagination.min.js"></script>
 
+<div class="container mb-2">
+    <div class="row">
+        <div class="col-md-2">
+            <a type="button" class="btn btn-success" asp-controller="AdminQuestions" asp-action="Create">
+                <i class="fas fa-plus-circle mr-2"></i>Thêm mới
+            </a>
+        </div>
+        <div class="col-md-5">
+            <div class="input-group">
+                <div class="form-outline" style="width:80%">
+                    <input style="width:100%" type="search" id="find" name="find" class="form-control" placeholder="Mã: 1, Nội dung: Sunwirth Sneakers has several..." oninput="Find()" />
+                </div>
+                <button type="submit" class="btn btn-primary" style="width:70px" onclick="Find()">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 
-<a type="button" class="btn btn-success mb-2 mt-2" asp-controller="AdminQuestions" asp-action="Create">
-    <i class="fas fa-plus-circle mr-2"></i>Thêm mới
-</a>
-<table class="table border bg-white" style="box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;table-layout: fixed;width: 100%;">
-    <thead>
-        <tr>
-            <th>Mã</th>
-            <th style="width:25%;">Nội dung</th>
-            <th style="width:11%;">Đáp án A</th>
-            <th style="width:11%;">Đáp án B</th>
-            <th style="width:11%;">Đáp án C</th>
-            <th style="width:11%;">Đáp án D</th>
-            <th style="width:15%;">Đáp án đúng</th>
-            <th style="width:10%;"></th>
-        </tr>
-    </thead>
-
-    <tbody id="data-container">
-        @foreach (var item in Model)
-        {
+<div id="render-view">
+    <table class="table border bg-white" style="box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;table-layout: fixed;width: 100%;">
+        <thead>
             <tr>
-                <td scope="row">@Html.DisplayFor(modelItem => item.QuestionId)</td>
-                <td> @Html.DisplayFor(modelItem => item.QuestionInfo)</td>
-                <td> @Html.DisplayFor(modelItem => item.AnswerA)</td>
-                <td> @Html.DisplayFor(modelItem => item.AnswerB)</td>
-                <td> @Html.DisplayFor(modelItem => item.AnswerC)</td>
-                <td> @Html.DisplayFor(modelItem => item.AnswerD)</td>
-                <td class="text-danger"><b> @Html.DisplayFor(modelItem => item.CorrectAnswer)</b></td>
-
-                <td>
-                    <a class="badge badge-warning" style="width:50px" asp-action="Detail" asp-route-id="@item.QuestionId">
-                        <i class="fas fa-eye"></i>
-                    </a>
-                    <a class="badge badge-primary" style="width:50px" asp-action="Edit" asp-route-id="@item.QuestionId">
-                        <i class="fas fa-edit"></i>
-                    </a>
-                    <a class="badge badge-danger" style="width:50px" asp-action="Delete" asp-route-id="@item.QuestionId">
-                        <i class="fas fa-trash-alt"></i>
-                    </a>
-                </td>
+                <th>Mã</th>
+                <th style="width:25%;">Nội dung</th>
+                <th style="width:11%;">Đáp án A</th>
+                <th style="width:11%;">Đáp án B</th>
+                <th style="width:11%;">Đáp án C</th>
+                <th style="width:11%;">Đáp án D</th>
+                <th style="width:15%;">Đáp án đúng</th>
+                <th style="width:10%;"></th>
             </tr>
-        }
-    </tbody>
-</table>
-<div id="pagination"></div>
+        </thead>
+
+        <tbody id="data-container">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td scope="row">@Html.DisplayFor(modelItem => item.QuestionId)</td>
+                    <td> @Html.DisplayFor(modelItem => item.QuestionInfo)</td>
+                    <td> @Html.DisplayFor(modelItem => item.AnswerA)</td>
+                    <td> @Html.DisplayFor(modelItem => item.AnswerB)</td>
+                    <td> @Html.DisplayFor(modelItem => item.AnswerC)</td>
+                    <td> @Html.DisplayFor(modelItem => item.AnswerD)</td>
+                    <td class="text-danger"><b> @Html.DisplayFor(modelItem => item.CorrectAnswer)</b></td>
+
+                    <td>
+                        <a class="badge badge-warning" style="width:50px" asp-action="Detail" asp-route-id="@item.QuestionId">
+                            <i class="fas fa-eye"></i>
+                        </a>
+                        <a class="badge badge-primary" style="width:50px" asp-action="Edit" asp-route-id="@item.QuestionId">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <a class="badge badge-danger" style="width:50px" asp-action="Delete" asp-route-id="@item.QuestionId">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div id="pagination"></div>
+</div>
 
 <script>
     let rows = []
@@ -67,5 +85,18 @@
             $('tbody').html(data);
         }
     })
+
+    function Find() {
+        var findString = $("#find").val();
+
+        $.ajax({
+            method: "POST",
+            url: "/find-quest",
+            data: { find: findString },
+            success: function (result) {
+                $('#render-view').html(result);
+            }
+        });
+    }
 
 </script>

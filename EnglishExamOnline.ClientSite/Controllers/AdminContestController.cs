@@ -29,7 +29,7 @@ namespace EnglishExamOnline.ClientSite.Controllers
             return View(contests);
         }
 
-        [HttpPost("/find")]
+        [HttpPost("find-contest")]
         public async Task<IActionResult> Find(string find)
         {
             var getAllcontests = await _contestApiClient.GetContests();
