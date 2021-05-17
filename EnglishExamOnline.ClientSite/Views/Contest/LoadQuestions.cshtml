@@ -2,7 +2,7 @@
 <head>
     <style>
         .sidenav {
-            height: 100%;
+            height: 75%;
             width: 250px;
             position: fixed;
             z-index: 1;
@@ -11,8 +11,9 @@
             background-color: white;
             overflow-x: hidden;
             transition: 0.5s;
-            margin-top: 90px;
+            margin: 90px 15px 90px 0;
         }
+
     </style>
 </head>
 <div id="render-view">
@@ -27,6 +28,16 @@
             <a class="list-group-item list-group-item-action bg-success text-white" id="submit" style="cursor:pointer;" onclick="PostAnswer()">
                 <i class="fas fa-check-circle mr-2"></i>Nộp bài
             </a>
+            <div class="list-group-item" id="list-q-n">
+                @{
+                    int j = 1;
+                    foreach (var item in Model.ListQuestion)
+                    {
+                        <a class="btn-forward-q btn btn-outline-dark mb-2" id="@("btn-qs"+j)" href="#@("qs"+j)">@j</a>
+                        j++;
+                    }
+                }
+            </div>
         </div>
     </div>
     <div class="container" style=" background-color: white; box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; padding: unset; width: 70%">
@@ -53,7 +64,6 @@
                 <b>Thời gian: </b>@Model.Length phút
             </div>
         </div>
-        @*<button type="button" class="btn btn-primary" id="submit" onclick="PostAnswer()">Nộp bài</button>*@
         <hr style="width:100%;text-align:left;margin-left:0">
         <div class="row justify-content-md-center">
             @{
@@ -61,23 +71,23 @@
                 foreach (var item in Model.ListQuestion)
                 {
                     i++;
-                    <div class="col-md-10">
-                        <p><b>Câu @i: </b>@item.QuestionInfo</p>
-                        <form>
-                            <div class="radio">
-                                <label><input class="mr-2" type="radio" name="optradio{@i}" value="A">A. @item.AnswerA</label>
-                            </div>
-                            <div class="radio">
-                                <label><input class="mr-2" type="radio" name="optradio{@i}" value="B">B. @item.AnswerB</label>
-                            </div>
-                            <div class="radio ">
-                                <label><input class="mr-2" type="radio" name="optradio{@i}" value="C">C. @item.AnswerC</label>
-                            </div>
-                            <div class="radio disabled">
-                                <label><input class="mr-2" type="radio" name="optradio{@i}" value="D">D. @item.AnswerD</label>
-                            </div>
-                        </form>
-                    </div>
+                        <div class="col-md-10">
+                            <p id="@("qs"+i)"><b>Câu @i: </b>@item.QuestionInfo</p>
+                            <form>
+                                <div class="radio">
+                                    <label><input class="mr-2" type="radio" name="optradio{@i}" value="A" onclick="$('#@("btn-qs"+i)').addClass('bg-primary text-white border border-primary');">A. @item.AnswerA</label>
+                                </div>
+                                <div class="radio">
+                                    <label><input class="mr-2" type="radio" name="optradio{@i}" value="B" onclick="$('#@("btn-qs"+i)').addClass('bg-primary text-white border border-primary');">B. @item.AnswerB</label>
+                                </div>
+                                <div class="radio">
+                                    <label><input class="mr-2" type="radio" name="optradio{@i}" value="C" onclick="$('#@("btn-qs"+i)').addClass('bg-primary text-white border border-primary');">C. @item.AnswerC</label>
+                                </div>
+                                <div class="radio">
+                                    <label><input class="mr-2" type="radio" name="optradio{@i}" value="D" onclick="$('#@("btn-qs"+i)').addClass('bg-primary text-white border border-primary');">D. @item.AnswerD</label>
+                                </div>
+                            </form>
+                        </div>
                 }
             }
         </div>
@@ -89,6 +99,7 @@
         for (var i = 1; i <= 10; i++) {
             var answer = $('input[name="optradio{' + i + '}"]:checked').val()
             if (answer != undefined) {
+                console.log("here!")
                 listAnswer.push(answer);
             }
             else {
@@ -135,7 +146,6 @@
         setInterval(timer, 1000);
     }
     var display = document.querySelector('#timeTest');
-    /*startTimer(3600-(minutes*60), display);*/
     startTimer(3600-(minutes*60), display);
-
+    
 </script>
