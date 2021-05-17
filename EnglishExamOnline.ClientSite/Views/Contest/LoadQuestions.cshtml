@@ -16,11 +16,12 @@
 
     </style>
 </head>
+<script src="~/js/load-question-handle.js"></script>
 <div id="render-view">
-    <div id="mySidenav" class="sidenav">
+    <div id="mySidenav" class="sidenav border border-info">
         <div class="list-group list-group-flush">
             <p class="list-group-item">
-                <span id="test">@Model.StartTime</span>
+                <i class="fas fa-calendar-alt mr-2"></i><span id="test">@Model.StartTime</span>
             </p>
             <h5 class="list-group-item">
                 <i class="fas fa-clock mr-2"></i><strong></b><span id="timeTest"></span></strong>
@@ -93,59 +94,3 @@
         </div>
     </div>
 </div>
-<script type="text/javascript">
-    function PostAnswer() {
-        var listAnswer = [];
-        for (var i = 1; i <= 10; i++) {
-            var answer = $('input[name="optradio{' + i + '}"]:checked').val()
-            if (answer != undefined) {
-                console.log("here!")
-                listAnswer.push(answer);
-            }
-            else {
-                listAnswer.push("null");
-            }
-        }
-
-        $.ajax({
-            method: "POST",
-            url: "/result",
-            data: { listAnswer: listAnswer },
-            success: function (result) {
-                $('#render-view').html(result);
-            }
-        });
-    }
-    //count down to submit
-    var sdate = document.getElementById('test').innerHTML;
-    var stime = new Date(sdate);
-    var now = Date.now();
-    var dates = stime.getTime();
-    var compare = now - dates;
-    var minutes = Math.floor(compare / 60000);
-    function startTimer(duration, display) {
-        var start = Date.now();
-        var diff;
-        var minutes;
-        var seconds;
-        async function timer() {
-            diff = duration - (((Date.now() - start) / 1000) | 0);
-            minutes = (diff / 60) | 0;
-            seconds = (diff % 60) | 0;
-
-            minutes = minutes < 10 ? "0" + minutes : minutes;
-            seconds = seconds < 10 ? "0" + seconds : seconds;
-
-            display.textContent = minutes + ":" + seconds;
-            if (diff < 0) {
-                clearInterval(timer);
-                document.getElementById('submit').click();
-            }
-        };
-        timer();
-        setInterval(timer, 1000);
-    }
-    var display = document.querySelector('#timeTest');
-    startTimer(3600-(minutes*60), display);
-    
-</script>
