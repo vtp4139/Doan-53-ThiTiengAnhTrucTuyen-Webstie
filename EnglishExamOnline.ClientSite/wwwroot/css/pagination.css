@@ -1,13 +1,13 @@
 ﻿#pagination ul li {
+    font-size: 20px;
     display: inline;
-    border: 1px black solid;
 }
 
 #pagination a {
     padding: 0 10px 0 10px;
 }
+
 #pagination {
     width: 100%;
     text-align: center;
 }
-
