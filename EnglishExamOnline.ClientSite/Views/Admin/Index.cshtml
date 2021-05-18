@@ -1,10 +1,16 @@
 ﻿@model EnglishExamOnline.Shared.ViewModels.OverviewVm
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
 
 @{
     ViewBag.Title = "Tổng quan";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
+
 <div class="container">
+    <div class="row justify-content-md-center">
+        <h3 class="text-muted mb-5">Xin chào, @HttpContextAccessor.HttpContext.Session.GetString("fullname")</h3>
+    </div>
     <div class="row justify-content-md-center">
         <div class="col-md-4">
             <div class="card mb-4  border border-secondary">
@@ -39,7 +45,7 @@
             <div class="card mb-4  border border-primary">
                 <div class="card-body" style="box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;">
                     <p class="card-title text-muted">Tổng số thí sinh</p>
-                    <h3>@Model.TotalUser</h3>
+                    <h3 class="text-primary">@Model.TotalUser</h3>
                 </div>
             </div>
         </div>
@@ -47,7 +53,7 @@
             <div class="card mb-4  border border-warning">
                 <div class="card-body" style="box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;">
                     <p class="card-title text-muted">Tổng số câu hỏi</p>
-                    <h3>@Model.TotalQuestion</h3>
+                    <h3 class="text-warning">@Model.TotalQuestion</h3>
                 </div>
             </div>
         </div>

@@ -4,6 +4,23 @@
     ViewData["Title"] = "Danh sách cuộc thi";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
+<head>
+    <style>
+        #pagination ul li {
+            font-size: 20px;
+            display: inline;
+        }
+
+        #pagination a {
+            padding: 0 10px 0 10px;
+        }
+
+        #pagination {
+            width: 100%;
+            text-align: center;
+        }
+    </style>
+</head>
 
 <div class="container mb-2">
     <div class="row">
@@ -24,12 +41,15 @@
         <div class="col-md-5">
             <div class="input-group">
                 <div class="form-outline" style="width:80%">
-                    <input style="width:100%" type="search" id="find" name="find" class="form-control" placeholder="Mã: 100, Tên: English Test (Morning) - ETS 21" oninput="Find()"/>
+                    <input style="width:100%" type="search" id="find" name="find" class="form-control" placeholder="Mã: 100, Tên: English Test (Morning) - ETS 21" oninput="Find()" />
                 </div>
                 <button type="submit" class="btn btn-primary" style="width:70px" onclick="Find()">
                     <i class="fas fa-search"></i>
                 </button>
             </div>
+        </div>
+        <div class="col-md-2 text-muted mt-2">
+            <h5 id="find-count"></h5>
         </div>
     </div>
 </div>
@@ -98,31 +118,77 @@
         </tbody>
     </table>
 </div>
-@*Use ajax to find*@
-<script type="text/javascript">
-    function Find() {
-        var findString = $("#find").val();
+@if (Model.Count() > 10)
+{
+    <div id="pagination"></div>
+}
 
-        $.ajax({
-            method: "POST",
-            url: "/find-contest",
-            data: { find: findString },
-            success: function (result) {
-                $('#render-view').html(result);
-            }
-        });
-    }
+@section Scripts
+{
+    <script src="@Url.Content("~/js/pagination.min.js")"></script>
+    <script>
+        //Pagination and refresh when find click
+        refreshPagination();
+        function refreshPagination() {
+            let rows = []
+            $('table tbody tr').each(function (i, row) {
+                return rows.push(row);
+            });
 
-    function Filter() {
-        var index = $("#filter").val();
+            $('#pagination').pagination({
+                dataSource: rows,
+                pageSize: 10,
+                callback: function (data, pagination) {
+                    $('tbody').html(data);
+                }
+            })
+        }
 
-        $.ajax({
-            method: "POST",
-            url: "/get-by-status",
-            data: { statusIndex: index },
-            success: function (result) {
-                $('#render-view').html(result);
-            }
-        });
-    }
-</script>
+        function Find() {
+            var findString = $("#find").val();
+
+            $.ajax({
+                method: "POST",
+                url: "/find-contest",
+                data: { find: findString },
+                success: function (result) {
+                    $('#render-view').html(result);
+                    var countCurrent = parseInt(document.getElementById('getCount').textContent);
+                    if (countCurrent != @Model.Count()) {
+                        document.getElementById('find-count').innerHTML = "Có " + countCurrent + " kết quả";
+                    }
+                    else {
+                        document.getElementById('find-count').innerHTML = "";
+                    }
+                    if (countCurrent < 10) {
+                        document.getElementById('pagination').style.display = 'none';
+                    }
+                    else {
+                        document.getElementById('pagination').style.display = 'block';
+                        refreshPagination();
+                    }
+                }
+            });
+        }
+
+        function Filter() {
+            var index = $("#filter").val();
+            $.ajax({
+                method: "POST",
+                url: "/get-by-status",
+                data: { statusIndex: index },
+                success: function (result) {
+                    $('#render-view').html(result);
+                    var countCurrent = parseInt(document.getElementById('getCount').textContent);
+                    if (countCurrent < 10) {
+                        document.getElementById('pagination').style.display = 'none';
+                    }
+                    else {
+                        document.getElementById('pagination').style.display = 'block';
+                        refreshPagination();
+                    }
+                }
+            });
+        }
+    </script>
+}

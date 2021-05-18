@@ -5,15 +5,38 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
+<head>
+    <style>
+        #pagination ul li {
+            font-size: 20px;
+            display: inline;
+        }
+
+        #pagination a {
+            padding: 0 10px 0 10px;
+        }
+
+        #pagination {
+            width: 100%;
+            text-align: center;
+        }
+    </style>
+</head>
+
 <div class="container mb-2">
-    <div class="col-md-5">
-        <div class="input-group">
-            <div class="form-outline" style="width:80%">
-                <input style="width:100%" type="search" id="find" name="find" class="form-control" placeholder="Mã: 1, Tên: Nguyễn Vĩnh Long Vinh" oninput="Find()" />
+    <div class="row">
+        <div class="col-md-5">
+            <div class="input-group">
+                <div class="form-outline" style="width:80%">
+                    <input style="width:100%" type="search" id="find" name="find" class="form-control" placeholder="Mã: 1, Tên: Nguyễn Vĩnh Long Vinh" oninput="Find()" />
+                </div>
+                <button type="submit" class="btn btn-primary" style="width:70px" onclick="Find()">
+                    <i class="fas fa-search"></i>
+                </button>
             </div>
-            <button type="submit" class="btn btn-primary" style="width:70px" onclick="Find()">
-                <i class="fas fa-search"></i>
-            </button>
+        </div>
+        <div class="col-md-2 text-muted mt-2">
+            <h5 id="find-count"></h5>
         </div>
     </div>
 </div>
@@ -57,19 +80,41 @@
         </tbody>
     </table>
 </div>
+@if (Model.Count() > 10)
+{
+    <div id="pagination"></div>
+}
 
-@*Use ajax to find*@
-<script type="text/javascript">
-    function Find() {
-        var findString = $("#find").val();
 
-        $.ajax({
-            method: "POST",
-            url: "/find-user",
-            data: { find: findString },
-            success: function (result) {
-                $('#render-view').html(result);
-            }
-        });
-    }
-</script>
+@section Scripts
+{
+    <script src="@Url.Content("~/js/pagination.min.js")"></script>
+    <script type="text/javascript">
+        function Find() {
+            var findString = $("#find").val();
+
+            $.ajax({
+                method: "POST",
+                url: "/find-user",
+                data: { find: findString },
+                success: function (result) {
+                    $('#render-view').html(result);
+                     var countCurrent = parseInt(document.getElementById('getCount').textContent);
+                    if (countCurrent != @Model.Count()) {
+                        document.getElementById('find-count').innerHTML = "Có " + countCurrent + " kết quả";
+                    }
+                    else {
+                        document.getElementById('find-count').innerHTML = "";
+                    }
+                    if (countCurrent < 10) {
+                        document.getElementById('pagination').style.display = 'none';
+                    }
+                    else {
+                        document.getElementById('pagination').style.display = 'block';
+                        refreshPagination();
+                    }
+                }
+            });
+        }
+    </script>
+}
