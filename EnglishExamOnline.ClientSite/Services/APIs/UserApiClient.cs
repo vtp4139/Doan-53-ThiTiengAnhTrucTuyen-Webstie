@@ -34,6 +34,15 @@ namespace EnglishExamOnline.ClientSite.Services.APIs
             return await response.Content.ReadFromJsonAsync<IList<UserVm>>();
         }
 
+        public async Task<IList<UserVm>> FindUsers(string find)
+        {
+            var client = _httpClientFactory.CreateClient();
+            var response = await client.GetAsync(_configuration["BackendUrl:Default"] + "/api/User/find/" + find);
+            response.EnsureSuccessStatusCode();
+
+            return await response.Content.ReadFromJsonAsync<IList<UserVm>>();
+        }
+
         public async Task<bool> CheckRoleAdmin(string id)
         {
             var client = _request.SendAccessToken().Result;

@@ -44,6 +44,23 @@ namespace EnglishExamOnline.Backend.Controllers
                 .ToListAsync();
         }
 
+        [HttpGet("find/{find}")]
+        [AllowAnonymous]
+        public async Task<ActionResult<IEnumerable<UserVm>>> FindUsers(string find)
+        {
+            return await _context.Users
+                .Where(u => u.FullName.Contains(find) || u.Id.Contains(find))
+                 .Select(x => new UserVm
+                 {
+                     UserId = x.Id,
+                     Email = x.Email,
+                     Fullname = x.FullName,
+                     LockEnd = x.LockoutEnd.ToString(),
+                     PhoneNumber = x.PhoneNumber
+                 })
+                .ToListAsync();
+        }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<UserVm>> GetUser(string id)
         {
