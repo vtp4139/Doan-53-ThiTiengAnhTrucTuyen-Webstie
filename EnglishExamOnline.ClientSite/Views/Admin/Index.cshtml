@@ -1,5 +1,55 @@
-﻿@{
-    ViewBag.Title = "Edit";
+﻿@model EnglishExamOnline.Shared.ViewModels.OverviewVm
+
+@{
+    ViewBag.Title = "Tổng quan";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
-<h1 class="text-secondary">Chức năng đang được xây dựng</h1>
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-md-4">
+            <div class="card mb-4  border border-secondary">
+                <div class="card-body" style="box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;">
+                    <p class="card-title text-muted">Tổng số cuộc thi</p>
+                    <h3>@Model.TotalContest</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card mb-4 border border-success">
+                <div class="card-body" style="box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;">
+                    <p class="card-title text-muted">Cuộc thi đang mở</p>
+                    <h3 class="text-success">@Model.TotalContestOpen</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card mb-4 border border-danger">
+                <div class="card-body" style="box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;">
+                    <p class="card-title text-muted">Cuộc thi đã đóng</p>
+                    <h3 class="text-danger">@Model.TotalContestEnd</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-md-center">
+        <div class="col-md-5">
+            <div class="card mb-4  border border-primary">
+                <div class="card-body" style="box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;">
+                    <p class="card-title text-muted">Tổng số thí sinh</p>
+                    <h3>@Model.TotalUser</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="card mb-4  border border-warning">
+                <div class="card-body" style="box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;">
+                    <p class="card-title text-muted">Tổng số câu hỏi</p>
+                    <h3>@Model.TotalQuestion</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,9 +1,12 @@
-﻿<ul class="navbar-nav">
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+
+<ul class="navbar-nav">
     @if (User.Identity.IsAuthenticated)
     {
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-user-circle mr-2"></i>@User.Identity.Name
+                <i class="fas fa-user-circle mr-2"></i>@HttpContextAccessor.HttpContext.Session.GetString("fullname")
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" asp-controller="Account" asp-action="MyProfile">Tài khoản</a>

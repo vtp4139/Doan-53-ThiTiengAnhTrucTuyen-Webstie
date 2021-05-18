@@ -1,5 +1,6 @@
 ﻿using EnglishExamOnline.ClientSite.Models;
 using EnglishExamOnline.ClientSite.Services.Interfaces;
+using EnglishExamOnline.Shared.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -31,7 +32,11 @@ namespace EnglishExamOnline.ClientSite.Controllers
                 //Get user id
                 string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 bool check = _UserClient.CheckRoleAdmin(userId).Result;
-                       
+
+                //Get fullname
+                UserVm getUser = _UserClient.GetUser(userId).Result;
+                HttpContext.Session.SetString("fullname", getUser.Fullname);
+
                 //Check role is admin or not
                 if (check)
                 {
