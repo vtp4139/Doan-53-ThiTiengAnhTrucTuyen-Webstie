@@ -266,7 +266,7 @@ namespace EnglishExamOnline.Backend.Controllers
             List<int> listRand = new List<int>();
 
             //List random without duplicate. Random 10 questions
-            while (listRand.Count < 10)
+            while (listRand.Count < 50)
             {
                 int indexRand = r.Next(questList.Result.Count() - 1);
 

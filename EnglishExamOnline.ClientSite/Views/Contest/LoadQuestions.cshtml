@@ -2,7 +2,7 @@
 <head>
     <style>
         .sidenav {
-            height: 75%;
+            height: 85%;
             width: 250px;
             position: fixed;
             z-index: 1;
@@ -11,24 +11,23 @@
             background-color: white;
             overflow-x: hidden;
             transition: 0.5s;
-            margin: 90px 15px 90px 0;
+            margin: 90px 15px 0 0;
         }
 
+        .btn-forward-q{
+            width: 34px;
+            height: 34px;
+            text-align: center;
+        }
     </style>
 </head>
-<script src="~/js/load-question-handle.js"></script>
+
 <div id="render-view">
     <div id="mySidenav" class="sidenav border border-info">
         <div class="list-group list-group-flush">
-            <p class="list-group-item">
-                <i class="fas fa-calendar-alt mr-2"></i><span id="test">@Model.StartTime</span>
-            </p>
             <h5 class="list-group-item">
                 <i class="fas fa-clock mr-2"></i><strong></b><span id="timeTest"></span></strong>
             </h5>
-            <a class="list-group-item list-group-item-action bg-success text-white" id="submit" style="cursor:pointer;" onclick="PostAnswer()">
-                <i class="fas fa-check-circle mr-2"></i>Nộp bài
-            </a>
             <div class="list-group-item" id="list-q-n">
                 @{
                     int j = 1;
@@ -39,6 +38,9 @@
                     }
                 }
             </div>
+            <a class="list-group-item list-group-item-action bg-success text-white" id="submit" style="cursor:pointer; position:sticky; bottom: 0;" onclick="PostAnswer()">
+                <i class="fas fa-check-circle mr-2"></i>Nộp bài
+            </a>
         </div>
     </div>
     <div class="container" style=" background-color: white; box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; padding: unset; width: 70%">
@@ -59,7 +61,7 @@
         </div>
         <div class="row justify-content-md-center">
             <div class="col-md-5">
-                <b>Ngày thi: </b>@Model.StartTime
+                <b>Ngày thi: </b><span id="test">@Model.StartTime</span>
             </div>
             <div class="col-md-5">
                 <b>Thời gian: </b>@Model.Length phút
@@ -94,3 +96,5 @@
         </div>
     </div>
 </div>
+
+<script src="~/js/load-question-handle.js"></script>
