@@ -1,9 +1,5 @@
 ﻿using EnglishExamOnline.ClientSite.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace EnglishExamOnline.ClientSite.ViewComponents

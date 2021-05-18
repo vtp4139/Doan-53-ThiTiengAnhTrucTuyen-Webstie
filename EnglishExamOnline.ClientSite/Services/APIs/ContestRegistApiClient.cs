@@ -1,12 +1,8 @@
-﻿using AspNetCoreHero.ToastNotification.Abstractions;
-using EnglishExamOnline.ClientSite.Services.Interfaces;
+﻿using EnglishExamOnline.ClientSite.Services.Interfaces;
 using EnglishExamOnline.Shared.FormViewModels;
 using EnglishExamOnline.Shared.ViewModels;
-using IdentityModel.Client;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Newtonsoft.Json;
 using System;
 using System.Net.Http;
