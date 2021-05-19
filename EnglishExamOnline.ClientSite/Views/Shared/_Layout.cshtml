@@ -25,7 +25,19 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" style="font-size:18px" asp-area="" asp-controller="Home" asp-action="Index"><i class="fas fa-home"></i> Trang chủ</a>
+                            <a class="nav-link text-dark" style="font-size:18px" asp-controller="Home" asp-action="Index">
+                                <i class="fas fa-home"></i> Trang chủ
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" style="font-size:18px" asp-controller="Home" asp-action="GetContests">
+                                <i class="fas fa-calendar-check"></i> Cuộc thi mở đăng ký
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" style="font-size:18px" asp-controller="Home" asp-action="GetEndContests">
+                                <i class="fas fa-calendar-times"></i> Cuộc thi đã kết thúc
+                            </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" style="font-size:18px" asp-area="" asp-controller="Home" asp-action="Privacy">Chính sách</a>

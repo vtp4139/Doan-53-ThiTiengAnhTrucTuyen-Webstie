@@ -1,0 +1,30 @@
+﻿@model IList<EnglishExamOnline.Shared.ViewModels.ContestVm>
+<div class="col-md-4">
+    <div class="card mb-4 bg-secondary" style="height:176px">
+        <div class="card-body">
+            <h2 style="color:white">Các cuộc thi đã kết thúc</h2>
+        </div>
+    </div>
+</div>
+<!--Item contest-->
+@{
+    int count = 0;
+    foreach (var item in Model)
+    {
+        if (item.Status == false)
+        {
+            count++;
+            <div class="col-md-4">
+                <a class="card mb-4" id="item-contest" asp-controller="Contest" asp-action="Detail" asp-route-id="@item.ContestId">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.ContestName</h5>
+                        <p><span class="badge badge-secondary">Đã kết thúc</span></p>
+                        <p class="card-text"><small class="text-muted">Lịch thi: @item.StartTime</small></p>
+                        <p class="card-text"><small class="text-muted">Có @item.CountRegists thí sinh đã tham gia thi.</small></p>
+                    </div>
+                </a>
+            </div>
+        }
+    }
+    <span id="getCount" style="display:none">@count</span>
+}

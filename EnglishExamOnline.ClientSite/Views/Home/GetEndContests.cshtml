@@ -1,0 +1,72 @@
+﻿@model IList<EnglishExamOnline.Shared.ViewModels.ContestVm>
+
+<div class="container mb-4">
+    <div class="row">
+        <div class="col-md-5">
+            <div class="input-group">
+                <div class="form-outline" style="width:80%">
+                    <input style="width:100%" type="search" id="find" name="find" class="form-control" placeholder="Mã: 1, Nội dung: Sunwirth Sneakers has several..." />
+                </div>
+                <button type="submit" class="btn btn-primary" style="width:70px" onclick="Find()">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+        <div class="col-md-2 text-muted mt-2">
+            <h5 id="find-count"></h5>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <!--Title of regis-->
+    <div class="row" id="render-view">
+        <div class="col-md-4">
+            <div class="card mb-4 bg-secondary" style="height:176px">
+                <div class="card-body">
+                    <h2 style="color:white">Các cuộc thi đã kết thúc</h2>
+                </div>
+            </div>
+        </div>
+        <!--Item contest-->
+        @foreach (var item in Model)
+        {
+            if (item.Status == false)
+            {
+                <div class="col-md-4">
+                    <a class="card mb-4" id="item-contest" asp-controller="Contest" asp-action="Detail" asp-route-id="@item.ContestId">
+                        <div class="card-body">
+                            <h5 class="card-title">@item.ContestName</h5>
+                            <p><span class="badge badge-secondary">Đã kết thúc</span></p>
+                            <p class="card-text"><small class="text-muted">Lịch thi: @item.StartTime</small></p>
+                            <p class="card-text"><small class="text-muted">Có @item.CountRegists thí sinh đã tham gia thi.</small></p>
+                        </div>
+                    </a>
+                </div>
+            }
+        }
+    </div>
+</div>
+
+<script>
+    function Find() {
+        var findString = $("#find").val();
+
+        $.ajax({
+            method: "POST",
+            url: "/find-end-contests",
+            data: { find: findString },
+            success: function (result) {
+                $('#render-view').html(result);
+                var countCurrent = parseInt(document.getElementById('getCount').textContent);
+                if (findString == "") {
+                    document.getElementById('find-count').innerHTML = "";
+
+                }
+                else {
+                    document.getElementById('find-count').innerHTML = "Có " + countCurrent + " kết quả";
+                }
+            }
+        });
+    }
+</script>

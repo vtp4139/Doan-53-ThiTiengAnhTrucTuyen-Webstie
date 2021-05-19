@@ -54,6 +54,64 @@ namespace EnglishExamOnline.ClientSite.Controllers
             }
         }
 
+        public async Task<IActionResult> GetContests()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                //Get user id
+                string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var contests = await _contestApiClient.GetContestExceptRegisted(userId);
+                return View(contests);
+            }
+            else
+            {
+                var contests = await _contestApiClient.GetContests();
+                return View(contests);
+            }
+        }
+
+        public async Task<IActionResult> GetEndContests()
+        {
+            var contests = await _contestApiClient.GetContests();
+            return View(contests);
+        }
+
+        [HttpPost("find-contests")]
+        public async Task<IActionResult> FindContests(string find)
+        {
+            var getAllcontests = await _contestApiClient.GetContests();
+            if (find == null)
+            {
+                return PartialView("FindContests", getAllcontests);
+            }
+
+            var contests = await _contestApiClient.FindContests(find);
+
+            if (contests == null)
+            {
+                return PartialView("FindContests", getAllcontests);
+            }
+            return PartialView("FindContests", contests);
+        }
+
+        [HttpPost("find-end-contests")]
+        public async Task<IActionResult> FindEndContests(string find)
+        {
+            var getAllcontests = await _contestApiClient.GetContests();
+            if (find == null)
+            {
+                return PartialView("FindEndContests", getAllcontests);
+            }
+
+            var contests = await _contestApiClient.FindContests(find);
+
+            if (contests == null)
+            {
+                return PartialView("FindEndContests", getAllcontests);
+            }
+            return PartialView("FindEndContests", contests);
+        }
+
         public IActionResult Privacy()
         {
             return View();

@@ -1,0 +1,38 @@
+﻿@model IList<EnglishExamOnline.Shared.ViewModels.ContestVm>
+<!--Item contest-->
+<div class="col-md-4">
+    <div class="card mb-4 bg-primary" style="height:269px">
+        <div class="card-body">
+            <h2 style="color:white">Đăng ký các cuộc thi đã mở</h2>
+            <hr style="width:100%;text-align:left;margin-left:0;color:white">
+            <h5 style="color:white">Chọn cuộc thi bạn muốn tham gia và nhấn xem chi tiết để đăng ký.</h5>
+        </div>
+    </div>
+</div>
+<!--Item contest-->
+@{
+    int count = 0;
+    foreach (var item in Model)
+    {
+        if (item.Status == true)
+        {
+            count++;
+            <div class="col-md-4">
+                <a class="card mb-4" id="item-contest" asp-controller="Contest" asp-action="Detail" asp-route-id="@item.ContestId">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.ContestName</h5>
+                        <p><span class="badge badge-success">Mở đăng ký</span></p>
+                        <hr style="width:100%;text-align:left;margin-left:0">
+                        <p class="card-text"><b>Thời gian mở:</b> @item.CreatedDate</p>
+                        <p class="card-text"><b>Lịch thi:</b> @item.StartTime</p>
+                        <p class="card-text"><b>Thời lượng:</b> @item.Length phút</p>
+                        <p class="card-text"><small class="text-muted">Số người đăng ký: @item.CountRegists</small></p>
+                    </div>
+                </a>
+            </div>
+        }
+    }
+    <span id="getCount" style="display:none">@count</span>
+}
+
+
