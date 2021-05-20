@@ -1,4 +1,5 @@
 ﻿using EnglishExamOnline.ClientSite.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
@@ -27,6 +28,7 @@ namespace EnglishExamOnline.ClientSite.Controllers
             return View(product);
         }
 
+        [Authorize]
         public async Task<IActionResult> DetailRegisted(int id)
         {
             var product = await _contestApiClient.GetContest(id);
@@ -34,6 +36,7 @@ namespace EnglishExamOnline.ClientSite.Controllers
             return View(product);
         }
 
+        [Authorize]
         [HttpGet("/questions")]
         public async Task<ActionResult> LoadQuestions(int id)
         {
@@ -45,6 +48,7 @@ namespace EnglishExamOnline.ClientSite.Controllers
             return PartialView("LoadQuestions", quest);
         }
 
+        [Authorize]
         [HttpPost("/result")]
         public async Task<ActionResult> Result(List<string> listAnswer)
         {

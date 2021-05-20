@@ -1,6 +1,7 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
 using EnglishExamOnline.ClientSite.Services.Interfaces;
 using EnglishExamOnline.Shared.FormViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -21,11 +22,9 @@ namespace EnglishExamOnline.ClientSite.Controllers
             _notyf = notyf;
         }
 
+        [Authorize]
         public IActionResult PostRegist(int id)
         {
-            if (!User.Identity.IsAuthenticated)
-                return RedirectToAction(actionName: "SignIn", controllerName: "Account");
-
             ContestRegistFormVm x = new ContestRegistFormVm();
             x.ContestId = id;
             x.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -40,6 +39,7 @@ namespace EnglishExamOnline.ClientSite.Controllers
             return View(result);
         }
 
+        [Authorize]
         public IActionResult RemoveRegist(int id)
         {
             ContestRegistFormVm x = new ContestRegistFormVm();

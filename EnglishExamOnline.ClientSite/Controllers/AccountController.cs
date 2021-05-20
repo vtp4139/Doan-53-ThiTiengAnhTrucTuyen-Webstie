@@ -73,6 +73,7 @@ namespace EnglishExamOnline.ClientSite.Controllers
             return View();
         }
 
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ChangePassword(PasswordFormVm request)
