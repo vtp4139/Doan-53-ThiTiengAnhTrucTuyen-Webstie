@@ -1,28 +1,32 @@
 ﻿@page
 @model LoginModel
 
-<div class="container  bg-white" style="box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; padding: unset; width: 35%;">
+<div class="container bg-white mt-5" style="box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; padding: unset; width: 35%;">
     <h5 class="text-center text-white bg-info p-2 mb-3" style="border-width: 0;">Đăng nhập</h5>
-    <div class="row  justify-content-md-center">
+    <div class="row justify-content-md-center">
         <div class="col-md-10">
             <section>
                 <form id="account" method="post">
                     <div asp-validation-summary="All" class="text-danger"></div>
                     <div class="form-group">
-                        <label asp-for="Input.Email"></label>
+                        <label class="font-weight-bold" asp-for="Input.Email"></label>
                         <input asp-for="Input.Email" class="form-control" />
                         <span asp-validation-for="Input.Email" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="Input.Password"></label>
+                        <label class="font-weight-bold" asp-for="Input.Password"></label>
                         <input asp-for="Input.Password" class="form-control" />
                         <span asp-validation-for="Input.Password" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary btn-block">Đăng nhập</button>
+                        <button type="submit" class="btn btn-primary btn-block">
+                            <i class="fas fa-sign-in-alt mr-2"></i><strong>Đăng nhập</strong>
+                        </button>
                     </div>
                     <div class="form-group">
-                        <a class="btn btn-danger btn-block" asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Đăng ký</a>
+                        <a class="btn btn-danger btn-block" asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">
+                            <i class="fas fas fa-pen mr-2"></i><strong>Đăng ký</strong>
+                        </a>
                     </div>
 
                     @*<div class="form-group">

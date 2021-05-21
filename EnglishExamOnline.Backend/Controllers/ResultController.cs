@@ -35,7 +35,7 @@ namespace EnglishExamOnline.Backend.Controllers
                 {
                     ResultId = r.ResultId,
                     Point = r.Point,
-                    NumOfCorrect = r.Point,
+                    NumOfCorrect = r.NumOfCorrect,
                     EndTime = r.EndTime,
                     ContestName = r.ContestRegist.Contest.ContestName,
                     StartTime = r.ContestRegist.Contest.ContestSchedule.StartTime,
