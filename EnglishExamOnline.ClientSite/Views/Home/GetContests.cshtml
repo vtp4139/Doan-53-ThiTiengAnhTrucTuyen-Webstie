@@ -1,5 +1,9 @@
 ﻿@model IList<EnglishExamOnline.Shared.ViewModels.ContestVm>
 
+@{
+    ViewData["Title"] = "Cuộc thi đang mở đăng ký";
+}
+
 <div class="container mb-4">
     <div class="row">
         <div class="col-md-5">
@@ -68,10 +72,10 @@
                 if (findString == "") {
                     document.getElementById('find-count').innerHTML = "";
 
-                    }
-                    else {
-                        document.getElementById('find-count').innerHTML = "Có " + countCurrent + " kết quả";
-                    }
+                }
+                else {
+                    document.getElementById('find-count').innerHTML = "Có " + countCurrent + " kết quả";
+                }
             }
         });
     }

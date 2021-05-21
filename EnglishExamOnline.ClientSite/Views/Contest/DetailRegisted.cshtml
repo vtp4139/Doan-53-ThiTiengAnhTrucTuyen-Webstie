@@ -1,4 +1,9 @@
 ﻿@model EnglishExamOnline.Shared.ViewModels.ContestVm
+
+@{
+    ViewData["Title"] = "Chi tiết: " + Model.ContestName;
+}
+
 <!--Add css file to razor view-->
 @section Styles {
     <link href="@Url.Content("~/css/detail.css")" rel="stylesheet" type="text/css" />

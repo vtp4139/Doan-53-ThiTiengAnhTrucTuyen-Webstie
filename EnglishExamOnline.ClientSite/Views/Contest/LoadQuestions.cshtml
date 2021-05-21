@@ -1,4 +1,9 @@
 ﻿@model EnglishExamOnline.Shared.ViewModels.ContestVm
+
+@{
+    ViewData["Title"] = "Đang thi đề: " + Model.ContestName;
+}
+
 <head>
     <style>
         .sidenav {
@@ -14,7 +19,7 @@
             margin: 90px 15px 0 0;
         }
 
-        .btn-forward-q{
+        .btn-forward-q {
             width: 34px;
             height: 34px;
             text-align: center;
@@ -74,23 +79,23 @@
                 foreach (var item in Model.ListQuestion)
                 {
                     i++;
-                        <div class="col-md-10">
-                            <p id="@("qs"+i)"><b>Câu @i: </b>@item.QuestionInfo</p>
-                            <form>
-                                <div class="radio">
-                                    <label><input class="mr-2" type="radio" name="optradio{@i}" value="A" onclick="$('#@("btn-qs"+i)').addClass('bg-primary text-white border border-primary');">A. @item.AnswerA</label>
-                                </div>
-                                <div class="radio">
-                                    <label><input class="mr-2" type="radio" name="optradio{@i}" value="B" onclick="$('#@("btn-qs"+i)').addClass('bg-primary text-white border border-primary');">B. @item.AnswerB</label>
-                                </div>
-                                <div class="radio">
-                                    <label><input class="mr-2" type="radio" name="optradio{@i}" value="C" onclick="$('#@("btn-qs"+i)').addClass('bg-primary text-white border border-primary');">C. @item.AnswerC</label>
-                                </div>
-                                <div class="radio">
-                                    <label><input class="mr-2" type="radio" name="optradio{@i}" value="D" onclick="$('#@("btn-qs"+i)').addClass('bg-primary text-white border border-primary');">D. @item.AnswerD</label>
-                                </div>
-                            </form>
-                        </div>
+                    <div class="col-md-10">
+                        <p id="@("qs"+i)"><b>Câu @i: </b>@item.QuestionInfo</p>
+                        <form>
+                            <div class="radio">
+                                <label><input class="mr-2" type="radio" name="optradio{@i}" value="A" onclick="$('#@("btn-qs"+i)').addClass('bg-primary text-white border border-primary');">A. @item.AnswerA</label>
+                            </div>
+                            <div class="radio">
+                                <label><input class="mr-2" type="radio" name="optradio{@i}" value="B" onclick="$('#@("btn-qs"+i)').addClass('bg-primary text-white border border-primary');">B. @item.AnswerB</label>
+                            </div>
+                            <div class="radio">
+                                <label><input class="mr-2" type="radio" name="optradio{@i}" value="C" onclick="$('#@("btn-qs"+i)').addClass('bg-primary text-white border border-primary');">C. @item.AnswerC</label>
+                            </div>
+                            <div class="radio">
+                                <label><input class="mr-2" type="radio" name="optradio{@i}" value="D" onclick="$('#@("btn-qs"+i)').addClass('bg-primary text-white border border-primary');">D. @item.AnswerD</label>
+                            </div>
+                        </form>
+                    </div>
                 }
             }
         </div>
