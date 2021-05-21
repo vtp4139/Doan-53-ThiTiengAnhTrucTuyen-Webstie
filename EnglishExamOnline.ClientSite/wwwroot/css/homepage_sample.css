@@ -1,0 +1,60 @@
+﻿body {
+    font-family: Arial,Helvetica,sans-serif;
+}
+
+#headerh {
+    background-image: linear-gradient(to right,rgb(114, 211, 254),rgba(132, 217, 255,0.8),rgba(152, 221, 252, 0.5)), url(../imgs/bg-header.jpeg);
+    background-size: cover;
+    height: 90vh;
+    background-attachment: fixed;
+}
+
+.row {
+    max-width: 1140px;
+    margin: 0 auto;
+}
+
+#main-heading {
+    /* display: flex;
+    justify-content:center;
+    align-items:center; */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 1140px;
+}
+
+h1 {
+    text-transform: uppercase;
+    font-weight: 500;
+    letter-spacing: 1px;
+    word-spacing: 5px;
+    font-size: 300%;
+    line-height: 125%;
+}
+
+#btn {
+    background: orangered;
+    color: white;
+    transition: background-color 2s, color 2s;
+}
+
+.text-content01 {
+    text-align: center;
+}
+
+.content02 {
+    display: flex;
+    height: fit-content
+}
+
+    .content02 img {
+        width: 50%;
+    }
+
+.text-content02 {
+    width: 30%;
+    margin-left: 10%;
+    margin-right: 10%;
+}

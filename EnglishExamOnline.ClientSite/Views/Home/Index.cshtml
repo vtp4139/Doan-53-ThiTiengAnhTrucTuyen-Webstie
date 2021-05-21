@@ -4,10 +4,42 @@
 @{
     ViewData["Title"] = "Trang chủ - VPenglish";
 }
+@section Styles {
+    @*<link href="~/css/homepage_sample.css" rel="stylesheet" type="text/css" />*@
+    <link href="@Url.Content("~/css/homepage_sample.css")" rel="stylesheet" type="text/css" />
+}
 
 @if (User.Identity.IsAuthenticated)
 {
     @await Component.InvokeAsync("ContestRegisted", new { id = User.FindFirstValue(ClaimTypes.NameIdentifier) })
+}
+else
+{
+    <section id="headerh">
+        <div class="container">
+            <div id="main-heading">
+                <h1>Học cùng bạn<br /> thi với bạn<br /> và giúp bạn <br />tiến về phía trước.</h1>
+                <h3>
+                    Thi trực tuyến miễn phí với <span style="color:#007BFF">V-P</span><span style="color:#FFC107">english</span>
+                </h3>
+                <button id="btn" class="btn">Đăng ký ngay</button>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="content01" class="mt-4 mb-4">
+        <div class="container">
+            <div class="text-content01">
+                <h2>Kiểm tra trình độ tiếng Anh của bạn</h2>
+                <p>
+                    Chúng tôi là <strong><span style="color:#007BFF;">V-P</span><span style="color:#FFC107">english</span> </strong>. Trực thuộc Trung tâm đào tạo Ngoại ngữ V-Penglish, chúng tôi giúp hàng
+                    nghìn người học tiếng Anh và chứng tỏ khả năng của mình cho cả thế giới.
+                </p>
+            </div>
+
+        </div>
+    </section>
 }
 
 <!--Get contest open regist-->
@@ -46,33 +78,68 @@
     </div>
 </div>
 <hr style="width:100%;text-align:left;margin-left:0">
-<!--Get contest ended-->
-<div class="container">
-    <!--Title of regis-->
-    <div class="row">
-        <div class="col-md-4">
-            <div class="card mb-4 bg-secondary" style="height:176px">
-                <div class="card-body">
-                    <h2 style="color:white">Các cuộc thi đã kết thúc</h2>
+
+@if (User.Identity.IsAuthenticated)
+{
+    <!--Get contest ended-->
+    <div class="container">
+        <!--Title of regis-->
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card mb-4 bg-secondary" style="height:176px">
+                    <div class="card-body">
+                        <h2 style="color:white">Các cuộc thi đã kết thúc</h2>
+                    </div>
                 </div>
             </div>
-        </div>
-        <!--Item contest-->
-        @foreach (var item in Model)
-        {
-            if (item.Status == false)
+            <!--Item contest-->
+            @foreach (var item in Model)
             {
-                <div class="col-md-4">
-                    <a class="card mb-4" id="item-contest" asp-controller="Contest" asp-action="Detail" asp-route-id="@item.ContestId">
-                        <div class="card-body">
-                            <h5 class="card-title">@item.ContestName</h5>
-                            <p><span class="badge badge-secondary">Đã kết thúc</span></p>
-                            <p class="card-text"><small class="text-muted">Lịch thi: @item.StartTime</small></p>
-                            <p class="card-text"><small class="text-muted">Có @item.CountRegists thí sinh đã tham gia thi.</small></p>
-                        </div>
-                    </a>
-                </div>
+                if (item.Status == false)
+                {
+                    <div class="col-md-4">
+                        <a class="card mb-4" id="item-contest" asp-controller="Contest" asp-action="Detail" asp-route-id="@item.ContestId">
+                            <div class="card-body">
+                                <h5 class="card-title">@item.ContestName</h5>
+                                <p><span class="badge badge-secondary">Đã kết thúc</span></p>
+                                <p class="card-text"><small class="text-muted">Lịch thi: @item.StartTime</small></p>
+                                <p class="card-text"><small class="text-muted">Có @item.CountRegists thí sinh đã tham gia thi.</small></p>
+                            </div>
+                        </a>
+                    </div>
+                }
             }
-        }
+        </div>
     </div>
-</div>
+}
+else
+{
+    <div class="mt-5">
+        <section class="content02 mt-5">
+            <img src="~/imgs/content02-section.jpg" alt="cap" />
+            <div class="text-content02">
+                <h3>Hành trình từng bước học tiếng Anh</h3>
+                <p>
+                    V-Penglish Qualifications là các kỳ thi chuyên sâu giúp cho việc học tiếng Anh trở nên thú vị,
+                    hiệu quả và bổ ích. Phương pháp tiếp cận độc đáo của chúng tôi khuyến khích sự tiến bộ không ngừng
+                    với lộ trình học rõ ràng giúp nâng cao kỹ năng ngôn ngữ. Chúng tôi có các văn bằng chứng chỉ cho
+                    trường học, dùng cho các mục đích thông thường, giáo dục bậc cao và thương mại.
+                </p>
+                <button class="btn btn-dark">Tìm hiểu thêm ></button>
+            </div>
+        </section>
+        <section class="content02">
+            <div class="text-content02 mt-4">
+                <h3>Đơn giản hóa bài thi tiếng Anh của bạn</h3>
+                <p>
+                    V-Pcontest là một bài thi trực tuyến nhanh chóng và thuận tiện nhằm giúp các tổ chức giáo dục và
+                    nhà tuyển dụng kiểm tra trình độ tiếng Anh của các cá nhân và nhóm ứng cử viên. Bài thi này
+                    kết hợp công nghệ mới nhất với độ tin cậy và chất lượng mà mọi người mong đợi từ V-Penglish.
+                </p>
+                <button class="btn btn-dark">Tìm hiểu thêm ></button>
+            </div>
+            <img src="~/imgs/content03-section.jpg" alt="cap" />
+        </section>
+    </div>
+}
+
