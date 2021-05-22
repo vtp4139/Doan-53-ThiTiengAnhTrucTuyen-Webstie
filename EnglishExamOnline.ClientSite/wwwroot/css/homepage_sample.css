@@ -5,7 +5,7 @@
 #headerh {
     background-image: linear-gradient(to right,rgb(114, 211, 254),rgba(132, 217, 255,0.8),rgba(152, 221, 252, 0.5)), url(../imgs/bg-header.jpeg);
     background-size: cover;
-    height: 90vh;
+    height: 70vh;
     background-attachment: fixed;
 }
 
@@ -23,6 +23,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     width: 1140px;
+    font-family: Cambria, Cochin, Georgia, Times, Times New Roman, serif;
 }
 
 h1 {
@@ -42,19 +43,21 @@ h1 {
 
 .text-content01 {
     text-align: center;
+    font-family: Cambria, Cochin, Georgia, Times, Times New Roman, serif;
 }
 
 .content02 {
     display: flex;
-    height: fit-content
+    height: fit-content;
 }
 
-    .content02 img {
-        width: 50%;
-    }
+.content02 img {
+    width: 50%;
+}
 
 .text-content02 {
     width: 30%;
     margin-left: 10%;
     margin-right: 10%;
+    font-family: Cambria, Cochin, Georgia, Times, Times New Roman, serif;
 }
