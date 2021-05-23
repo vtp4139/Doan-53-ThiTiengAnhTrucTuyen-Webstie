@@ -9,6 +9,12 @@ namespace EnglishExamOnline.Shared.ViewModels
 {
     public class ResultVm
     {
+        public ResultVm()
+        {
+            ListQuestion = new List<QuestionVm>();
+            ListAnswers = new List<string>();
+        }
+
         public int ResultId { get; set; }
        
         public int Point { get; set; }
@@ -20,5 +26,9 @@ namespace EnglishExamOnline.Shared.ViewModels
         public string ContestName { get; set; }
 
         public DateTime StartTime { get; set; }
+
+        public List<QuestionVm> ListQuestion { get; set; }
+
+        public List<string> ListAnswers { get; set; }
     }
 }

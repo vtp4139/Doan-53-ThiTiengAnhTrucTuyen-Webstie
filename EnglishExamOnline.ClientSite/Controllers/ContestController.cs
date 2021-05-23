@@ -54,6 +54,10 @@ namespace EnglishExamOnline.ClientSite.Controllers
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var result = await _resultApiClient.PostResult(listAnswer, userId);
+            
+            //Show result and choice of user
+            ViewBag.ListAnswers = result.ListAnswers;
+
             return PartialView("Result", result);
         }
     }

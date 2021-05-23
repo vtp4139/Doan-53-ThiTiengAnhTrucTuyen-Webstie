@@ -10,36 +10,38 @@
 }
 else
 {
-    <div id="render-view">
-        <table class="table border bg-white" style=" box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;">
-            <thead>
-                <tr>
-                    <th>Tên cuộc thi</th>
-                    <th>Ngày thi</th>
-                    <th>Kết thúc</th>
-                    <th style="text-align:center">Số câu đúng</th>
-                    <th style="text-align:center">Tổng điểm</th>
-                    <th></th>
-                </tr>
-            </thead>
-
-            <tbody>
-                @foreach (var item in Model)
-                {
+    <div class="container">
+        <div class="row">
+            <table class="table border bg-white" style=" box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;">
+                <thead>
                     <tr>
-                        <td scope="row">@Html.DisplayFor(modelItem => item.ContestName)</td>
-                        <td> @Html.DisplayFor(modelItem => item.StartTime)</td>
-                        <td> @Html.DisplayFor(modelItem => item.EndTime)</td>
-                        <td style="text-align:center">
-                            <h5 class="text-warning">@Html.DisplayFor(modelItem => item.NumOfCorrect)</h5>
-                        </td>
-                        <td style="text-align:center">
-                            <h5 class="text-danger">@Html.DisplayFor(modelItem => item.Point)</h5>
-                        </td>
+                        <th>Tên cuộc thi</th>
+                        <th>Ngày thi</th>
+                        <th>Kết thúc</th>
+                        <th style="text-align:center">Số câu đúng</th>
+                        <th style="text-align:center">Tổng điểm</th>
+                        <th></th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td scope="row">@Html.DisplayFor(modelItem => item.ContestName)</td>
+                            <td> @Html.DisplayFor(modelItem => item.StartTime)</td>
+                            <td> @Html.DisplayFor(modelItem => item.EndTime)</td>
+                            <td style="text-align:center">
+                                <h5 class="text-warning">@Html.DisplayFor(modelItem => item.NumOfCorrect)</h5>
+                            </td>
+                            <td style="text-align:center">
+                                <h5 class="text-danger">@Html.DisplayFor(modelItem => item.Point)</h5>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
 }
 

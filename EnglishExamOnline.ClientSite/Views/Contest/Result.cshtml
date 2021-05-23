@@ -21,4 +21,95 @@
             <a type="button" class="btn btn-secondary p-2 mb-3" id="btn-back" asp-controller="Home" asp-action="Index">Xác nhận</a>
         </div>
     </div>
+    <hr style="width:100%;text-align:left;margin-left:0">
+
+    @*Show result detail contest include correct answers and user's answers*@
+    <div class="row justify-content-md-center">
+        @{
+            List<string> ListAnswer = ViewBag.ListAnswers as List<string>;
+            for (int i = 0; i < Model.ListQuestion.Count; i++)
+            {
+                int index = i + 1;
+                <div class="col-md-10">
+                    <p><b>Câu @index: </b>@Model.ListQuestion[i].QuestionInfo</p>
+                    @if (ListAnswer[i] == Model.ListQuestion[i].CorrectAnswer)
+                    {
+                        switch (ListAnswer[i])
+                        {
+                            case "A":
+                                <p class="text-success font-weight-bold"><b>A. </b>@Model.ListQuestion[i].AnswerA</p>
+                                <p><b>B. </b>@Model.ListQuestion[i].AnswerB</p>
+                                <p><b>C. </b>@Model.ListQuestion[i].AnswerC</p>
+                                <p><b>D. </b>@Model.ListQuestion[i].AnswerD</p>
+                                break;
+                            case "B":
+                                <p><b>A. </b>@Model.ListQuestion[i].AnswerA</p>
+                                <p class="text-success font-weight-bold"><b>B. </b>@Model.ListQuestion[i].AnswerB</p>
+                                <p><b>C. </b>@Model.ListQuestion[i].AnswerC</p>
+                                <p><b>D. </b>@Model.ListQuestion[i].AnswerD</p>
+                                break;
+                            case "C":
+                                <p><b>A. </b>@Model.ListQuestion[i].AnswerA</p>
+                                <p><b>B. </b>@Model.ListQuestion[i].AnswerB</p>
+                                <p class="text-success font-weight-bold"><b>C. </b>@Model.ListQuestion[i].AnswerC</p>
+                                <p><b>D. </b>@Model.ListQuestion[i].AnswerD</p>
+                                break;
+                            default:
+                                <p><b>A. </b>@Model.ListQuestion[i].AnswerA</p>
+                                <p><b>B. </b>@Model.ListQuestion[i].AnswerB</p>
+                                <p><b>C. </b>@Model.ListQuestion[i].AnswerC</p>
+                                <p class="text-success font-weight-bold"><b>D. </b>@Model.ListQuestion[i].AnswerD</p>
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        if (ListAnswer[i] != "null")
+                        {
+                            switch (ListAnswer[i])
+                            {
+                                case "A":
+                                    <p class="text-danger font-weight-bold"><b>A. </b>@Model.ListQuestion[i].AnswerA</p>
+                                    <p><b>B. </b>@Model.ListQuestion[i].AnswerB</p>
+                                    <p><b>C. </b>@Model.ListQuestion[i].AnswerC</p>
+                                    <p><b>D. </b>@Model.ListQuestion[i].AnswerD</p>
+                                    <p><b class="font-italic">Đáp án đúng: </b><span class="text-danger font-weight-bold">@Model.ListQuestion[i].CorrectAnswer</span></p>
+                                    break;
+                                case "B":
+                                    <p><b>A. </b>@Model.ListQuestion[i].AnswerA</p>
+                                    <p class="text-danger font-weight-bold"><b>B. </b>@Model.ListQuestion[i].AnswerB</p>
+                                    <p><b>C. </b>@Model.ListQuestion[i].AnswerC</p>
+                                    <p><b>D. </b>@Model.ListQuestion[i].AnswerD</p>
+                                    <p><b class="font-italic">Đáp án đúng: </b><span class="text-danger font-weight-bold">@Model.ListQuestion[i].CorrectAnswer</span></p>
+                                    break;
+                                case "C":
+                                    <p><b>A. </b>@Model.ListQuestion[i].AnswerA</p>
+                                    <p><b>B. </b>@Model.ListQuestion[i].AnswerB</p>
+                                    <p class="text-danger font-weight-bold"><b>C. </b>@Model.ListQuestion[i].AnswerC</p>
+                                    <p><b>D. </b>@Model.ListQuestion[i].AnswerD</p>
+                                    <p><b class="font-italic">Đáp án đúng: </b><span class="text-danger font-weight-bold">@Model.ListQuestion[i].CorrectAnswer</span></p>
+                                    break;
+                                default:
+                                    <p><b>A. </b>@Model.ListQuestion[i].AnswerA</p>
+                                    <p><b>B. </b>@Model.ListQuestion[i].AnswerB</p>
+                                    <p><b>C. </b>@Model.ListQuestion[i].AnswerC</p>
+                                    <p class="text-danger font-weight-bold"><b>D. </b>@Model.ListQuestion[i].AnswerD</p>
+                                    <p><b class="font-italic">Đáp án đúng: </b><span class="text-danger font-weight-bold">@Model.ListQuestion[i].CorrectAnswer</span></p>
+                                    break;
+                            }
+                        }
+                        else
+                        {
+                            <p class="text-danger">(Không chọn)</p>
+                            <p><b>A. </b>@Model.ListQuestion[i].AnswerA</p>
+                            <p><b>B. </b>@Model.ListQuestion[i].AnswerB</p>
+                            <p><b>C. </b>@Model.ListQuestion[i].AnswerC</p>
+                            <p><b>D. </b>@Model.ListQuestion[i].AnswerD</p>
+                            <p><b class="font-italic">Đáp án đúng: </b><span class="text-danger font-weight-bold">@Model.ListQuestion[i].CorrectAnswer</span></p>
+                        }
+                    }
+                </div>
+            }
+        }
+    </div>
 </div>

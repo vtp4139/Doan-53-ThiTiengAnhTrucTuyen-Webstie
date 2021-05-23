@@ -95,12 +95,29 @@ namespace EnglishExamOnline.Backend.Controllers
             _context.Results.Add(result);
             await _context.SaveChangesAsync();
 
-            return Ok(new ResultVm
+            //Return a result on view
+            ResultVm resultVm = new ResultVm();
+            resultVm.Point = result.Point;
+            resultVm.NumOfCorrect = result.NumOfCorrect;
+            resultVm.EndTime = result.EndTime;
+            resultVm.ListAnswers = listAnswer;
+
+            foreach (var item in getContest.QuestionDetails)
             {
-                Point = result.Point,
-                NumOfCorrect = result.NumOfCorrect,
-                EndTime = result.EndTime,
-            });
+                QuestionVm newItem = new QuestionVm();
+
+                newItem.QuestionId = item.QuestionId;
+                newItem.QuestionInfo = item.Question.QuestionInfo;
+                newItem.AnswerA = item.Question.AnswerA;
+                newItem.AnswerB = item.Question.AnswerB;
+                newItem.AnswerC = item.Question.AnswerC;
+                newItem.AnswerD = item.Question.AnswerD;
+                newItem.CorrectAnswer = item.Question.CorrectAnswer;
+
+               resultVm.ListQuestion.Add(newItem);
+            }
+
+            return Ok(resultVm);
         }
     }
 }
