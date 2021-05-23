@@ -19,12 +19,14 @@
         <div class="col-md-10" style="text-align:center">
             <hr style="width:100%;text-align:left;margin-left:0">
             <a type="button" class="btn btn-secondary p-2 mb-3" id="btn-back" asp-controller="Home" asp-action="Index">Xác nhận</a>
+            <button class="btn btn-success p-2 mb-3" onclick="showDetailRes()">Chi tiết đáp án</button>
         </div>
     </div>
     <hr style="width:100%;text-align:left;margin-left:0">
 
     @*Show result detail contest include correct answers and user's answers*@
-    <div class="row justify-content-md-center">
+<div id ="result_detail" style="display:none">
+    <div class="row justify-content-md-center" id="result_detail">
         @{
             List<string> ListAnswer = ViewBag.ListAnswers as List<string>;
             for (int i = 0; i < Model.ListQuestion.Count; i++)
@@ -113,3 +115,15 @@
         }
     </div>
 </div>
+    
+</div>
+<script>
+    function showDetailRes() {
+        var x = document.getElementById("result_detail");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+</script>
