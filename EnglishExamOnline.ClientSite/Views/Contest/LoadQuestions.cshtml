@@ -26,80 +26,80 @@
         }
     </style>
 </head>
-
-<div id="render-view">
-    <div id="mySidenav" class="sidenav border border-info">
-        <div class="list-group list-group-flush">
-            <h5 class="list-group-item">
-                <i class="fas fa-clock mr-2"></i><strong></b><span id="timeTest"></span></strong>
-            </h5>
-            <div class="list-group-item" id="list-q-n">
+<div class="container">
+    <div id="render-view">
+        <div id="mySidenav" class="sidenav border border-info">
+            <div class="list-group list-group-flush">
+                <h5 class="list-group-item">
+                    <i class="fas fa-clock mr-2"></i><strong></b><span id="timeTest"></span></strong>
+                </h5>
+                <div class="list-group-item" id="list-q-n">
+                    @{
+                        int j = 1;
+                        foreach (var item in Model.ListQuestion)
+                        {
+                            <a class="btn-forward-q btn btn-outline-dark mb-2" id="@("btn-qs"+j)" href="#@("qs"+j)">@j</a>
+                            j++;
+                        }
+                    }
+                </div>
+                <a class="list-group-item list-group-item-action bg-success text-white" id="submit" style="cursor:pointer; position:sticky; bottom: 0;" onclick="PostAnswer()">
+                    <i class="fas fa-check-circle mr-2"></i>Nộp bài
+                </a>
+            </div>
+        </div>
+        <div class="container" style=" background-color: white; box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; padding: unset; width: 70%">
+            <hr class="bg-warning" style=" height: 10px; border-width: 0;">
+            <div class="row justify-content-md-center">
+                <div class="col-md-10" style="text-align:center">
+                    <h3>Chi tiết đề thi</h3>
+                    <hr style="width:100%;text-align:left;margin-left:0">
+                </div>
+            </div>
+            <div class="row justify-content-md-center">
+                <div class="col-md-3">
+                    <b>Mã đề: </b>@Model.ContestId
+                </div>
+                <div class="col-md-7">
+                    <b>Tên cuộc thi: </b>@Model.ContestName
+                </div>
+            </div>
+            <div class="row justify-content-md-center">
+                <div class="col-md-5">
+                    <b>Ngày thi: </b><span id="test">@Model.StartTime</span>
+                </div>
+                <div class="col-md-5">
+                    <b>Thời gian: </b>@Model.Length phút
+                </div>
+            </div>
+            <hr style="width:100%;text-align:left;margin-left:0">
+            <div class="row justify-content-md-center">
                 @{
-                    int j = 1;
+                    int i = 0;
                     foreach (var item in Model.ListQuestion)
                     {
-                        <a class="btn-forward-q btn btn-outline-dark mb-2" id="@("btn-qs"+j)" href="#@("qs"+j)">@j</a>
-                        j++;
+                        i++;
+                        <div class="col-md-10">
+                            <p id="@("qs"+i)"><b>Câu @i: </b>@item.QuestionInfo</p>
+                            <form>
+                                <div class="radio">
+                                    <label><input class="mr-2" type="radio" name="optradio{@i}" value="A" onclick="$('#@("btn-qs"+i)').addClass('bg-primary text-white border border-primary');">A. @item.AnswerA</label>
+                                </div>
+                                <div class="radio">
+                                    <label><input class="mr-2" type="radio" name="optradio{@i}" value="B" onclick="$('#@("btn-qs"+i)').addClass('bg-primary text-white border border-primary');">B. @item.AnswerB</label>
+                                </div>
+                                <div class="radio">
+                                    <label><input class="mr-2" type="radio" name="optradio{@i}" value="C" onclick="$('#@("btn-qs"+i)').addClass('bg-primary text-white border border-primary');">C. @item.AnswerC</label>
+                                </div>
+                                <div class="radio">
+                                    <label><input class="mr-2" type="radio" name="optradio{@i}" value="D" onclick="$('#@("btn-qs"+i)').addClass('bg-primary text-white border border-primary');">D. @item.AnswerD</label>
+                                </div>
+                            </form>
+                        </div>
                     }
                 }
             </div>
-            <a class="list-group-item list-group-item-action bg-success text-white" id="submit" style="cursor:pointer; position:sticky; bottom: 0;" onclick="PostAnswer()">
-                <i class="fas fa-check-circle mr-2"></i>Nộp bài
-            </a>
-        </div>
-    </div>
-    <div class="container" style=" background-color: white; box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; padding: unset; width: 70%">
-        <hr class="bg-warning" style=" height: 10px; border-width: 0;">
-        <div class="row justify-content-md-center">
-            <div class="col-md-10" style="text-align:center">
-                <h3>Chi tiết đề thi</h3>
-                <hr style="width:100%;text-align:left;margin-left:0">
-            </div>
-        </div>
-        <div class="row justify-content-md-center">
-            <div class="col-md-3">
-                <b>Mã đề: </b>@Model.ContestId
-            </div>
-            <div class="col-md-7">
-                <b>Tên cuộc thi: </b>@Model.ContestName
-            </div>
-        </div>
-        <div class="row justify-content-md-center">
-            <div class="col-md-5">
-                <b>Ngày thi: </b><span id="test">@Model.StartTime</span>
-            </div>
-            <div class="col-md-5">
-                <b>Thời gian: </b>@Model.Length phút
-            </div>
-        </div>
-        <hr style="width:100%;text-align:left;margin-left:0">
-        <div class="row justify-content-md-center">
-            @{
-                int i = 0;
-                foreach (var item in Model.ListQuestion)
-                {
-                    i++;
-                    <div class="col-md-10">
-                        <p id="@("qs"+i)"><b>Câu @i: </b>@item.QuestionInfo</p>
-                        <form>
-                            <div class="radio">
-                                <label><input class="mr-2" type="radio" name="optradio{@i}" value="A" onclick="$('#@("btn-qs"+i)').addClass('bg-primary text-white border border-primary');">A. @item.AnswerA</label>
-                            </div>
-                            <div class="radio">
-                                <label><input class="mr-2" type="radio" name="optradio{@i}" value="B" onclick="$('#@("btn-qs"+i)').addClass('bg-primary text-white border border-primary');">B. @item.AnswerB</label>
-                            </div>
-                            <div class="radio">
-                                <label><input class="mr-2" type="radio" name="optradio{@i}" value="C" onclick="$('#@("btn-qs"+i)').addClass('bg-primary text-white border border-primary');">C. @item.AnswerC</label>
-                            </div>
-                            <div class="radio">
-                                <label><input class="mr-2" type="radio" name="optradio{@i}" value="D" onclick="$('#@("btn-qs"+i)').addClass('bg-primary text-white border border-primary');">D. @item.AnswerD</label>
-                            </div>
-                        </form>
-                    </div>
-                }
-            }
         </div>
     </div>
 </div>
-
 <script src="~/js/load-question-handle.js"></script>
