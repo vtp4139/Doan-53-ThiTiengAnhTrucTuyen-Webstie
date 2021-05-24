@@ -1,10 +1,10 @@
 ﻿@model EnglishExamOnline.Shared.ViewModels.ContestRegistVm
 <!--Add css file to razor view-->
-@section Styles {
-    <link href="@Url.Content("~/css/regist-confirm.css")" rel="stylesheet" type="text/css" />
+@{
+    ViewData["Title"] = "Đăng ký thành công: " + Model.ContestName;
 }
 
-<div class="container" id="item-detail">
+<div class="container container-item container-item-medium">
     <hr class="bg-success" id="line-head">
     <div class="row justify-content-md-center">
         <div class="col-md-10" style="text-align:center">

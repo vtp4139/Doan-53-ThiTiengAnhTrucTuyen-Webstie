@@ -9,14 +9,43 @@
     color: black;
 }
 
-#item-contest:hover {
-    border: 1px solid #0094FF;
-}
+    #item-contest:hover {
+        border: 1px solid #0094FF;
+    }
 
 .card {
     border-color: white;
 }
 
 .card-text {
-    font-size:15px;
+    font-size: 15px;
+}
+
+/*Apply for item use container and line top*/
+.container-item {
+    background-color: white;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    padding: unset;
+}
+
+.container-item-small {
+    width: 50%;
+}
+
+.container-item-medium {
+    width: 60%;
+}
+
+.container-item-large {
+    width: 80%;
+}
+
+.line-head {
+    height: 10px;
+    border-width: 0;
+}
+
+.button-confirm {
+    width: 150px;
+    font-size: 18px;
 }

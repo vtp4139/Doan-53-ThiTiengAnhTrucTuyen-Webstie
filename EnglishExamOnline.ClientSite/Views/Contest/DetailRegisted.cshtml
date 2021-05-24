@@ -4,14 +4,9 @@
     ViewData["Title"] = "Chi tiết: " + Model.ContestName;
 }
 
-<!--Add css file to razor view-->
-@section Styles {
-    <link href="@Url.Content("~/css/detail.css")" rel="stylesheet" type="text/css" />
-}
-
 <div id="render">
-    <div class="container" id="item-detail">
-        <hr class="bg-danger" id="line-head">
+    <div class="container container-item container-item-large">
+        <hr class="bg-danger line-head">
         <div class="row justify-content-md-center">
             <div class="col-md-10" style="text-align:center">
                 <h2>@Model.ContestName</h2>
@@ -65,9 +60,6 @@
     });
 
     function LoadQuestions() {
-            @*@section  Layout{
-        Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
-    }*@
         $.ajax({
             method: "GET",
             url: "/questions",

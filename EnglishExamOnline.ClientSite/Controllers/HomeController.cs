@@ -40,7 +40,6 @@ namespace EnglishExamOnline.ClientSite.Controllers
                 //Check role is admin or not
                 if (check)
                 {
-                    TempData["role"] = "admin"; //For view
                     HttpContext.Session.SetString("role", "admin"); //Secure controller
                 }
 

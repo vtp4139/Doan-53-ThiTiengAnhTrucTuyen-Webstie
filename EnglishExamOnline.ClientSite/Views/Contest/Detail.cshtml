@@ -4,19 +4,14 @@
     ViewData["Title"] = "Chi tiết: " + Model.ContestName;
 }
 
-<!--Add css file to razor view-->
-@section Styles {
-    <link href="@Url.Content("~/css/detail.css")" rel="stylesheet" type="text/css" />
-}
-
-<div class="container mb-5" id="item-detail">
+<div class="container mb-5 container-item container-item-large">
     @if (Model.Status == true)
     {
-        <hr class="bg-primary" id="line-head">
+        <hr class="bg-primary line-head">
     }
     else
     {
-        <hr class="bg-secondary" id="line-head">
+        <hr class="bg-secondary line-head">
     }
     <div class="row justify-content-md-center">
         <div class="col-md-10" style="text-align:center">
@@ -34,11 +29,11 @@
             <p><i>Có @Model.CountRegists thí sinh đã đăng ký</i></p>
             @if (Model.Status == true)
             {
-                <button type="button" class="btn btn-warning" id="btn-regist" data-toggle="modal" data-target="#confirm-delete">Đăng ký</button>
+                <button type="button" class="btn btn-warning button-confirm" data-toggle="modal" data-target="#confirm-delete">Đăng ký</button>
             }
             else
             {
-                <button type="button" class="btn btn-secondary" id="btn-regist" disabled>Đã kết thúc</button>
+                <button type="button" class="btn btn-secondary button-confirm" id="btn-regist" disabled>Đã kết thúc</button>
             }
         </div>
     </div>
