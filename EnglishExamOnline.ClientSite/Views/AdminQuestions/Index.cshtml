@@ -63,9 +63,23 @@
                         <a class="badge badge-primary" style="width:50px" asp-action="Edit" asp-route-id="@item.QuestionId">
                             <i class="fas fa-edit"></i>
                         </a>
-                        <a class="badge badge-danger" style="width:50px" asp-action="Delete" asp-route-id="@item.QuestionId">
+                        <a class="badge badge-danger text-white" href="" style="width:50px" data-toggle="modal" data-target="#confirm-delete-@item.QuestionId">
                             <i class="fas fa-trash-alt"></i>
                         </a>
+                        <!--Modal confirm Yes/No-->
+                        <div class="modal fade" id="confirm-delete-@item.QuestionId" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <p>Xác nhận xóa câu hỏi này?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Thoát</button>
+                                        <a class="btn btn-danger btn-ok" asp-action="Delete" asp-route-id="@item.QuestionId">Xác nhận</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </td>
                 </tr>
             }

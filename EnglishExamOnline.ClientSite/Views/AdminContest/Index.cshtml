@@ -83,9 +83,24 @@
                             <a class="badge badge-primary" style="width:50px" asp-action="Edit" asp-route-id="@item.ContestId">
                                 <i class="fas fa-edit"></i>
                             </a>
-                            <a class="badge badge-danger" style="width:50px" asp-action="Delete" asp-route-id="@item.ContestId">
+                            <a class="badge badge-danger text-white" href="" style="width:50px" data-toggle="modal" data-target="#confirm-delete-@item.ContestId">
                                 <i class="fas fa-trash-alt"></i>
                             </a>
+
+                            <!--Modal confirm Yes/No-->
+                            <div class="modal fade" id="confirm-delete-@item.ContestId" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-body">
+                                            <p>Xác nhận xóa cuộc thi này?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Thoát</button>
+                                            <a class="btn btn-danger btn-ok" asp-action="Delete" asp-route-id="@item.ContestId">Xác nhận</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </td>
                     }
                     else
@@ -109,6 +124,7 @@
 
 @section Scripts
 {
+    @*<script src="~/js/modal.js"></script>*@
     <script src="@Url.Content("~/js/pagination.min.js")"></script>
     <script>
         //Pagination and refresh when find click
