@@ -37,6 +37,14 @@ namespace EnglishExamOnline.ClientSite.Controllers
         }
 
         [Authorize]
+        public async Task<IActionResult> DetailContesting(int id)
+        {
+            var product = await _contestApiClient.GetContest(id);
+
+            return View(product);
+        }
+
+        [Authorize]
         [HttpGet("/questions")]
         public async Task<ActionResult> LoadQuestions(int id)
         {

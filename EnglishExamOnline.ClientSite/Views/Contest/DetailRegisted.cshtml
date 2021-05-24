@@ -21,15 +21,7 @@
                 <p><b>Lịch thi: </b>@Model.StartTime</p>
                 <p><b>Thời lượng thi: </b>@Model.Length phút</p>
                 <p><i>Có @Model.CountRegists thí sinh đã đăng ký</i></p>
-                @if (DateTime.Now >= Model.StartTime && DateTime.Now < Model.StartTime.AddMinutes(60))
-                {
-                    <p class="text-danger"><i>Cuộc thi đang được diễn ra. Hãy tham gia thi.</i></p>
-                    <button type="button" class="btn btn-danger" onclick="LoadQuestions()">Bắt đầu thi</button>
-                }
-                else
-                {
-                    <button type="button" class="btn btn-danger" id="btn-regist" data-toggle="modal" data-target="#confirm-delete">Hủy đăng ký</button>
-                }
+                <button type="button" class="btn btn-danger" id="btn-regist" data-toggle="modal" data-target="#confirm-delete">Hủy đăng ký</button>
             </div>
         </div>
 
@@ -57,15 +49,4 @@
 
         $('.debug-url').html('Delete URL: <strong>' + $(this).find('.btn-ok').attr('href') + '</strong>');
     });
-
-    function LoadQuestions() {
-        $.ajax({
-            method: "GET",
-            url: "/questions",
-            data: { id: @Model.ContestId },
-            success: function (result) {
-                $('#render').html(result);
-            }
-        });
-    }
 </script>

@@ -1,0 +1,46 @@
+﻿@model EnglishExamOnline.Shared.ViewModels.ContestVm
+
+@{
+    ViewData["Title"] = Model.ContestName;
+    Layout = "~/Views/Shared/_LayoutContesting.cshtml";
+}
+
+<div id="render">
+    <div class="container container-item container-item-large">
+        <hr class="bg-warning line-head">
+        <div class="row justify-content-md-center">
+            <div class="col-md-10" style="text-align:center">
+                <h2 class="text-warning">@Model.ContestName</h2>
+                <p class="text-danger"><i>Cuộc thi đang được diễn ra. Hãy tham gia thi.</i></p>
+                <hr style="width:100%;text-align:left;margin-left:0">
+            </div>
+        </div>
+        <div class="row justify-content-md-center">
+            <!--p: padding, m: margin / mb: margin-bottom -->
+            <div class="col-md-5 p-2 mb-3" style=" border-right: 1px solid #E5E5E5;">@Model.Description</div>
+            <div class="col-md-5 p-2 mb-3">
+                <p><b>Thời gian mở đăng ký: </b>@Model.CreatedDate</p>
+                <p><b>Lịch thi: </b>@Model.StartTime</p>
+                <p><b>Thời lượng thi: </b>@Model.Length phút</p>
+                <p><i>Có @Model.CountRegists thí sinh đã đăng ký</i></p>
+                <p class="text-danger">
+                    <i>*Lưu ý: thời gian được bấm từ lúc bắt đầu cuộc thi và kết thúc trong 60 phút. Nếu trong quá trình làm bài trang thi bị tải lại bài thi sẽ mất.</i>
+                </p>
+                <button type="button" class="btn btn-warning" onclick="LoadQuestions()">Bắt đầu thi</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Handle modal-->
+<script type="text/javascript">
+    function LoadQuestions() {
+        $.ajax({
+            method: "GET",
+            url: "/questions",
+            data: { id: @Model.ContestId },
+            success: function (result) {
+                $('#render').html(result);
+            }
+        });
+    }
+</script>

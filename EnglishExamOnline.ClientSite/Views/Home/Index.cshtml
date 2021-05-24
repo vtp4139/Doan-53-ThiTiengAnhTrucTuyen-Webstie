@@ -5,7 +5,6 @@
     ViewData["Title"] = "Trang chủ - VPenglish";
 }
 @section Styles {
-    @*<link href="~/css/homepage_sample.css" rel="stylesheet" type="text/css" />*@
     <link href="@Url.Content("~/css/homepage_sample.css")" rel="stylesheet" type="text/css" />
 }
 
@@ -15,21 +14,20 @@
 }
 else
 {
-<div id="testp">
-    <section id="headerh">
-        <div class="container">
-            <div id="main-heading">
-                <h1 class="text-white">Học cùng bạn<br /> thi với bạn<br /> và giúp bạn <br />tiến về phía trước.</h1>
-                <h3>
-                    Thi trực tuyến tiếng anh miễn phí với
-                    <span style="color:#007BFF">V-P</span><span style="color:#FFC107">english</span>
-                </h3>
-                <a id="btn" class="btn" asp-controller="Account" asp-action="SignIn">Tham gia ngay</a>
+    <div id="testp">
+        <section id="headerh">
+            <div class="container">
+                <div id="main-heading">
+                    <h1 class="text-white">Học cùng bạn<br /> thi với bạn<br /> và giúp bạn <br />tiến về phía trước.</h1>
+                    <h3>
+                        Thi trực tuyến tiếng anh miễn phí với
+                        <span style="color:#007BFF">V-P</span><span style="color:#FFC107">english</span>
+                    </h3>
+                    <a id="btn" class="btn" asp-controller="Account" asp-action="SignIn">Tham gia ngay</a>
+                </div>
             </div>
-        </div>
-    </section>
-</div>
-    
+        </section>
+    </div>
 
     <section id="content01" class="mt-4 mb-4">
         <div class="container">
