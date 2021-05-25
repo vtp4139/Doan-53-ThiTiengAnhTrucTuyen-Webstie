@@ -79,6 +79,11 @@ namespace EnglishExamOnline.Backend.Controllers
         [HttpPost]
         public async Task<ActionResult<ContestScheduleVm>> PostContestSchedule(ContestScheduleVm request)
         {
+            var check = await _context.ContestSchedules.FirstOrDefaultAsync(cs => cs.StartTime == request.StartTime);
+
+            if (check != null)
+                return NoContent();
+
             var contestSchedule = new ContestSchedule
             {
                 StartTime = request.StartTime,

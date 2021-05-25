@@ -20,6 +20,7 @@
                 <div class="form-group">
                     <label asp-for="StartTime" class="control-label"></label>
                     <input asp-for="StartTime" class="form-control" type="datetime-local" id="dateStart" onchange="validationDate()"/>
+                    <p class="text-warning">*Các khung giờ chấp nhận: 8h, 10h, 14h, 16h, 19h.</p>
                     <span class="text-danger" id="dateError"></span>
                 </div>
                 <div class="form-group">
@@ -46,14 +47,30 @@
         dateMin.setDate(dateMin.getDate() + 5);
         dateMax.setDate(dateMax.getDate() + 30);
 
+        //Check hour can input
+        var hours = myDate.getHours();
+        var minutes = myDate.getMinutes();
+        if ((hours == 8 || hours == 10 || hours == 14 || hours == 16 || hours == 19) && minutes == 0) {
+            document.getElementById('dateError').innerHTML = "";
+            document.getElementById("btnSubmit").disabled = false;
+        }
+        else {
+            document.getElementById('dateError').innerHTML = "Vui lòng chọn những khung giờ trên!";
+            document.getElementById("btnSubmit").disabled = true;
+            return false;
+        }
+
+        //Check min max date can input
         if (myDate >= dateMin && myDate < dateMax) {
             document.getElementById('dateError').innerHTML = "";
             document.getElementById("btnSubmit").disabled = false;
             return true;
         }
-        document.getElementById('dateError').innerHTML = "Lịch thi phải cách ngày hôm nay (không được nhỏ hơn) tối thiểu 5 ngày và không vượt quá 30 ngày để thí sinh có thể đăng ký!";
-        document.getElementById("btnSubmit").disabled = true;
-        return false;
+        else {
+            document.getElementById('dateError').innerHTML = "Lịch thi phải cách ngày hôm nay (không được nhỏ hơn) tối thiểu 5 ngày và không vượt quá 30 ngày để thí sinh có thể đăng ký!";
+            document.getElementById("btnSubmit").disabled = true;          
+            return false;
+        }
     }
 </script>
 

@@ -33,6 +33,7 @@ namespace EnglishExamOnline.Backend.Controllers
                 .Include(ct => ct.Contest)
                 .Where(ct => ct.UserId == createRequest.UserId && ct.Contest.ContestScheduleId == getContest.ContestScheduleId && ct.Contest.Status == true)
                 .ToListAsync();
+         
             if (testRegis.Count > 0)
                 return NoContent();
 

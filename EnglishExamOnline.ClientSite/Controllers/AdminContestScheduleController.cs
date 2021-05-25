@@ -39,7 +39,13 @@ namespace EnglishExamOnline.ClientSite.Controllers
             if (request == null)
                 return Content("Item not found");
 
-            await _contestScheduleApiClient.PostContestSchedule(request);
+            var result = await _contestScheduleApiClient.PostContestSchedule(request);
+            if (result == null)
+            {
+                _notyf.Error("Đã có lịch thi vào thời gian này!", 4);
+                return View();
+            }
+
             _notyf.Success("Thêm lịch thi mới thành công!", 4);
             return RedirectToAction("Index");
         }

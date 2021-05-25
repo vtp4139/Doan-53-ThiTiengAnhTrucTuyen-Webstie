@@ -56,8 +56,10 @@ namespace EnglishExamOnline.ClientSite.Services.APIs
             HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(contestSchedule),
                 Encoding.UTF8, "application/json");
             var response = await client.PostAsync(_configuration["BackendUrl:Default"] + "/api/ContestSchedule", httpContent);
-
             response.EnsureSuccessStatusCode();
+
+            if ((int)response.StatusCode == 204)
+                return null; 
             return await response.Content.ReadFromJsonAsync<ContestScheduleVm>();
         }
 
