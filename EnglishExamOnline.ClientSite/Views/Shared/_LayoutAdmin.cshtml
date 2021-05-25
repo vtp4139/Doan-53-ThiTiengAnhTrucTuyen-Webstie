@@ -22,35 +22,39 @@
                 <a class="navbar-brand" asp-controller="Admin" asp-action="Index">
                     <i class="fas fa-toolbox mr-2"></i><b>V-P english</b> Quản trị
                 </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+                    <ul class="navbar-nav flex-grow-1 style="font-size:17px"">
                         <li class="nav-item active">
-                            <a class="nav-link" style="font-size:17px" asp-controller="Admin" asp-action="Index">
+                            <a class="nav-link" asp-controller="Admin" asp-action="Index">
                                 <i class="fas fa-eye mr-2"></i>Tổng quan
                             </a>
                         </li>
                         <li class="nav-item active">
-                            <a class="nav-link" style="font-size:17px" asp-controller="AdminQuestions" asp-action="Index">
+                            <a class="nav-link" asp-controller="AdminQuestions" asp-action="Index">
                                 <i class="fas fa-university mr-2"></i>Ngân hàng câu hỏi
                             </a>
                         </li>
                         <li class="nav-item active">
-                            <a class="nav-link" style="font-size:17px" asp-controller="AdminContestSchedule" asp-action="Index">
+                            <a class="nav-link" asp-controller="AdminContestSchedule" asp-action="Index">
                                 <i class="fas fa-calendar-alt mr-2"></i>Lịch thi
                             </a>
                         </li>
                         <li class="nav-item active">
-                            <a class="nav-link" style="font-size:17px" asp-controller="AdminContest" asp-action="Index">
+                            <a class="nav-link" asp-controller="AdminContest" asp-action="Index">
                                 <i class="fas fa-graduation-cap mr-2"></i>Cuộc thi
                             </a>
                         </li>
                         <li class="nav-item active">
-                            <a class="nav-link" style="font-size:17px" asp-controller="AdminUser" asp-action="Index">
+                            <a class="nav-link" asp-controller="AdminUser" asp-action="Index">
                                 <i class="fas fa-users mr-2"></i>Thí sinh
                             </a>
                         </li>
                         <li class="nav-item active">
-                            <a class="nav-link text-danger" style="font-size:17px" asp-controller="Home" asp-action="Index">
+                            <a class="nav-link text-danger" asp-controller="Home" asp-action="Index">
                                 <i class="fas fa-arrow-left mr-2"></i>Trở lại trang chủ
                             </a>
                         </li>
