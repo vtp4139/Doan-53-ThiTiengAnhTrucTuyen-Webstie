@@ -49,27 +49,16 @@
             </div>
         </div>
         <div class="container" style=" background-color: white; box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; padding: unset; width: 70%">
-            <hr class="bg-warning" style=" height: 10px; border-width: 0;">
-            <div class="row justify-content-md-center">
-                <div class="col-md-10" style="text-align:center">
-                    <h3>Chi tiết đề thi</h3>
-                    <hr style="width:100%;text-align:left;margin-left:0">
-                </div>
-            </div>
+            <hr class="bg-warning line-head">
             <div class="row justify-content-md-center">
                 <div class="col-md-3">
                     <b>Mã đề: </b>@Model.ContestId
                 </div>
-                <div class="col-md-7">
-                    <b>Tên cuộc thi: </b>@Model.ContestName
-                </div>
-            </div>
-            <div class="row justify-content-md-center">
                 <div class="col-md-5">
-                    <b>Ngày thi: </b><span id="test">@Model.StartTime</span>
+                    <i class="fas fa-calendar-alt mr-2"></i><b>Ngày thi: </b><span id="test">@Model.StartTime</span>
                 </div>
-                <div class="col-md-5">
-                    <b>Thời gian: </b>@Model.Length phút
+                <div class="col-md-3">
+                    <i class="fas fa-hourglass-start mr-2"></i><b>Thời gian: </b>@Model.Length phút
                 </div>
             </div>
             <hr style="width:100%;text-align:left;margin-left:0">
