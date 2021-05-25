@@ -22,8 +22,8 @@ namespace EnglishExamOnline.Backend.IdentityServer
                   new ApiScope("english_exam.api", "English Exam API")
              };
 
-        public static IEnumerable<Client> Clients =>
-            new List<Client>
+        public static IEnumerable<Client> Clients(Dictionary<string, string> ConfigUrl) =>
+            new []
             {
                 // machine to machine client
                 new Client
@@ -44,9 +44,9 @@ namespace EnglishExamOnline.Backend.IdentityServer
 
                     AllowedGrantTypes = GrantTypes.Code,
 
-                    RedirectUris = { "https://localhost:44340/signin-oidc" },
+                    RedirectUris = { $"{ConfigUrl["Mvc"]}/signin-oidc" },
 
-                    PostLogoutRedirectUris = { "https://localhost:44340/signout-callback-oidc" },
+                    PostLogoutRedirectUris = { $"{ConfigUrl["Mvc"]}/signout-callback-oidc" },
 
                     AllowedScopes = new List<string>
                     {
@@ -67,9 +67,9 @@ namespace EnglishExamOnline.Backend.IdentityServer
                     RequireConsent = false,
                     RequirePkce = true,
 
-                    RedirectUris =           { $"https://localhost:44302/swagger/oauth2-redirect.html" },
-                    PostLogoutRedirectUris = { $"https://localhost:44302/swagger/oauth2-redirect.html" },
-                    AllowedCorsOrigins =     { $"https://localhost:44302" },
+                    RedirectUris =           { $"{ConfigUrl["Backend"]}/swagger/oauth2-redirect.html" },
+                    PostLogoutRedirectUris = { $"{ConfigUrl["Backend"]}/swagger/oauth2-redirect.html" },
+                    AllowedCorsOrigins =     { $"{ConfigUrl["Backend"]}" },
 
                     AllowedScopes = new List<string>
                     {

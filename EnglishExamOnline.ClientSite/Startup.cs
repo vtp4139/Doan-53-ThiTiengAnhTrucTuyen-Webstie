@@ -35,7 +35,7 @@ namespace EnglishExamOnline.ClientSite
                 .AddCookie("Cookies")
                 .AddOpenIdConnect("oidc", options =>
                 {
-                    options.Authority = "https://localhost:44302";
+                    options.Authority = Configuration["BackendUrl:Default"];
                     options.RequireHttpsMetadata = false;
                     options.GetClaimsFromUserInfoEndpoint = true;
 

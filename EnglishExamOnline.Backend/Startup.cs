@@ -27,6 +27,12 @@ namespace EnglishExamOnline.Backend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var configUrls = new Dictionary<string, string>
+            {
+                ["Mvc"] = Configuration["ConfigUrl:Mvc"],
+                ["Backend"] = Configuration["ConfigUrl:Backend"],
+            };
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
@@ -50,7 +56,7 @@ namespace EnglishExamOnline.Backend
             })
                .AddInMemoryIdentityResources(IdentityServerConfig.IdentityResources)
                .AddInMemoryApiScopes(IdentityServerConfig.ApiScopes)
-               .AddInMemoryClients(IdentityServerConfig.Clients)
+               .AddInMemoryClients(IdentityServerConfig.Clients(configUrls))
                .AddAspNetIdentity<User>()
                .AddDeveloperSigningCredential(); // not recommended for production - you need to store your key material somewhere secure
 
@@ -130,8 +136,6 @@ namespace EnglishExamOnline.Backend
                 c.OAuthUsePkce();
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "English Exam API V1");
             });
-
-
 
             app.UseEndpoints(endpoints =>
             {

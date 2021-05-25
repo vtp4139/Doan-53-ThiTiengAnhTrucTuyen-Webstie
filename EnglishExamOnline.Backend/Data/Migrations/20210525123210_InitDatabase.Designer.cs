@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EnglishExamOnline.Backend.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210411165445_SeedContest01")]
-    partial class SeedContest01
+    [Migration("20210525123210_InitDatabase")]
+    partial class InitDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -48,107 +48,6 @@ namespace EnglishExamOnline.Backend.Data.Migrations
                     b.HasIndex("ContestScheduleId");
 
                     b.ToTable("Contests");
-
-                    b.HasData(
-                        new
-                        {
-                            ContestId = 100,
-                            ContestName = "English Test (Morning) - ETS 21",
-                            ContestScheduleId = 1,
-                            CreatedDate = new DateTime(2021, 4, 11, 23, 54, 44, 576, DateTimeKind.Local).AddTicks(9146),
-                            Description = "The ETS is an international standardized test of English language proficiency for non-native speakers. It is intentionally designed to measure the everyday English skills of people working in an international environment.",
-                            Status = true
-                        },
-                        new
-                        {
-                            ContestId = 101,
-                            ContestName = "English Test (Morning) - ETS 21",
-                            ContestScheduleId = 1,
-                            CreatedDate = new DateTime(2021, 4, 11, 23, 54, 44, 579, DateTimeKind.Local).AddTicks(3216),
-                            Description = "The ETS is an international standardized test of English language proficiency for non-native speakers. It is intentionally designed to measure the everyday English skills of people working in an international environment.",
-                            Status = true
-                        },
-                        new
-                        {
-                            ContestId = 102,
-                            ContestName = "English Test (Morning) - ETS 21",
-                            ContestScheduleId = 2,
-                            CreatedDate = new DateTime(2021, 4, 11, 23, 54, 44, 579, DateTimeKind.Local).AddTicks(3272),
-                            Description = "The ETS is an international standardized test of English language proficiency for non-native speakers. It is intentionally designed to measure the everyday English skills of people working in an international environment.",
-                            Status = true
-                        },
-                        new
-                        {
-                            ContestId = 103,
-                            ContestName = "English Test (Afternoon) - ETS 21",
-                            ContestScheduleId = 2,
-                            CreatedDate = new DateTime(2021, 4, 11, 23, 54, 44, 579, DateTimeKind.Local).AddTicks(3278),
-                            Description = "The ETS is an international standardized test of English language proficiency for non-native speakers. It is intentionally designed to measure the everyday English skills of people working in an international environment.",
-                            Status = true
-                        },
-                        new
-                        {
-                            ContestId = 104,
-                            ContestName = "English Test (Night) - ETS 21",
-                            ContestScheduleId = 2,
-                            CreatedDate = new DateTime(2021, 4, 11, 23, 54, 44, 579, DateTimeKind.Local).AddTicks(3281),
-                            Description = "The ETS is an international standardized test of English language proficiency for non-native speakers. It is intentionally designed to measure the everyday English skills of people working in an international environment.",
-                            Status = true
-                        },
-                        new
-                        {
-                            ContestId = 105,
-                            ContestName = "English Test (Afternoon) - ETS 21",
-                            ContestScheduleId = 3,
-                            CreatedDate = new DateTime(2021, 4, 11, 23, 54, 44, 579, DateTimeKind.Local).AddTicks(3285),
-                            Description = "The ETS is an international standardized test of English language proficiency for non-native speakers. It is intentionally designed to measure the everyday English skills of people working in an international environment.",
-                            Status = true
-                        },
-                        new
-                        {
-                            ContestId = 106,
-                            ContestName = "English Test (Morning) - ETS 21",
-                            ContestScheduleId = 1,
-                            CreatedDate = new DateTime(2021, 4, 11, 23, 54, 44, 579, DateTimeKind.Local).AddTicks(3288),
-                            Description = "The ETS is an international standardized test of English language proficiency for non-native speakers. It is intentionally designed to measure the everyday English skills of people working in an international environment.",
-                            Status = false
-                        },
-                        new
-                        {
-                            ContestId = 107,
-                            ContestName = "English Test (Afternoon) - ETS 21",
-                            ContestScheduleId = 1,
-                            CreatedDate = new DateTime(2021, 4, 11, 23, 54, 44, 579, DateTimeKind.Local).AddTicks(3291),
-                            Description = "The ETS is an international standardized test of English language proficiency for non-native speakers. It is intentionally designed to measure the everyday English skills of people working in an international environment.",
-                            Status = false
-                        },
-                        new
-                        {
-                            ContestId = 108,
-                            ContestName = "English Test (Night) - ETS 21",
-                            ContestScheduleId = 1,
-                            CreatedDate = new DateTime(2021, 4, 11, 23, 54, 44, 579, DateTimeKind.Local).AddTicks(3295),
-                            Description = "The ETS is an international standardized test of English language proficiency for non-native speakers. It is intentionally designed to measure the everyday English skills of people working in an international environment.",
-                            Status = false
-                        },
-                        new
-                        {
-                            ContestId = 109,
-                            ContestName = "English Test (Night) - ETS 21",
-                            ContestScheduleId = 1,
-                            CreatedDate = new DateTime(2021, 4, 11, 23, 54, 44, 579, DateTimeKind.Local).AddTicks(3298),
-                            Description = "The ETS is an international standardized test of English language proficiency for non-native speakers. It is intentionally designed to measure the everyday English skills of people working in an international environment.",
-                            Status = false
-                        },
-                        new
-                        {
-                            ContestId = 110,
-                            ContestName = "English Test (Afternoon) - ETS 21",
-                            ContestScheduleId = 1,
-                            CreatedDate = new DateTime(2021, 4, 11, 23, 54, 44, 579, DateTimeKind.Local).AddTicks(3302),
-                            Description = "The ETS is an international standardized test of English language proficiency for non-native speakers. It is intentionally designed to measure the everyday English skills of people working in an international environment.",
-                            Status = false
-                        });
                 });
 
             modelBuilder.Entity("EnglishExamOnline.Backend.Models.ContestRegist", b =>
@@ -164,17 +63,14 @@ namespace EnglishExamOnline.Backend.Data.Migrations
                     b.Property<DateTime>("RegistDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UsersId")
+                    b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("ContestRegistId");
 
                     b.HasIndex("ContestId");
 
-                    b.HasIndex("UsersId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("ContestRegists");
                 });
@@ -195,38 +91,6 @@ namespace EnglishExamOnline.Backend.Data.Migrations
                     b.HasKey("ContestScheduleId");
 
                     b.ToTable("ContestSchedules");
-
-                    b.HasData(
-                        new
-                        {
-                            ContestScheduleId = 1,
-                            Length = 60,
-                            StartTime = new DateTime(2021, 4, 12, 10, 30, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            ContestScheduleId = 2,
-                            Length = 60,
-                            StartTime = new DateTime(2021, 5, 25, 10, 30, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            ContestScheduleId = 3,
-                            Length = 60,
-                            StartTime = new DateTime(2021, 5, 25, 15, 30, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            ContestScheduleId = 4,
-                            Length = 60,
-                            StartTime = new DateTime(2021, 5, 25, 20, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            ContestScheduleId = 5,
-                            Length = 60,
-                            StartTime = new DateTime(2021, 5, 27, 20, 0, 0, 0, DateTimeKind.Unspecified)
-                        });
                 });
 
             modelBuilder.Entity("EnglishExamOnline.Backend.Models.Question", b =>
@@ -257,108 +121,6 @@ namespace EnglishExamOnline.Backend.Data.Migrations
                     b.HasKey("QuestionId");
 
                     b.ToTable("Questions");
-
-                    b.HasData(
-                        new
-                        {
-                            QuestionId = 1,
-                            AnswerA = "locations",
-                            AnswerB = "locate",
-                            AnswerC = "located",
-                            AnswerD = "location",
-                            CorrectAnswer = "locations",
-                            QuestionInfo = "Sunwirth Sneakers has several ------- in the greater metropolitan area."
-                        },
-                        new
-                        {
-                            QuestionId = 2,
-                            AnswerA = "buying",
-                            AnswerB = "paying",
-                            AnswerC = "going",
-                            AnswerD = "eating",
-                            CorrectAnswer = "paying",
-                            QuestionInfo = "Cimber CPAs offers clients the convenience of ------- their invoices online and by mail."
-                        },
-                        new
-                        {
-                            QuestionId = 3,
-                            AnswerA = "reliable",
-                            AnswerB = "to rely",
-                            AnswerC = "more reliable",
-                            AnswerD = "reliably",
-                            CorrectAnswer = "reliably",
-                            QuestionInfo = "The new software at Patel Industries has been working ------- since it was installed last year."
-                        },
-                        new
-                        {
-                            QuestionId = 4,
-                            AnswerA = "along",
-                            AnswerB = "toward",
-                            AnswerC = "over",
-                            AnswerD = "throughout",
-                            CorrectAnswer = "throughout",
-                            QuestionInfo = "Best practices in customer service are outlined ------- the training handbook."
-                        },
-                        new
-                        {
-                            QuestionId = 5,
-                            AnswerA = "simple",
-                            AnswerB = "simpler",
-                            AnswerC = "simply",
-                            AnswerD = "simplicity",
-                            CorrectAnswer = "simply",
-                            QuestionInfo = "The Scratch software will help us migrate our client records -------."
-                        },
-                        new
-                        {
-                            QuestionId = 6,
-                            AnswerA = "herself",
-                            AnswerB = "her",
-                            AnswerC = "she",
-                            AnswerD = "hers",
-                            CorrectAnswer = "her",
-                            QuestionInfo = "The comedian said that ------- sense of humor was inherited from a grandparent."
-                        },
-                        new
-                        {
-                            QuestionId = 7,
-                            AnswerA = "from",
-                            AnswerB = "beside",
-                            AnswerC = "along",
-                            AnswerD = "after",
-                            CorrectAnswer = "from",
-                            QuestionInfo = "Starting this August, Gavelton Bike Tours will be leading group cycling trips ------- Paris to Berlin."
-                        },
-                        new
-                        {
-                            QuestionId = 8,
-                            AnswerA = "reach",
-                            AnswerB = "talk",
-                            AnswerC = "reason",
-                            AnswerD = "put",
-                            CorrectAnswer = "reach",
-                            QuestionInfo = "We hope to ------- an agreement with Mason Cooper, Inc., within the next week."
-                        },
-                        new
-                        {
-                            QuestionId = 9,
-                            AnswerA = "if",
-                            AnswerB = "to",
-                            AnswerC = "of",
-                            AnswerD = "as",
-                            CorrectAnswer = "of",
-                            QuestionInfo = "Factory-floor managers must submit an inspection report at the end ------- their shift."
-                        },
-                        new
-                        {
-                            QuestionId = 10,
-                            AnswerA = "Sometimes",
-                            AnswerB = "Later",
-                            AnswerC = "Formerly",
-                            AnswerD = "Frequently",
-                            CorrectAnswer = "Formerly",
-                            QuestionInfo = "------- a retail store, Seedum International will now sell merchandise only through its Web site."
-                        });
                 });
 
             modelBuilder.Entity("EnglishExamOnline.Backend.Models.QuestionDetail", b =>
@@ -398,9 +160,6 @@ namespace EnglishExamOnline.Backend.Data.Migrations
                     b.Property<int>("Point")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("StartTime")
-                        .HasColumnType("datetime2");
-
                     b.HasKey("ResultId");
 
                     b.HasIndex("ContestRegistId")
@@ -417,9 +176,15 @@ namespace EnglishExamOnline.Backend.Data.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateOfBirth")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
@@ -589,6 +354,18 @@ namespace EnglishExamOnline.Backend.Data.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "2243634607",
+                            RoleId = "7200984639"
+                        },
+                        new
+                        {
+                            UserId = "4695426118",
+                            RoleId = "4835914310"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -633,7 +410,7 @@ namespace EnglishExamOnline.Backend.Data.Migrations
 
                     b.HasOne("EnglishExamOnline.Backend.Models.User", "Users")
                         .WithMany("ContestRegists")
-                        .HasForeignKey("UsersId");
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Contest");
 
