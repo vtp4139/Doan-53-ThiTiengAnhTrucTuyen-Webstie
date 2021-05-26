@@ -3,6 +3,7 @@
     background-size: cover;
     height: 70vh;
     background-attachment: fixed;
+    position: relative;
 }
 
 .row {
@@ -51,5 +52,5 @@ h1 {
     width: 30%;
     margin-left: 10%;
     margin-right: 10%;
-    font-family: Cambria, Cochin, Georgia, Times, Times New Roman, serif;
+    margin-top: 40px;
 }

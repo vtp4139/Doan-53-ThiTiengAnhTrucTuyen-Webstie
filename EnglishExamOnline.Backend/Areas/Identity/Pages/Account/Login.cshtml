@@ -13,23 +13,23 @@
                 <form id="account" method="post">
                     <div asp-validation-summary="All" class="text-danger"></div>
                     <div class="form-group">
-                        <label class="font-weight-bold" asp-for="Input.Email"></label>
+                        <label asp-for="Input.Email"></label>
                         <input asp-for="Input.Email" class="form-control" />
                         <span asp-validation-for="Input.Email" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label class="font-weight-bold" asp-for="Input.Password"></label>
+                        <label asp-for="Input.Password"></label>
                         <input asp-for="Input.Password" class="form-control" />
                         <span asp-validation-for="Input.Password" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary btn-block">
-                            <i class="fas fa-sign-in-alt mr-2"></i><strong>Đăng nhập</strong>
+                            <i class="fas fa-sign-in-alt mr-2"></i>Đăng nhập
                         </button>
                     </div>
                     <div class="form-group">
                         <a class="btn btn-danger btn-block" asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">
-                            <i class="fas fas fa-pen mr-2"></i><strong>Đăng ký</strong>
+                            <i class="fas fas fa-pen mr-2"></i>Đăng ký
                         </a>
                     </div>
 

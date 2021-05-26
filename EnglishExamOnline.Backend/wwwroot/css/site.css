@@ -64,6 +64,7 @@ body {
     /* Margin bottom by footer height */
     margin-bottom: 60px;
     background-color: #F2F2F2;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .footer {
@@ -72,4 +73,11 @@ body {
     width: 100%;
     white-space: nowrap;
     line-height: 60px; /* Vertically center the text there */
+}
+
+/*Logo*/
+#textlogo {
+    font-family: Cambria, Cochin, Georgia, Times, Times New Roman, serif;
+    font-size: 30px;
+    letter-spacing: 1px;
 }
