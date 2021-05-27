@@ -105,5 +105,13 @@ namespace EnglishExamOnline.ClientSite.Services.APIs
             response.EnsureSuccessStatusCode();
             return (int)response.StatusCode;
         }
+
+        public async Task<int> SetStatusContests()
+        {
+            var client = _httpClientFactory.CreateClient();
+            var response = await client.GetAsync(_configuration["BackendUrl:Default"] + "/api/Contest/set-status");
+            response.EnsureSuccessStatusCode();
+            return (int) response.StatusCode;
+        }
     }
 }

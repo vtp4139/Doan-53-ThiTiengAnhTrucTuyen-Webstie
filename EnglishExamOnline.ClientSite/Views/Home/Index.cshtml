@@ -34,7 +34,7 @@ else
             <div class="text-content01">
                 <h3>Kiểm tra trình độ tiếng Anh của bạn</h3>
                 <h5>
-                    Chúng tôi là <strong><span style="color:#007BFF;">V-P</span><span style="color:#FFC107">english</span> </strong>. Trực thuộc Trung tâm đào tạo Ngoại ngữ V-Penglish, chúng tôi giúp hàng
+                    Chúng tôi là <strong><span class="text-primary">V-P</span><span class="text-warning">english</span> </strong>. Trực thuộc Trung tâm đào tạo Ngoại ngữ V-Penglish, chúng tôi giúp hàng
                     nghìn người học tiếng Anh và chứng tỏ khả năng của mình cho cả thế giới.
                 </h5>
             </div>
@@ -59,7 +59,7 @@ else
         <!--Item contest-->
         @foreach (var item in Model)
         {
-            if (item.Status == true)
+            if (item.Status == true && item.StartTime.AddMinutes(-60) > DateTime.Now)
             {
                 <div class="col-md-4">
                     <a class="card mb-4" id="item-contest" asp-controller="Contest" asp-action="Detail" asp-route-id="@item.ContestId">

@@ -25,6 +25,7 @@ namespace EnglishExamOnline.ClientSite.Controllers
 
         public async Task<IActionResult> IndexAsync()
         {
+            await _contestApiClient.SetStatusContests();
             //Clear session in case user log out
             HttpContext.Session.Clear();
             if (User.Identity.IsAuthenticated)

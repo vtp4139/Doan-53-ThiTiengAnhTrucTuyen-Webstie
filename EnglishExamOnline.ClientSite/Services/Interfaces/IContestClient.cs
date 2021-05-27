@@ -24,5 +24,7 @@ namespace EnglishExamOnline.ClientSite.Services.Interfaces
         Task<ContestVm> PutContest(int id, ContestFormVm question);
 
         Task<int> DeleteContest(int id);
+
+        Task<int> SetStatusContests();
     }
 }

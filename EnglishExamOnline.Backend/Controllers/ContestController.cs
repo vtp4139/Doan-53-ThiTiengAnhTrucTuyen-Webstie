@@ -28,7 +28,9 @@ namespace EnglishExamOnline.Backend.Controllers
         [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<ContestVm>>> GetContests()
         {
-            return await _context.Contests.Include(c => c.ContestRegists).Include(c => c.ContestSchedule)
+            return await _context.Contests
+                .Include(c => c.ContestRegists)
+                .Include(c => c.ContestSchedule)
                 .Select(x => new ContestVm
                 {
                     ContestId = x.ContestId,
@@ -41,6 +43,23 @@ namespace EnglishExamOnline.Backend.Controllers
                     StartTime = x.ContestSchedule.StartTime
                 })
                 .ToListAsync();
+        }
+
+        [HttpGet("set-status")]
+        [AllowAnonymous]
+        public async Task<ActionResult> SetStatusContests()
+        {
+            var listContest = await _context.Contests
+                .Include(c => c.ContestSchedule)
+                .Where(c => c.ContestSchedule.StartTime.AddMinutes(60) < DateTime.Now)
+                .ToListAsync();
+
+            foreach(var item in listContest)
+            {
+                item.Status = false;
+            }
+            await _context.SaveChangesAsync();
+            return Ok();
         }
 
         [HttpGet("find/{find}")]
