@@ -2,6 +2,7 @@
 using EnglishExamOnline.Backend.Models;
 using EnglishExamOnline.Shared.FormViewModels;
 using EnglishExamOnline.Shared.ViewModels;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -20,11 +21,13 @@ namespace EnglishExamOnline.Backend.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
 
-        public UserController(ApplicationDbContext context, UserManager<User> userManager)
+        public UserController(ApplicationDbContext context, UserManager<User> userManager, SignInManager<User> signInManager)
         {
             _context = context;
             _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         [HttpGet]
@@ -125,6 +128,14 @@ namespace EnglishExamOnline.Backend.Controllers
             }
 
             return NoContent();
+        }
+
+        [HttpPost("logout")]
+        public async Task<ActionResult> Logout()
+        {
+            //await _signInManager.SignOutAsync();
+            await HttpContext.SignOutAsync();
+            return Ok();
         }
 
         [HttpPost("lock-user/{id}")]

@@ -19,6 +19,8 @@ namespace EnglishExamOnline.ClientSite.Services.Interfaces
 
         Task<int> ChangePassword(PasswordFormVm request);
 
+        Task<int> Logout();
+
         Task<UserVm> LockUser(string id);
 
         Task<UserVm> UnLockUser(string id);

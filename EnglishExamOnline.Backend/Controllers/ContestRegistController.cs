@@ -31,7 +31,9 @@ namespace EnglishExamOnline.Backend.Controllers
 
             var testRegis = await _context.ContestRegists
                 .Include(ct => ct.Contest)
-                .Where(ct => ct.UserId == createRequest.UserId && ct.Contest.ContestScheduleId == getContest.ContestScheduleId && ct.Contest.State == 0)
+                .Where(ct => ct.UserId == createRequest.UserId 
+                && ct.Contest.ContestScheduleId == getContest.ContestScheduleId 
+                && ct.Contest.State == ContestStateEnum.RegistOpen)
                 .ToListAsync();
          
             if (testRegis.Count > 0)
@@ -69,7 +71,9 @@ namespace EnglishExamOnline.Backend.Controllers
         [HttpDelete]
         public async Task<ActionResult<ContestRegistVm>> DeleteContestRegist(ContestRegistFormVm createRequest)
         {
-            var ContestRegist = await _context.ContestRegists.Where(x => x.ContestId == createRequest.ContestId && x.UserId == createRequest.UserId).FirstOrDefaultAsync(x => x.ContestId == createRequest.ContestId);
+            var ContestRegist = await _context.ContestRegists
+                .Where(x => x.ContestId == createRequest.ContestId && x.UserId == createRequest.UserId)
+                .FirstOrDefaultAsync(x => x.ContestId == createRequest.ContestId);
             if (ContestRegist == null)
             {
                 return NotFound();

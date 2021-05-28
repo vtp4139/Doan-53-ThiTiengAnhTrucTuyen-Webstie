@@ -28,6 +28,7 @@ namespace EnglishExamOnline.Backend.Controllers
         public async Task<ActionResult<IEnumerable<QuestionVm>>> GetQuests()
         {
             return await _context.Questions
+                .OrderByDescending(q => q.QuestionId)
                 .Select(x => new QuestionVm
                 {
                     QuestionId = x.QuestionId,

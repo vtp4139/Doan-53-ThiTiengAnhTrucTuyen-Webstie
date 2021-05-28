@@ -81,6 +81,14 @@ namespace EnglishExamOnline.ClientSite.Services.APIs
             return (int)response.StatusCode;
         }
 
+        public async Task<int> Logout()
+        {
+            var client = _request.SendAccessToken().Result;
+            var response = await client.PostAsync(_configuration["BackendUrl:Default"] + "/api/User/logout",null);
+            response.EnsureSuccessStatusCode();
+            return (int)response.StatusCode;
+        }
+
         public async Task<UserVm> LockUser(string id)
         {
             var client = _request.SendAccessToken().Result;

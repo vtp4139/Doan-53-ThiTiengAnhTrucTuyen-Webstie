@@ -36,6 +36,13 @@ namespace EnglishExamOnline.ClientSite.Controllers
         }
 
         [Authorize]
+        public IActionResult Logout()
+        {
+            _UserClient.Logout();
+            return RedirectToAction("Index", "Home");
+        }
+
+        [Authorize]
         public ActionResult MyProfile()
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
