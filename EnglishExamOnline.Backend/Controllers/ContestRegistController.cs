@@ -31,7 +31,7 @@ namespace EnglishExamOnline.Backend.Controllers
 
             var testRegis = await _context.ContestRegists
                 .Include(ct => ct.Contest)
-                .Where(ct => ct.UserId == createRequest.UserId && ct.Contest.ContestScheduleId == getContest.ContestScheduleId && ct.Contest.Status == true)
+                .Where(ct => ct.UserId == createRequest.UserId && ct.Contest.ContestScheduleId == getContest.ContestScheduleId && ct.Contest.State == 0)
                 .ToListAsync();
          
             if (testRegis.Count > 0)

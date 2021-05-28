@@ -25,7 +25,7 @@
                 <td> @Html.DisplayFor(modelItem => item.StartTime)</td>
                 <td class="text-danger"> @Html.DisplayFor(modelItem => item.Length) phút</td>
 
-                @if (item.Status == true)
+                @if (item.State == 0)
                 {
                     <td class="text-danger"> <b>Mở đăng ký</b></td>
                 }
@@ -35,7 +35,7 @@
                 }
 
 
-                @if (item.Status == true)
+                @if (item.State == 0)
                 {
                     <td>
                         <a class="badge badge-warning" style="width:50px" asp-action="Detail" asp-route-id="@item.ContestId">

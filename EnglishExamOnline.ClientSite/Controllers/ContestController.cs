@@ -1,4 +1,5 @@
 ﻿using EnglishExamOnline.ClientSite.Services.Interfaces;
+using EnglishExamOnline.Shared.FormViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -60,8 +61,11 @@ namespace EnglishExamOnline.ClientSite.Controllers
         [HttpPost("/result")]
         public async Task<ActionResult> Result(List<string> listAnswer)
         {
-            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var result = await _resultApiClient.PostResult(listAnswer, userId);
+            ResultFormVm resultRequest = new ResultFormVm();
+            resultRequest.userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            resultRequest.listAnswer = listAnswer;
+
+            var result = await _resultApiClient.PostResult(resultRequest);
             
             //Show result and choice of user
             ViewBag.ListAnswers = result.ListAnswers;

@@ -22,7 +22,8 @@ namespace EnglishExamOnline.Shared.ViewModels
 
         public int Length { get; set; }
 
-        public bool Status { get; set; }
+        public int State { get; set; }
+
 
         [Display(Name = "Lịch thi")]
         public int ContestScheduleId { get; set; }

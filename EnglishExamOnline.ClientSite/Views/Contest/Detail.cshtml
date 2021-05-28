@@ -5,7 +5,7 @@
 }
 
 <div class="container mb-5 container-item container-item-large">
-    @if (Model.Status == true)
+    @if (Model.State == 0)
     {
         <hr class="bg-primary line-head">
     }
@@ -27,7 +27,7 @@
             <p><b>Lịch thi: </b>@Model.StartTime</p>
             <p><b>Thời lượng thi: </b>@Model.Length phút</p>
             <p><i>Có @Model.CountRegists thí sinh đã đăng ký</i></p>
-            @if (Model.Status == true)
+            @if (Model.State == 0)
             {
                 <button type="button" class="btn btn-warning button-confirm" data-toggle="modal" data-target="#confirm-delete">Đăng ký</button>
             }

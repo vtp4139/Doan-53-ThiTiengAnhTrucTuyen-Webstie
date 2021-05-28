@@ -1,5 +1,6 @@
 ﻿using EnglishExamOnline.Backend.Data;
 using EnglishExamOnline.Backend.Models;
+using EnglishExamOnline.Shared.FormViewModels;
 using EnglishExamOnline.Shared.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -43,19 +44,19 @@ namespace EnglishExamOnline.Backend.Controllers
                 .ToListAsync();
         }
 
-        [HttpPost("{userId}")]
-        public async Task<ActionResult<ResultVm>> PostResult(List<string> listAnswer, string userId)
+        [HttpPost]
+        public async Task<ActionResult<ResultVm>> PostResult(ResultFormVm resultRequest)
         {
             //Get contest regist by user id and contest schedule 
             var getContestRegist = await _context.ContestRegists
                 .Include(ct => ct.Contest)
                 .ThenInclude(c => c.ContestSchedule)
-                .Where(ct => DateTime.Now >= ct.Contest.ContestSchedule.StartTime && DateTime.Now < ct.Contest.ContestSchedule.StartTime.AddMinutes(60)
-                       && ct.UserId == userId)
-                .FirstOrDefaultAsync();
+                .Where(ct => ct.Contest.State == ContestStateEnum.Contesting
+                       && ct.UserId == resultRequest.userId)
+                .FirstOrDefaultAsync();           
 
             if (getContestRegist == null)
-                return NotFound();
+                throw new NullReferenceException($"{nameof(resultRequest.userId)} not found");
 
             //Get contest by contest regist include contest id
             var getContest = await _context.Contests
@@ -76,9 +77,9 @@ namespace EnglishExamOnline.Backend.Controllers
 
             //Compare two list and output count
             int countCorrect = 0;
-            for(int i = 0; i<listResult.Count; i++)
+            for (int i = 0; i < listResult.Count; i++)
             {
-                if(listAnswer[i].Equals(listResult[i]))
+                if (resultRequest.listAnswer[i].Equals(listResult[i]))
                 {
                     countCorrect++;
                 }
@@ -100,7 +101,7 @@ namespace EnglishExamOnline.Backend.Controllers
             resultVm.Point = result.Point;
             resultVm.NumOfCorrect = result.NumOfCorrect;
             resultVm.EndTime = result.EndTime;
-            resultVm.ListAnswers = listAnswer;
+            resultVm.ListAnswers = resultRequest.listAnswer;
 
             foreach (var item in getContest.QuestionDetails)
             {
@@ -114,7 +115,7 @@ namespace EnglishExamOnline.Backend.Controllers
                 newItem.AnswerD = item.Question.AnswerD;
                 newItem.CorrectAnswer = item.Question.CorrectAnswer;
 
-               resultVm.ListQuestion.Add(newItem);
+                resultVm.ListQuestion.Add(newItem);
             }
 
             return Ok(resultVm);

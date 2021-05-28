@@ -18,7 +18,7 @@ namespace EnglishExamOnline.Backend.Models
 
         public DateTime CreatedDate { get; set; }
 
-        public bool Status { get; set; }
+        public ContestStateEnum State { get; set; }
 
         //Set foreign key
         [ForeignKey("ContestSchedule")]

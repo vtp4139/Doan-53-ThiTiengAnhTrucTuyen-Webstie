@@ -37,10 +37,10 @@ namespace EnglishExamOnline.Backend.Controllers
                     ContestName = x.ContestName,
                     Description = x.Description,
                     CreatedDate = x.CreatedDate,
-                    Status = x.Status,
                     CountRegists = x.ContestRegists.Count,
                     Length = x.ContestSchedule.Length,
-                    StartTime = x.ContestSchedule.StartTime
+                    StartTime = x.ContestSchedule.StartTime,
+                    State = (int)x.State
                 })
                 .ToListAsync();
         }
@@ -51,12 +51,16 @@ namespace EnglishExamOnline.Backend.Controllers
         {
             var listContest = await _context.Contests
                 .Include(c => c.ContestSchedule)
-                .Where(c => c.ContestSchedule.StartTime.AddMinutes(60) < DateTime.Now)
                 .ToListAsync();
 
-            foreach(var item in listContest)
+            foreach (var item in listContest)
             {
-                item.Status = false;
+                //if (item.ContestSchedule.StartTime.AddMinutes(-60) > DateTime.Now)
+                //    item.State = ContestStateEnum.RegistClose;
+                if (DateTime.Now >= item.ContestSchedule.StartTime && DateTime.Now < item.ContestSchedule.StartTime.AddMinutes(60))
+                    item.State = ContestStateEnum.Contesting;
+                else if (item.ContestSchedule.StartTime.AddMinutes(60) < DateTime.Now)
+                    item.State = ContestStateEnum.Close;
             }
             await _context.SaveChangesAsync();
             return Ok();
@@ -87,10 +91,10 @@ namespace EnglishExamOnline.Backend.Controllers
                      ContestName = x.ContestName,
                      Description = x.Description,
                      CreatedDate = x.CreatedDate,
-                     Status = x.Status,
                      CountRegists = x.ContestRegists.Count,
                      Length = x.ContestSchedule.Length,
-                     StartTime = x.ContestSchedule.StartTime
+                     StartTime = x.ContestSchedule.StartTime,
+                     State = (int)x.State
                  })
             .ToListAsync();
         }
@@ -107,7 +111,9 @@ namespace EnglishExamOnline.Backend.Controllers
                 .Include(c => c.ContestSchedule)
                 .Include(c => c.ContestRegists)
                 .ThenInclude(cr => cr.Result)
-                .Where(x => x.Status == true && x.ContestRegists.FirstOrDefault(ct => ct.UserId == id) != null
+                .Where(x => (x.State == ContestStateEnum.RegistOpen 
+                || x.State == ContestStateEnum.Contesting)
+                && x.ContestRegists.FirstOrDefault(ct => ct.UserId == id) != null
                 && x.ContestRegists.FirstOrDefault(ct => ct.UserId == id).Result == null)
                    .Select(x => new ContestVm
                    {
@@ -115,10 +121,10 @@ namespace EnglishExamOnline.Backend.Controllers
                        ContestName = x.ContestName,
                        Description = x.Description,
                        CreatedDate = x.CreatedDate,
-                       Status = x.Status,
                        CountRegists = x.ContestRegists.Count,
                        Length = x.ContestSchedule.Length,
-                       StartTime = x.ContestSchedule.StartTime
+                       StartTime = x.ContestSchedule.StartTime,
+                       State = (int)x.State
                    }).ToListAsync(); ;
         }
 
@@ -130,11 +136,11 @@ namespace EnglishExamOnline.Backend.Controllers
 
             if (statusIndex == -1)
             {
-                querry = querry.Where(c => c.Status == false);
+                querry = querry.Where(c => c.State == ContestStateEnum.Close);
             }
             else
             {
-                querry = querry.Where(c => c.Status == true);
+                querry = querry.Where(c => c.State == ContestStateEnum.RegistOpen);
             }
 
             return await querry
@@ -146,10 +152,10 @@ namespace EnglishExamOnline.Backend.Controllers
                     ContestName = x.ContestName,
                     Description = x.Description,
                     CreatedDate = x.CreatedDate,
-                    Status = x.Status,
                     CountRegists = x.ContestRegists.Count,
                     Length = x.ContestSchedule.Length,
-                    StartTime = x.ContestSchedule.StartTime
+                    StartTime = x.ContestSchedule.StartTime,
+                    State = (int)x.State
                 }).ToListAsync();
         }
 
@@ -171,7 +177,7 @@ namespace EnglishExamOnline.Backend.Controllers
             foreach (var x in listCon)
             {
                 //Check contest has user registed 
-                if (x.Status == true && x.ContestRegists.FirstOrDefault(x => x.UserId == id) != null)
+                if (x.State == ContestStateEnum.RegistOpen && x.ContestRegists.FirstOrDefault(x => x.UserId == id) != null)
                     continue;
 
                 ContestVm newCon = new ContestVm();
@@ -179,10 +185,10 @@ namespace EnglishExamOnline.Backend.Controllers
                 newCon.ContestName = x.ContestName;
                 newCon.Description = x.Description;
                 newCon.CreatedDate = x.CreatedDate;
-                newCon.Status = x.Status;
                 newCon.CountRegists = x.ContestRegists.Count;
                 newCon.Length = x.ContestSchedule.Length;
                 newCon.StartTime = x.ContestSchedule.StartTime;
+                newCon.State = (int)x.State;
 
                 listItem.Add(newCon);
             }
@@ -212,10 +218,10 @@ namespace EnglishExamOnline.Backend.Controllers
                 ContestName = x.ContestName,
                 Description = x.Description,
                 CreatedDate = x.CreatedDate,
-                Status = x.Status,
                 CountRegists = x.ContestRegists.Count,
                 Length = x.ContestSchedule.Length,
                 StartTime = x.ContestSchedule.StartTime,
+                State = (int) x.State,
                 ListQuestion = new List<QuestionVm>()
             };
 
@@ -260,7 +266,7 @@ namespace EnglishExamOnline.Backend.Controllers
                 ContestName = contest.ContestName,
                 Description = contest.Description,
                 CreatedDate = contest.CreatedDate,
-                Status = contest.Status,
+                State = (int)contest.State,
             });
         }
 
@@ -272,7 +278,7 @@ namespace EnglishExamOnline.Backend.Controllers
                 ContestName = ContestCreateRequest.ContestName,
                 Description = ContestCreateRequest.Description,
                 CreatedDate = DateTime.Now,
-                Status = true,
+                State = ContestStateEnum.RegistOpen,
                 ContestScheduleId = ContestCreateRequest.ContestScheduleId,
             };
 
@@ -317,7 +323,7 @@ namespace EnglishExamOnline.Backend.Controllers
                 ContestName = Contest.ContestName,
                 Description = Contest.Description,
                 CreatedDate = Contest.CreatedDate,
-                Status = Contest.Status,
+                State = (int)Contest.State,
             });
         }
 

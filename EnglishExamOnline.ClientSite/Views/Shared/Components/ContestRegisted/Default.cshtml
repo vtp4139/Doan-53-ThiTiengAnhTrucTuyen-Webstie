@@ -25,7 +25,7 @@
             @foreach (var item in Model)
             {
                 <div class="col-md-4">
-                    @if (DateTime.Now >= item.StartTime && DateTime.Now < item.StartTime.AddMinutes(60))
+                    @if (item.State == 2)
                     {
                         <a class="card mb-4 border border-warning" id="item-contest" asp-controller="Contest" asp-action="DetailContesting" asp-route-id="@item.ContestId">
                             <div class="card-body">

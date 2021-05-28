@@ -1,4 +1,5 @@
 ﻿using EnglishExamOnline.ClientSite.Services.Interfaces;
+using EnglishExamOnline.Shared.FormViewModels;
 using EnglishExamOnline.Shared.ViewModels;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
@@ -30,13 +31,13 @@ namespace EnglishExamOnline.ClientSite.Services.APIs
             response.EnsureSuccessStatusCode();
             return await response.Content.ReadFromJsonAsync<IList<ResultVm>>();
         }
-        public async Task<ResultVm> PostResult(List<string> listAnswer, string userId)
+        public async Task<ResultVm> PostResult(ResultFormVm resultRequest)
         {
             var client = _request.SendAccessToken().Result;
 
-            HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(listAnswer),
+            HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(resultRequest),
                 Encoding.UTF8, "application/json");
-            var response = await client.PostAsync(_configuration["BackendUrl:Default"] + "/api/Result/" + userId, httpContent);
+            var response = await client.PostAsync(_configuration["BackendUrl:Default"] + "/api/Result", httpContent);
 
             response.EnsureSuccessStatusCode();
             return await response.Content.ReadFromJsonAsync<ResultVm>();

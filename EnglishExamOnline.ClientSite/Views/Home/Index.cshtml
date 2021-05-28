@@ -59,7 +59,7 @@ else
         <!--Item contest-->
         @foreach (var item in Model)
         {
-            if (item.Status == true && item.StartTime.AddMinutes(-60) > DateTime.Now)
+            if (item.State == 0)
             {
                 <div class="col-md-4">
                     <a class="card mb-4" id="item-contest" asp-controller="Contest" asp-action="Detail" asp-route-id="@item.ContestId">
@@ -95,7 +95,7 @@ else
             <!--Item contest-->
             @foreach (var item in Model)
             {
-                if (item.Status == false)
+                if (item.State == 3)
                 {
                     <div class="col-md-4">
                         <a class="card mb-4" id="item-contest" asp-controller="Contest" asp-action="Detail" asp-route-id="@item.ContestId">
