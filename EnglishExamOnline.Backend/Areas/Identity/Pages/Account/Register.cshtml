@@ -6,7 +6,7 @@
 }
 
 <div class="container  bg-white" style="box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; padding: unset; width: 40%;">
-    <h4 class="text-center text-white bg-info p-2 mb-3" style="border-width: 0;">Đăng ký</h4>
+    <h5 class="text-center text-white bg-info p-2 mb-3" style="border-width: 0;">Đăng ký</h5>
     <div class="row justify-content-md-center">
         <div class="col-md-10">
             <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
@@ -32,8 +32,7 @@
                     <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-lg btn-block">Đăng ký</button>
-                    &nbsp;&nbsp;
+                    <button type="submit" class="btn btn-primary btn-block">Đăng ký</button>
                 </div>
             </form>
         </div>

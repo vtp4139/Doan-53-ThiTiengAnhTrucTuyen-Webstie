@@ -34,16 +34,19 @@ namespace EnglishExamOnline.Backend.Controllers
         [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<UserVm>>> GetUsers()
         {
-            return await _context.Users
-                .Select(x => new UserVm
-                {
-                    UserId = x.Id,
-                    Email = x.Email,
-                    Fullname = x.FullName,
-                    LockEnd = x.LockoutEnd.ToString(),
-                    PhoneNumber = x.PhoneNumber
-                })
-                .ToListAsync();
+            var userRoles = await (from u in _context.Users
+                                   join ur in _context.UserRoles on u.Id equals ur.UserId
+                                   join r in _context.Roles on ur.RoleId equals r.Id
+                                   where r.Name.Equals("User")
+                                   select new UserVm
+                                   {
+                                       UserId = u.Id,
+                                       Fullname = u.FullName,
+                                       Email = u.Email,
+                                       PhoneNumber = u.PhoneNumber,
+                                       LockEnd = u.LockoutEnd.ToString(),
+                                   }).ToListAsync();
+            return userRoles;
         }
 
         [HttpGet("find/{find}")]
@@ -133,8 +136,8 @@ namespace EnglishExamOnline.Backend.Controllers
         [HttpPost("logout")]
         public async Task<ActionResult> Logout()
         {
-            //await _signInManager.SignOutAsync();
-            await HttpContext.SignOutAsync();
+            await _signInManager.SignOutAsync();
+            //await HttpContext.SignOutAsync();
             return Ok();
         }
 
@@ -144,7 +147,7 @@ namespace EnglishExamOnline.Backend.Controllers
             if (string.IsNullOrEmpty(id))
                 return NotFound();
 
-            var user = await  _context.Users.Where(u => u.Id == id).FirstOrDefaultAsync();
+            var user = await _context.Users.Where(u => u.Id == id).FirstOrDefaultAsync();
             if (user == null)
                 return NotFound();
 

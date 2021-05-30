@@ -79,26 +79,10 @@
         </div>
     </footer>
 
-    @*<footer class="border-top footer">
-            <div class="container">
-                <div style="display:flex;">
-                    <div style="width:50%">
-                        <p>&copy;Nhóm 47 - Đồ án tốt nghiệp - Đề tài 53</p>
-                        <p><a asp-area="" asp-controller="Home" asp-action="Privacy">Giới thiệu</a></p>
-                        <p><span style="font-size: 25px"><i style="color:blue" class="fab fa-facebook"></i>&nbsp;<i style="color:mediumturquoise" class="fab fa-twitter-square"></i></span></p>
-                    </div>
-                    <div style="width:50%">
-                        <p>Điện thoại: 0312345678/0984544712</p>
-                        <p>Địa chỉ: <a href="https://goo.gl/maps/GHe94isW3MGuN53QA">12 Nguyễn Văn Bảo, Phường 4, Gò Vấp, Thành phố Hồ Chí Minh, Vietnam</a></p>
-                    </div>
-                </div>
-            </div>
-        </footer>*@
-
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    @*<script src="~/js/modal.js"></script>*@
+    <script src="~/js/modal.js"></script>
     @await Component.InvokeAsync("Notyf")
     @await RenderSectionAsync("Scripts", required: false)
 </body>

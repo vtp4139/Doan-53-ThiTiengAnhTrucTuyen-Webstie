@@ -18,8 +18,8 @@ else
                         <th>Tên cuộc thi</th>
                         <th>Ngày thi</th>
                         <th>Kết thúc</th>
-                        <th style="text-align:center">Số câu đúng</th>
-                        <th style="text-align:center">Tổng điểm</th>
+                        <th style="text-align:center">Số câu đúng (50)</th>
+                        <th style="text-align:center">Điểm (100)</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -32,10 +32,10 @@ else
                             <td> @Html.DisplayFor(modelItem => item.StartTime)</td>
                             <td> @Html.DisplayFor(modelItem => item.EndTime)</td>
                             <td style="text-align:center">
-                                <h5 class="text-warning">@Html.DisplayFor(modelItem => item.NumOfCorrect)</h5>
+                                <h5 class="text-warning"><b>@Html.DisplayFor(modelItem => item.NumOfCorrect)</b></h5>
                             </td>
                             <td style="text-align:center">
-                                <h5 class="text-danger">@Html.DisplayFor(modelItem => item.Point)</h5>
+                                <h5 class="text-danger"><b>@Html.DisplayFor(modelItem => item.Point)</b></h5>
                             </td>
                         </tr>
                     }

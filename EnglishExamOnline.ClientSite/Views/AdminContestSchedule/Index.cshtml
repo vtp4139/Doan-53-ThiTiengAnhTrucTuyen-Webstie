@@ -18,45 +18,43 @@
     @foreach (var item in Model)
     {
         <tr>
+            <td scope="row">@Html.DisplayFor(modelItem => item.ContestScheduleId)</td>
             @if (item.StartTime > DateTime.Now)
             {
-                <td scope="row">@Html.DisplayFor(modelItem => item.ContestScheduleId)</td>
                 <td> @Html.DisplayFor(modelItem => item.StartTime)</td>
                 <td class="text-danger"> @Html.DisplayFor(modelItem => item.Length) phút</td>
-                <td>
-                    <a class="badge badge-primary" style="width:30px; height:30px" asp-action="Edit" asp-route-id="@item.ContestScheduleId">
-                        <h5><i class="fas fa-edit"></i></h5>
-                    </a>
-                    <a class="badge badge-danger text-white" href="" style="width:30px; height:30px" data-toggle="modal" data-target="#confirm-delete-@item.ContestScheduleId">
-                        <h5><i class="fas fa-trash-alt"></i></h5>
-                    </a>
-                    <!--Modal confirm Yes/No-->
-                    <div class="modal fade" id="confirm-delete-@item.ContestScheduleId" tabindex="-1" role="dialog" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-body">
-                                    <p>Xác nhận xóa lịch thi này?</p>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Thoát</button>
-                                    <a class="btn btn-danger btn-ok" asp-action="Delete" asp-route-id="@item.ContestScheduleId">Xác nhận</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </td>
+
             }
             else
             {
-                <td scope="row">@Html.DisplayFor(modelItem => item.ContestScheduleId)</td>
                 <td class="text-secondary"> @Html.DisplayFor(modelItem => item.StartTime) (Đã qua ngày thi)</td>
                 <td class="text-secondary"> @Html.DisplayFor(modelItem => item.Length) phút</td>
-                <td>
-                    <a class="badge badge-danger" style="width:30px; height:30px" asp-action="Delete" asp-route-id="@item.ContestScheduleId">
-                        <h5><i class="fas fa-trash-alt"></i></h5>
-                    </a>
-                </td>
             }
+            <td>
+                @if (item.StartTime > DateTime.Now)
+                {
+                    <a class="badge badge-primary" style="width:30px; height:30px" asp-action="Edit" asp-route-id="@item.ContestScheduleId">
+                        <h5><i class="fas fa-edit"></i></h5>
+                    </a>
+                }
+                <a class="badge badge-danger text-white" href="" style="width:30px; height:30px" data-toggle="modal" data-target="#confirm-delete-@item.ContestScheduleId">
+                    <h5><i class="fas fa-trash-alt"></i></h5>
+                </a>
+                <!--Modal confirm Yes/No-->
+                <div class="modal fade" id="confirm-delete-@item.ContestScheduleId" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <p>Xác nhận xóa lịch thi này?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Thoát</button>
+                                <a class="btn btn-danger btn-ok" asp-action="Delete" asp-route-id="@item.ContestScheduleId">Xác nhận</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
         </tr>
     }
 </table>

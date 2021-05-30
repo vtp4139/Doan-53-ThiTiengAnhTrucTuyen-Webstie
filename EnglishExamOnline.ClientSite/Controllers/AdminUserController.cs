@@ -49,9 +49,11 @@ namespace EnglishExamOnline.ClientSite.Controllers
             if (index == 1)
             {
                 await _userApiClient.UnLockUser(UserId);
+                _notyf.Warning("Đã cập nhật trạng thái mở khóa tài khoản", 4);
                 return RedirectToAction("Index");
             }
             await _userApiClient.LockUser(UserId);
+            _notyf.Warning("Đã cập nhật trạng thái khóa tài khoản", 4);
             return RedirectToAction("Index");
         }
     }

@@ -47,15 +47,45 @@
                     <td>
                         @if (item.LockEnd != null)
                         {
-                            <a class="badge badge-success" style="width:100px; height:30px" asp-action="ChangeStatusUser" asp-route-UserId="@item.UserId" asp-route-index="1">
-                                <h6><i class="fas fa-lock"></i> Mở khoá</h6>
+                            <a class="badge badge-success text-white" href="" style="width:100px; height:30px" data-toggle="modal" data-target="#confirm-active-@item.UserId">
+                                <h6><i class="fas fa-lock-open mr-2"></i>Mở khóa</h6>
                             </a>
+
+                            <!--Modal confirm Yes/No-->
+                            <div class="modal fade" id="confirm-active-@item.UserId" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-body">
+                                            <p>Xác nhận mở khóa tài khoản thí sinh này?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Thoát</button>
+                                            <a class="btn btn-danger btn-ok" asp-action="ChangeStatusUser" asp-route-UserId="@item.UserId" asp-route-index="1">Xác nhận</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         }
                         else
                         {
-                            <a class="badge badge-danger" style="width:100px; height:30px" asp-action="ChangeStatusUser" asp-route-UserId="@item.UserId" asp-route-index="-1">
-                                <h6><i class="fas fa-lock-open mr-2"></i>Khóa</h6>
+                            <a class="badge badge-danger text-white" href="" style="width:100px; height:30px" data-toggle="modal" data-target="#confirm-deactive-@item.UserId">
+                                <h6><i class="fas fa-lock mr-2"></i>Khóa</h6>
                             </a>
+
+                            <!--Modal confirm Yes/No-->
+                            <div class="modal fade" id="confirm-deactive-@item.UserId" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-body">
+                                            <p>Xác nhận khóa tài khoản thí sinh này?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Thoát</button>
+                                            <a class="btn btn-danger btn-ok" asp-action="ChangeStatusUser" asp-route-UserId="@item.UserId" asp-route-index="-1">Xác nhận</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         }
                     </td>
                 </tr>

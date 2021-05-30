@@ -43,11 +43,11 @@ namespace EnglishExamOnline.Backend.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
-            [EmailAddress]
+            [Required(ErrorMessage = "Không chừa trống email!")]
+            [EmailAddress(ErrorMessage = "Nhập chính xác email!")]
             public string Email { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "Không chừa trống mật khẩu!!")]
             [DataType(DataType.Password)]
             [Display(Name = "Mật khẩu")]
             public string Password { get; set; }
@@ -95,12 +95,12 @@ namespace EnglishExamOnline.Backend.Areas.Identity.Pages.Account
                 }
                 if (result.IsLockedOut)
                 {
-                    _logger.LogWarning("User account locked out.");
-                    return RedirectToPage("./Lockout");
+                    ModelState.AddModelError(string.Empty, "Tài khoản của bạn đã bị khóa!");
+                    return Page();
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    ModelState.AddModelError(string.Empty, "Email hoặc mật khẩu không chính xác!");
                     return Page();
                 }
             }

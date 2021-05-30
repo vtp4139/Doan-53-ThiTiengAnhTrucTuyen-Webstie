@@ -48,24 +48,25 @@ namespace EnglishExamOnline.Backend.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
-            [EmailAddress]
+            [Required(ErrorMessage = "Không chừa trống email!")]
+            [EmailAddress(ErrorMessage = "Không đúng định dạng email!")]
             [Display(Name = "Email")]
             public string Email { get; set; }
 
-            [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [Required(ErrorMessage = "Không chừa trống mật khẩu!")]
+            [StringLength(100, ErrorMessage = "Mật khẩu không nhỏ hơn 6 kí tự và không quá 100 kí tự!", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Mật khẩu")]
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
             [Display(Name = "Nhập lại mật khẩu")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Compare("Password", ErrorMessage = "Mật khẩu và nhập lại không trùng khớp!")]
             public string ConfirmPassword { get; set; }
 
+            [Required(ErrorMessage = "Không chừa trống họ tên!")]
             [Display(Name = "Họ và tên")]
-            [StringLength(50, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [StringLength(50, ErrorMessage = "Tên không nhỏ hơn 6 kí tự và không quá 50 kí tự!", MinimumLength = 6)]
             public string Fullname { get; set; }
         }
 

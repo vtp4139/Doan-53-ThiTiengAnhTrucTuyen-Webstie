@@ -88,7 +88,7 @@ namespace EnglishExamOnline.Backend.Controllers
             //Add result
             var result = new Result
             {
-                Point = countCorrect * 10,
+                Point = countCorrect * 2,
                 NumOfCorrect = countCorrect,
                 EndTime = DateTime.Now,
                 ContestRegistId = getContestRegist.ContestRegistId

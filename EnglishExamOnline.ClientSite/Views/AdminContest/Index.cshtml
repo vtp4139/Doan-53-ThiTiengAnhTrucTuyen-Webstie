@@ -68,11 +68,14 @@
                     {
                         <td class="text-danger"> <b>Mở đăng ký</b></td>
                     }
+                    else if(item.State == 2)
+                    {
+                        <td class="text-warning"> Đang diễn ra</td>
+                    }
                     else
                     {
-                        <td class="text-secondary"> Đã kết thúc</td>
+                    <td class="text-secondary"> Đã kết thúc</td>
                     }
-
 
                     @if (item.State == 0)
                     {
@@ -124,7 +127,6 @@
 
 @section Scripts
 {
-    @*<script src="~/js/modal.js"></script>*@
     <script src="@Url.Content("~/js/pagination.min.js")"></script>
     <script>
         //Pagination and refresh when find click

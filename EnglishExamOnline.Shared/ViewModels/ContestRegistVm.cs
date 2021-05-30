@@ -8,9 +8,10 @@ namespace EnglishExamOnline.Shared.ViewModels
 {
     public class ContestRegistVm
     {
-        public string UserId { get; set; }
 
         public string UserName { get; set; }
+
+        public string Email { get; set; }
 
         public int ContestRegistId { get; set; }
 

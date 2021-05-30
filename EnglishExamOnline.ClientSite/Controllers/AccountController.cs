@@ -4,6 +4,7 @@ using EnglishExamOnline.Shared.FormViewModels;
 using EnglishExamOnline.Shared.ViewModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
@@ -61,6 +62,12 @@ namespace EnglishExamOnline.ClientSite.Controllers
 
             if (result == null)
                 return NotFound();
+
+            //Update fullname when update user
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            UserVm getUser = _UserClient.GetUser(userId).Result;
+            HttpContext.Session.SetString("fullname", getUser.Fullname);
+
             _notyf.Success("Cập nhật thông tin tài khoản thành công!", 4);
             return RedirectToAction("MyProfile");
         }

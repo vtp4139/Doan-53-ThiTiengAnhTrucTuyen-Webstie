@@ -58,8 +58,8 @@ namespace EnglishExamOnline.Backend.Controllers
             //Return contest regist to show on view confirm
             return new ContestRegistVm
             {
-                UserId = x.UserId,
                 UserName = x.Users.FullName,
+                Email = x.Users.Email,
                 ContestRegistId = x.ContestRegistId,
                 ContestName = x.Contest.ContestName,
                 StartTime = x.Contest.ContestSchedule.StartTime,

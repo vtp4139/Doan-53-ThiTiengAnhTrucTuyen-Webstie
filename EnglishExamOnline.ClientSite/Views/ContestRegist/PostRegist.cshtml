@@ -8,7 +8,7 @@
     <hr class="bg-success line-head">
     <div class="row justify-content-md-center">
         <div class="col-md-10" style="text-align:center">
-            <h2>Đăng ký thành công</h2>
+            <h2 class="text-success"><i class="fas fa-check-circle mr-2"></i>Đăng ký thành công</h2>
             <p>Mã phiếu thi: @Model.ContestRegistId. Vui lòng kiểm tra lại thông tin phiếu thi bên dưới.</p>
             <hr style="width:100%;text-align:left;margin-left:0">
         </div>
@@ -23,8 +23,8 @@
         </div>
         <div class="col-md-5 p-2 mb-3">
             <p><span class="badge badge-warning">Thông tin thí sinh</span></p>
-            <p><b>Mã tài khoản: </b>@Model.UserId</p>
-            <p><b>Tên thí sinh: </b>@Model.UserName</p>
+            <p><b>Họ tên thí sinh: </b>@Model.UserName</p>
+            <p><b>Email: </b>@Model.Email</p>
             <p><b>Đăng ký vào: </b>@Model.RegistDate phút</p>
         </div>
     </div>
