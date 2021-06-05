@@ -10,5 +10,7 @@ namespace EnglishExamOnline.ClientSite.Services.Interfaces
         Task<ResultVm> PostResult(ResultFormVm resultRequest);
 
         Task<IList<ResultVm>> GetResults(string id);
+
+        Task<ResultVm> GetResult(int id);
     }
 }

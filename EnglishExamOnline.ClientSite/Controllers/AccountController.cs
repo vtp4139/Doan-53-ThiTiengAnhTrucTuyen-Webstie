@@ -6,10 +6,10 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using System.IO;
+using iText.Html2pdf;
 
 namespace EnglishExamOnline.ClientSite.Controllers
 {
@@ -79,6 +79,42 @@ namespace EnglishExamOnline.ClientSite.Controllers
             var resultList = _ResultClient.GetResults(userId).Result;
 
             return View(resultList);
+        }
+
+        [Authorize]
+        public ActionResult ExportPDFResult(int id)
+        {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var result = _ResultClient.GetResult(id).Result;
+            UserVm getUser = _UserClient.GetUser(userId).Result;
+
+            string htmlString =
+                "<h1>VPenglish - Score Report</h1>" +
+                "Report number: " + result.ResultId + "<hr>" +
+                "<h3>Contest information</h3>" +
+                "<p>Name: " + result.ContestName + "</p>" +
+                "<p>Test Date: " + result.StartTime + "</p><hr>" +
+                "<h3>Candidate information</h3>" +
+                "<p>Fullname: " + getUser.Fullname + "</p>" +
+                "<p>Email: " + getUser.Email + "</p>" +
+                "<p>Date of birth: " + getUser.DateOfBirth + "</p>" +
+                "<p>Address: " + getUser.Address + "</p><hr><br>" +
+                "<h2>Exam result</h2>" +
+                "<p>Submission time: " + result.EndTime + "</p>" +
+                "<b>Score: </b>" + "<h1>" + result.Point + "/100</h1>" +
+                "<b>Number of correct: </b>" + "<h1>" + result.NumOfCorrect + "/50</h1><br><hr><br>" +
+                "<p><i>The score report has been verified by VPenglish.</i></p>" +
+                "<p><u>Contact us</u></p>" +
+                "<p><b>Phone: </b>0981234765</p>" +
+                "<p><b>Address: </b>12 Nguyen Van Bao, Ward 4, Go Vap district, Ho Chi Minh City</p>" +
+                "<p><b>Website: </b>vpenglish.azurewebsites.net</p>";
+
+            string fileName = "score-report-" + result.ResultId + ".pdf";
+            using (MemoryStream stream = new MemoryStream())
+            {
+                HtmlConverter.ConvertToPdf(htmlString, stream);
+                return File(stream.ToArray(), "application/pdf", fileName);
+            }
         }
 
         [Authorize]

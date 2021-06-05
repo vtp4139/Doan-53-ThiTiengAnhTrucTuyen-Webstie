@@ -78,7 +78,7 @@ namespace EnglishExamOnline.Backend.Controllers
 
             if (isNumeric)
             {
-                querry = querry.Where(c => c.ContestId == id);
+                querry = querry.Where(c => c.ContestId == id || c.ContestName.Contains(id.ToString()));
             }
             else
             {

@@ -6,28 +6,28 @@ namespace EnglishExamOnline.Shared
     public class QuestionFormVm
     {
         [Display(Name = "Nội dung câu hỏi")]
-        [Required(ErrorMessage = "Enter question info!")]
-        [StringLength(500, ErrorMessage = "Not exceed 500 characters !")]
+        [Required(ErrorMessage = "Nhập nội dung câu hỏi!")]
+        [StringLength(500, ErrorMessage = "Không được vượt qua 500 kí tự!")]
         public string QuestionInfo { get; set; }
 
         [Display(Name = "Đáp án A")]
-        [Required(ErrorMessage = "Enter answer A!")]
-        [StringLength(500, ErrorMessage = "Not exceed 100 characters !")]
+        [Required(ErrorMessage = "Nhập đáp án A!")]
+        [StringLength(500, ErrorMessage = "Không được vượt qua 500 kí tự!")]
         public string AnswerA { get; set; }
 
         [Display(Name = "Đáp án B")]
-        [Required(ErrorMessage = "Enter answer B!")]
-        [StringLength(500, ErrorMessage = "Not exceed 100 characters !")]
+        [Required(ErrorMessage = "Nhập đáp án B!")]
+        [StringLength(500, ErrorMessage = "Không được vượt qua 500 kí tự!")]
         public string AnswerB { get; set; }
 
         [Display(Name = "Đáp án C")]
-        [Required(ErrorMessage = "Enter answer C!")]
-        [StringLength(500, ErrorMessage = "Not exceed 100 characters !")]
+        [Required(ErrorMessage = "Nhập đáp án C!")]
+        [StringLength(500, ErrorMessage = "Không được vượt qua 500 kí tự!")]
         public string AnswerC { get; set; }
 
         [Display(Name = "Đáp án D")]
-        [Required(ErrorMessage = "Enter answer D!")]
-        [StringLength(500, ErrorMessage = "Not exceed 100 characters !")]
+        [Required(ErrorMessage = "Nhập đáp án D!")]
+        [StringLength(500, ErrorMessage = "Không được vượt qua 500 kí tự!")]
         public string AnswerD { get; set; }
 
         [Display(Name = "Đáp án đúng")]

@@ -17,7 +17,7 @@ else
                     <tr>
                         <th>Tên cuộc thi</th>
                         <th>Ngày thi</th>
-                        <th>Kết thúc</th>
+                        <th>Thời gian nộp bài</th>
                         <th style="text-align:center">Số câu đúng (50)</th>
                         <th style="text-align:center">Điểm (100)</th>
                         <th></th>
@@ -27,17 +27,22 @@ else
                 <tbody>
                     @foreach (var item in Model)
                     {
-                        <tr>
-                            <td scope="row">@Html.DisplayFor(modelItem => item.ContestName)</td>
-                            <td> @Html.DisplayFor(modelItem => item.StartTime)</td>
-                            <td> @Html.DisplayFor(modelItem => item.EndTime)</td>
-                            <td style="text-align:center">
-                                <h5 class="text-warning"><b>@Html.DisplayFor(modelItem => item.NumOfCorrect)</b></h5>
-                            </td>
-                            <td style="text-align:center">
-                                <h5 class="text-danger"><b>@Html.DisplayFor(modelItem => item.Point)</b></h5>
-                            </td>
-                        </tr>
+                    <tr>
+                        <td scope="row">@Html.DisplayFor(modelItem => item.ContestName)</td>
+                        <td> @Html.DisplayFor(modelItem => item.StartTime)</td>
+                        <td> @Html.DisplayFor(modelItem => item.EndTime)</td>
+                        <td style="text-align:center">
+                            <h5 class="text-warning"><b>@Html.DisplayFor(modelItem => item.NumOfCorrect)</b></h5>
+                        </td>
+                        <td style="text-align:center">
+                            <h5 class="text-danger"><b>@Html.DisplayFor(modelItem => item.Point)</b></h5>
+                        </td>
+                        <td>
+                            <a class="badge badge-success" style="width:80px; height:20px" asp-action="ExportPDFResult" asp-route-id="@item.ResultId">
+                                <i class="fas fa-file-export"></i> Xuất file
+                            </a>
+                        </td>
+                    </tr>
                     }
                 </tbody>
             </table>

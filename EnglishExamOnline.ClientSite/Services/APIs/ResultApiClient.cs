@@ -31,6 +31,15 @@ namespace EnglishExamOnline.ClientSite.Services.APIs
             response.EnsureSuccessStatusCode();
             return await response.Content.ReadFromJsonAsync<IList<ResultVm>>();
         }
+
+        public async Task<ResultVm> GetResult(int id)
+        {
+            var client = _request.SendAccessToken().Result;
+            var response = await client.GetAsync(_configuration["BackendUrl:Default"] + "/api/Result/detail/" + id);
+            response.EnsureSuccessStatusCode();
+            return await response.Content.ReadFromJsonAsync<ResultVm>();
+        }
+
         public async Task<ResultVm> PostResult(ResultFormVm resultRequest)
         {
             var client = _request.SendAccessToken().Result;
