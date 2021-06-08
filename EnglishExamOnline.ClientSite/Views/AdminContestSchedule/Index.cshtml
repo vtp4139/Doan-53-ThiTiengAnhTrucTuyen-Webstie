@@ -12,6 +12,7 @@
         <th>Mã</th>
         <th>Thời gian bắt đầu</th>
         <th>Thời lượng thi</th>
+        <th>Trạng thái</th>
         <th></th>
     </tr>
 
@@ -23,12 +24,19 @@
             {
                 <td> @Html.DisplayFor(modelItem => item.StartTime)</td>
                 <td class="text-danger"> @Html.DisplayFor(modelItem => item.Length) phút</td>
-
+                <td class="text-success"> Mở đăng ký</td>
+            }
+            else if (DateTime.Now >= item.StartTime && DateTime.Now < item.StartTime.AddMinutes(60))
+            {
+                <td> @Html.DisplayFor(modelItem => item.StartTime)</td>
+                <td class="text-danger"> @Html.DisplayFor(modelItem => item.Length) phút</td>
+                <td class="text-warning"> Đang diễn ra</td>
             }
             else
             {
-                <td class="text-secondary"> @Html.DisplayFor(modelItem => item.StartTime) (Đã qua ngày thi)</td>
+                <td class="text-secondary"> @Html.DisplayFor(modelItem => item.StartTime) ()</td>
                 <td class="text-secondary"> @Html.DisplayFor(modelItem => item.Length) phút</td>
+                <td class="text-secondary"> Đã qua ngày thi</td>
             }
             <td>
                 @if (item.StartTime > DateTime.Now)
@@ -40,6 +48,7 @@
                 <a class="badge badge-danger text-white" href="" style="width:30px; height:30px" data-toggle="modal" data-target="#confirm-delete-@item.ContestScheduleId">
                     <h5><i class="fas fa-trash-alt"></i></h5>
                 </a>
+
                 <!--Modal confirm Yes/No-->
                 <div class="modal fade" id="confirm-delete-@item.ContestScheduleId" tabindex="-1" role="dialog" aria-hidden="true">
                     <div class="modal-dialog">

@@ -97,7 +97,7 @@ namespace EnglishExamOnline.ClientSite.Controllers
                 "<h3>Candidate information</h3>" +
                 "<p>Fullname: " + getUser.Fullname + "</p>" +
                 "<p>Email: " + getUser.Email + "</p>" +
-                "<p>Date of birth: " + getUser.DateOfBirth + "</p>" +
+                "<p>Date of birth: " + getUser.DateOfBirth.ToString("dd/MM/yyyy") + "</p>" +
                 "<p>Address: " + getUser.Address + "</p><hr><br>" +
                 "<h2>Exam result</h2>" +
                 "<p>Submission time: " + result.EndTime + "</p>" +

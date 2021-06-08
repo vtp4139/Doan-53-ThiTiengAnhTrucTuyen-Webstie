@@ -7,6 +7,7 @@
             <th>Họ và tên</th>
             <th>Email</th>
             <th>SĐT</th>
+            <th>Trạng thái</th>
             <th></th>
         </tr>
     </thead>
@@ -19,6 +20,14 @@
                 <td> @Html.DisplayFor(modelItem => item.Fullname)</td>
                 <td> @Html.DisplayFor(modelItem => item.Email)</td>
                 <td> @Html.DisplayFor(modelItem => item.PhoneNumber)</td>
+                @if (item.LockEnd != null)
+                {
+                    <td class="text-danger">Đã khóa</td>
+                }
+                else
+                {
+                    <td class="text-success">Hoạt động</td>
+                }
                 <td>
                     @if (item.LockEnd != null)
                     {

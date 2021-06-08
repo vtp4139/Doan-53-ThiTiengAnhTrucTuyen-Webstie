@@ -34,7 +34,7 @@ namespace EnglishExamOnline.Backend.Controllers
         [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<UserVm>>> GetUsers()
         {
-            var userRoles = await (from u in _context.Users
+            var users = await (from u in _context.Users
                                    join ur in _context.UserRoles on u.Id equals ur.UserId
                                    join r in _context.Roles on ur.RoleId equals r.Id
                                    where r.Name.Equals("User")
@@ -46,24 +46,28 @@ namespace EnglishExamOnline.Backend.Controllers
                                        PhoneNumber = u.PhoneNumber,
                                        LockEnd = u.LockoutEnd.ToString(),
                                    }).ToListAsync();
-            return userRoles;
+            return users;
         }
 
         [HttpGet("find/{find}")]
         [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<UserVm>>> FindUsers(string find)
         {
-            return await _context.Users
-                .Where(u => u.FullName.Contains(find) || u.Id.Contains(find))
-                 .Select(x => new UserVm
-                 {
-                     UserId = x.Id,
-                     Email = x.Email,
-                     Fullname = x.FullName,
-                     LockEnd = x.LockoutEnd.ToString(),
-                     PhoneNumber = x.PhoneNumber
-                 })
-                .ToListAsync();
+            var users = await (from u in _context.Users
+                                   join ur in _context.UserRoles on u.Id equals ur.UserId
+                                   join r in _context.Roles on ur.RoleId equals r.Id
+                                   where r.Name.Equals("User") 
+                                   && (u.FullName.Contains(find) || u.Id.Contains(find))
+                                   select new UserVm
+                                   {
+                                       UserId = u.Id,
+                                       Fullname = u.FullName,
+                                       Email = u.Email,
+                                       PhoneNumber = u.PhoneNumber,
+                                       LockEnd = u.LockoutEnd.ToString(),
+                                   }).ToListAsync();
+
+            return users;
         }
 
         [HttpGet("{id}")]

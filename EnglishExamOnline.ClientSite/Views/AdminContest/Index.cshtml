@@ -66,15 +66,15 @@
 
                     @if (item.State == 0)
                     {
-                        <td class="text-danger"> <b>Mở đăng ký</b></td>
+                        <td class="text-success"> Mở đăng ký</td>
                     }
-                    else if(item.State == 2)
+                    else if (item.State == 2)
                     {
                         <td class="text-warning"> Đang diễn ra</td>
                     }
                     else
                     {
-                    <td class="text-secondary"> Đã kết thúc</td>
+                        <td class="text-secondary"> Đã kết thúc</td>
                     }
 
                     @if (item.State == 0)

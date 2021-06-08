@@ -31,7 +31,7 @@ namespace EnglishExamOnline.Backend.Controllers
             return await _context.Contests
                 .Include(c => c.ContestRegists)
                 .Include(c => c.ContestSchedule)
-                .OrderByDescending(c => c.ContestId)
+                .OrderBy(c => c.State)
                 .Select(x => new ContestVm
                 {
                     ContestId = x.ContestId,

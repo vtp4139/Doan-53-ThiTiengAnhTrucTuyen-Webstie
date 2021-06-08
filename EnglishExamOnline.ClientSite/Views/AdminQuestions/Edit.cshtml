@@ -27,22 +27,22 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="AnswerA" class="control-label"></label>
-                    <input asp-for="AnswerA" class="form-control" />
+                    <input asp-for="AnswerA" class="form-control" id="answerA" onchange="validationAnswer()" />
                     <span asp-validation-for="AnswerA" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="AnswerB" class="control-label"></label>
-                    <input asp-for="AnswerB" class="form-control" />
+                    <input asp-for="AnswerB" class="form-control" id="answerB" onchange="validationAnswer()" />
                     <span asp-validation-for="AnswerB" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="AnswerC" class="control-label"></label>
-                    <input asp-for="AnswerC" class="form-control" />
+                    <input asp-for="AnswerC" class="form-control" id="answerC" onchange="validationAnswer()" />
                     <span asp-validation-for="AnswerC" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="AnswerD" class="control-label"></label>
-                    <input asp-for="AnswerD" class="form-control" />
+                    <input asp-for="AnswerD" class="form-control" id="answerD" onchange="validationAnswer()" />
                     <span asp-validation-for="AnswerD" class="text-danger"></span>
                 </div>
                 <div class="form-group">
@@ -55,12 +55,38 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <input type="submit" value="Cập nhật" class="btn btn-primary" />
+                    <p><span class="text-danger" id="dateError"></span></p>
+                    <input type="submit" value="Cập nhật" class="btn btn-primary" id="btnSubmit" />
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    function validationAnswer() {
+        var answerA = document.getElementById('answerA').value;
+        var answerB = document.getElementById('answerB').value;
+        var answerC = document.getElementById('answerC').value;
+        var answerD = document.getElementById('answerD').value;
+
+        if (answerA == "" || answerB == "" || answerC == "" || answerD == "") {
+            document.getElementById('dateError').innerHTML = "";
+            document.getElementById("btnSubmit").disabled = false;
+            return;
+        }
+
+        if (answerA == answerB || answerA == answerC || answerA == answerD
+            || answerB == answerC || answerB == answerD || answerC == answerD) {
+            document.getElementById('dateError').innerHTML = "Có đáp án trùng!";
+            document.getElementById("btnSubmit").disabled = true;
+            return false;
+        }
+        document.getElementById('dateError').innerHTML = "";
+        document.getElementById("btnSubmit").disabled = false;
+        return true;
+    }
+</script>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
