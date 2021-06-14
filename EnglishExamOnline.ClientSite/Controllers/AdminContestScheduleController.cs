@@ -4,6 +4,7 @@ using EnglishExamOnline.ClientSite.Services.Interfaces;
 using EnglishExamOnline.Shared.FormViewModels;
 using EnglishExamOnline.Shared.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 
 namespace EnglishExamOnline.ClientSite.Controllers
@@ -25,6 +26,14 @@ namespace EnglishExamOnline.ClientSite.Controllers
             var contestSchedule = await _contestScheduleApiClient.GetContestSchedule();
 
             return View(contestSchedule);
+        }
+
+        [HttpPost("find-contest-schedule")]
+        public IActionResult Find(DateTime sortDate)
+        {
+            ContestScheduleFormVm find = new ContestScheduleFormVm();
+            find.StartTime = sortDate;
+            return PartialView("Find", _contestScheduleApiClient.FindContestSchedule(find).Result);
         }
 
         public ActionResult Create()

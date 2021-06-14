@@ -76,6 +76,22 @@ namespace EnglishExamOnline.Backend.Controllers
             return _contestScheduleVm;
         }
 
+        [HttpPost("find")]
+        [AllowAnonymous]
+        public async Task<ActionResult<IEnumerable<ContestScheduleVm>>> FindContestSchedule(ContestScheduleFormVm findObject)
+        {
+            return await _context.ContestSchedules
+                 .Where(x => x.StartTime.Date.Equals(findObject.StartTime.Date))
+                 .Select(x => new ContestScheduleVm
+                 {
+                     ContestScheduleId = x.ContestScheduleId,
+                     StartTime = x.StartTime,
+                     Length = x.Length,
+                 })               
+                 .OrderByDescending(x => x.StartTime)
+                 .ToListAsync();
+        }
+
         [HttpPost]
         public async Task<ActionResult<ContestScheduleVm>> PostContestSchedule(ContestScheduleVm request)
         {

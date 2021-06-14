@@ -1,0 +1,60 @@
+﻿@model IEnumerable<EnglishExamOnline.Shared.ViewModels.ContestScheduleVm>
+
+<table class="table border bg-white" style=" box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;">
+    <tr>
+        <th>Thời gian bắt đầu</th>
+        <th>Thời lượng thi</th>
+        <th>Trạng thái</th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            @if (item.StartTime > DateTime.Now)
+            {
+                <td> @Html.DisplayFor(modelItem => item.StartTime)</td>
+                <td class="text-danger"> @Html.DisplayFor(modelItem => item.Length) phút</td>
+                <td class="text-success"> Mở đăng ký</td>
+            }
+            else if (DateTime.Now >= item.StartTime && DateTime.Now < item.StartTime.AddMinutes(60))
+            {
+                <td> @Html.DisplayFor(modelItem => item.StartTime)</td>
+                <td class="text-danger"> @Html.DisplayFor(modelItem => item.Length) phút</td>
+                <td class="text-warning"> Đang diễn ra</td>
+            }
+            else
+            {
+                <td class="text-secondary"> @Html.DisplayFor(modelItem => item.StartTime) ()</td>
+                <td class="text-secondary"> @Html.DisplayFor(modelItem => item.Length) phút</td>
+                <td class="text-secondary"> Đã qua ngày thi</td>
+            }
+            <td>
+                @if (item.StartTime > DateTime.Now)
+                {
+                    <a class="badge badge-primary" style="width:30px; height:30px" asp-action="Edit" asp-route-id="@item.ContestScheduleId">
+                        <h5><i class="fas fa-edit"></i></h5>
+                    </a>
+                }
+                <a class="badge badge-danger text-white" href="" style="width:30px; height:30px" data-toggle="modal" data-target="#confirm-delete-@item.ContestScheduleId">
+                    <h5><i class="fas fa-trash-alt"></i></h5>
+                </a>
+
+                <!--Modal confirm Yes/No-->
+                <div class="modal fade" id="confirm-delete-@item.ContestScheduleId" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <p>Xác nhận xóa lịch thi này?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Thoát</button>
+                                <a class="btn btn-danger btn-ok" asp-action="Delete" asp-route-id="@item.ContestScheduleId">Xác nhận</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    }
+</table>

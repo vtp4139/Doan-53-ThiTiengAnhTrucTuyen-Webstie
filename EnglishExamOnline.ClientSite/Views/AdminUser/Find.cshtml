@@ -3,8 +3,7 @@
 <table class="table border bg-white mt-2" style=" box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;">
     <thead>
         <tr>
-            <th>Mã tài khoản</th>
-            <th>Họ và tên</th>
+            <th>Họ tên</th>
             <th>Email</th>
             <th>SĐT</th>
             <th>Trạng thái</th>
@@ -16,7 +15,6 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td scope="row">@Html.DisplayFor(modelItem => item.UserId)</td>
                 <td> @Html.DisplayFor(modelItem => item.Fullname)</td>
                 <td> @Html.DisplayFor(modelItem => item.Email)</td>
                 <td> @Html.DisplayFor(modelItem => item.PhoneNumber)</td>

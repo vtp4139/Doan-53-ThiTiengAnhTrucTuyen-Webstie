@@ -1,5 +1,6 @@
 ﻿using EnglishExamOnline.Shared.FormViewModels;
 using EnglishExamOnline.Shared.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -12,6 +13,8 @@ namespace EnglishExamOnline.ClientSite.Services.Interfaces
         Task<IList<ContestScheduleVm>> GetContestSchedulesAvailabe();
 
         Task<ContestScheduleVm> GetContestSchedule(int id);
+
+        Task<IList<ContestScheduleVm>> FindContestSchedule(ContestScheduleFormVm findObject);
 
         Task<ContestScheduleVm> PostContestSchedule(ContestScheduleFormVm contestSchedule);
 

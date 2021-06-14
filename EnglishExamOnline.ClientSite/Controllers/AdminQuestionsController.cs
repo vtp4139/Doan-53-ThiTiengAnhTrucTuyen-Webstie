@@ -23,27 +23,16 @@ namespace EnglishExamOnline.ClientSite.Controllers
         public async Task<IActionResult> IndexAsync()
         {
             var questions = await _questionApiClient.GetQuestions();
-              
+
             return View(questions);
         }
 
         [HttpPost("find-quest")]
-        public async Task<IActionResult> Find(string find)
+        public IActionResult Find(string find)
         {
-            var getAll = await _questionApiClient.GetQuestions();
             if (find == null)
-            {
-                return PartialView("Find", getAll);
-            }
-
-            var quest = await _questionApiClient.FindQuests(find);
-
-            if (quest == null)
-            {
-                _notyf.Error("Không tìm thấy câu hỏi nào!", 4);
-                return PartialView("Find", getAll);
-            }
-            return PartialView("Find", quest);
+                return PartialView("Find", _questionApiClient.GetQuestions().Result);
+            return PartialView("Find", _questionApiClient.FindQuests(find).Result);
         }
 
         public ActionResult Create()
@@ -87,7 +76,7 @@ namespace EnglishExamOnline.ClientSite.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> EditAsync(QuestionVm question)
         {
-            if(question == null)
+            if (question == null)
                 return Content("Item not found");
 
             QuestionFormVm request = new QuestionFormVm();
@@ -105,11 +94,11 @@ namespace EnglishExamOnline.ClientSite.Controllers
 
         public async Task<ActionResult> DeleteAsync(int id)
         {
-            if(id.Equals(null))
-                 return Content("Item not found");
+            if (id.Equals(null))
+                return Content("Item not found");
             int result = await _questionApiClient.DeleteQuestion(id);
 
-            if(result == 204)
+            if (result == 204)
             {
                 _notyf.Error("Không thể xóa câu hỏi! Câu hỏi đang tồn tại trong các đề thi.", 4);
                 return RedirectToAction("Index");

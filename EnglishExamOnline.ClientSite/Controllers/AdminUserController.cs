@@ -26,22 +26,11 @@ namespace EnglishExamOnline.ClientSite.Controllers
         }
 
         [HttpPost("find-user")]
-        public async Task<IActionResult> Find(string find)
+        public IActionResult Find(string find)
         {
-            var getAll = await _userApiClient.GetUsers();
-            if (find == null)
-            {
-                return PartialView("Find", getAll);
-            }
-
-            var contests = await _userApiClient.FindUsers(find);
-
-            if (contests == null)
-            {
-                _notyf.Error("Không tìm thấy người dùng nào!", 4);
-                return PartialView("Find", getAll);
-            }
-            return PartialView("Find", contests);
+            if (find == null)            
+                return PartialView("Find", _userApiClient.GetUsers().Result);           
+            return PartialView("Find", _userApiClient.FindUsers(find).Result);
         }
 
         public async Task<ActionResult> ChangeStatusUser(string UserId, int index)

@@ -3,6 +3,7 @@ using EnglishExamOnline.Shared.FormViewModels;
 using EnglishExamOnline.Shared.ViewModels;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Json;
@@ -47,6 +48,17 @@ namespace EnglishExamOnline.ClientSite.Services.APIs
             var response = await client.GetAsync(_configuration["BackendUrl:Default"] + "/api/ContestSchedule/" + id);
             response.EnsureSuccessStatusCode();
             return await response.Content.ReadFromJsonAsync<ContestScheduleVm>();
+        }
+
+        public async Task<IList<ContestScheduleVm>> FindContestSchedule(ContestScheduleFormVm findObject)
+        {
+            var client = _httpClientFactory.CreateClient();
+            HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(findObject),
+              Encoding.UTF8, "application/json");
+            var response = await client.PostAsync(_configuration["BackendUrl:Default"] + "/api/ContestSchedule/find", httpContent);
+            response.EnsureSuccessStatusCode();
+
+            return await response.Content.ReadFromJsonAsync<IList<ContestScheduleVm>>();
         }
 
         public async Task<ContestScheduleVm> PostContestSchedule(ContestScheduleFormVm contestSchedule)

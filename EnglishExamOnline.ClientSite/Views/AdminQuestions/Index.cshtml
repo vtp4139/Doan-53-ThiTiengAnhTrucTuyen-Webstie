@@ -15,7 +15,7 @@
         <div class="col-md-5">
             <div class="input-group">
                 <div class="form-outline" style="width:80%">
-                    <input style="width:100%" type="search" id="find" name="find" class="form-control" placeholder="Mã: 1, Nội dung: Sunwirth Sneakers has several..."  oninput="Find()" />
+                    <input style="width:100%" type="search" id="find" name="find" class="form-control" placeholder="Từ khóa trong nội dung hoặc đáp án"  oninput="Find()" />
                 </div>
                 <button type="submit" class="btn btn-primary" style="width:70px" onclick="Find()">
                     <i class="fas fa-search"></i>
@@ -33,13 +33,12 @@
     <table class="table border bg-white" style="box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;table-layout: fixed;width: 100%;">
         <thead>
             <tr>
-                <th>Mã</th>
-                <th style="width:25%;">Nội dung</th>
+                <th style="width:50%;">Nội dung</th>
                 <th style="width:11%;">Đáp án A</th>
                 <th style="width:11%;">Đáp án B</th>
                 <th style="width:11%;">Đáp án C</th>
                 <th style="width:11%;">Đáp án D</th>
-                <th style="width:15%;">Đáp án đúng</th>
+                <th style="width:15%; text-align:center">Đáp án đúng</th>
                 <th style="width:10%;"></th>
             </tr>
         </thead>
@@ -48,13 +47,12 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    <td scope="row">@Html.DisplayFor(modelItem => item.QuestionId)</td>
                     <td> @Html.DisplayFor(modelItem => item.QuestionInfo)</td>
                     <td> @Html.DisplayFor(modelItem => item.AnswerA)</td>
                     <td> @Html.DisplayFor(modelItem => item.AnswerB)</td>
                     <td> @Html.DisplayFor(modelItem => item.AnswerC)</td>
                     <td> @Html.DisplayFor(modelItem => item.AnswerD)</td>
-                    <td class="text-danger"><b> @Html.DisplayFor(modelItem => item.CorrectAnswer)</b></td>
+                    <td class="text-danger" style="text-align:center"><b> @Html.DisplayFor(modelItem => item.CorrectAnswer)</b></td>
 
                     <td>
                         <a class="badge badge-warning" style="width:50px" asp-action="Detail" asp-route-id="@item.QuestionId">

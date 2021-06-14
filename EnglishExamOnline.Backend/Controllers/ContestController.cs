@@ -78,11 +78,13 @@ namespace EnglishExamOnline.Backend.Controllers
 
             if (isNumeric)
             {
-                querry = querry.Where(c => c.ContestId == id || c.ContestName.Contains(id.ToString()));
+                querry = querry.Where(c => c.ContestId == id 
+                                           || c.ContestName.Contains(id.ToString())
+                                           || c.Description.Contains(id.ToString()));
             }
             else
             {
-                querry = querry.Where(c => c.ContestName.Contains(find));
+                querry = querry.Where(c => c.ContestName.Contains(find) || c.Description.Contains(find));
             }
 
             return await querry.Include(c => c.ContestRegists)

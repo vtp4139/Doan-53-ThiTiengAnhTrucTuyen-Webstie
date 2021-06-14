@@ -4,67 +4,100 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<a type="button" class="btn btn-success mb-2 mt-2" asp-controller="AdminContestSchedule" asp-action="Create">
-    <i class="fas fa-plus-circle mr-2"></i>Thêm mới
-</a>
-<table class="table border bg-white" style=" box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;">
-    <tr>
-        <th>Mã</th>
-        <th>Thời gian bắt đầu</th>
-        <th>Thời lượng thi</th>
-        <th>Trạng thái</th>
-        <th></th>
-    </tr>
+<div class="container mb-2">
+    <div class="row">
+        <div class="col-md-2">
+            <a type="button" class="btn btn-success mb-2 mt-2" asp-controller="AdminContestSchedule" asp-action="Create">
+                <i class="fas fa-plus-circle mr-2"></i>Thêm mới
+            </a>
+        </div>
+        <div class="col-md-3 mt-2">
+            <div class="form-group" style="width:70%">
+                <input class="form-control" type="date" id="findDate" onchange="Find()" />
+            </div>
+        </div>
+        <div class="col-md-2 text-muted mt-2">
+            <h5 id="find-count"></h5>
+        </div>
+    </div>
+</div>
 
-    @foreach (var item in Model)
-    {
+<div id="render-view">
+    <table class="table border bg-white" style=" box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;">
         <tr>
-            <td scope="row">@Html.DisplayFor(modelItem => item.ContestScheduleId)</td>
-            @if (item.StartTime > DateTime.Now)
-            {
-                <td> @Html.DisplayFor(modelItem => item.StartTime)</td>
-                <td class="text-danger"> @Html.DisplayFor(modelItem => item.Length) phút</td>
-                <td class="text-success"> Mở đăng ký</td>
-            }
-            else if (DateTime.Now >= item.StartTime && DateTime.Now < item.StartTime.AddMinutes(60))
-            {
-                <td> @Html.DisplayFor(modelItem => item.StartTime)</td>
-                <td class="text-danger"> @Html.DisplayFor(modelItem => item.Length) phút</td>
-                <td class="text-warning"> Đang diễn ra</td>
-            }
-            else
-            {
-                <td class="text-secondary"> @Html.DisplayFor(modelItem => item.StartTime) ()</td>
-                <td class="text-secondary"> @Html.DisplayFor(modelItem => item.Length) phút</td>
-                <td class="text-secondary"> Đã qua ngày thi</td>
-            }
-            <td>
+            <th>Thời gian bắt đầu</th>
+            <th>Thời lượng thi</th>
+            <th>Trạng thái</th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
                 @if (item.StartTime > DateTime.Now)
                 {
-                    <a class="badge badge-primary" style="width:30px; height:30px" asp-action="Edit" asp-route-id="@item.ContestScheduleId">
-                        <h5><i class="fas fa-edit"></i></h5>
-                    </a>
+                    <td> @Html.DisplayFor(modelItem => item.StartTime)</td>
+                    <td class="text-danger"> @Html.DisplayFor(modelItem => item.Length) phút</td>
+                    <td class="text-success"> Mở đăng ký</td>
                 }
-                <a class="badge badge-danger text-white" href="" style="width:30px; height:30px" data-toggle="modal" data-target="#confirm-delete-@item.ContestScheduleId">
-                    <h5><i class="fas fa-trash-alt"></i></h5>
-                </a>
+                else if (DateTime.Now >= item.StartTime && DateTime.Now < item.StartTime.AddMinutes(60))
+                {
+                    <td> @Html.DisplayFor(modelItem => item.StartTime)</td>
+                    <td class="text-danger"> @Html.DisplayFor(modelItem => item.Length) phút</td>
+                    <td class="text-warning"> Đang diễn ra</td>
+                }
+                else
+                {
+                    <td class="text-secondary"> @Html.DisplayFor(modelItem => item.StartTime) ()</td>
+                    <td class="text-secondary"> @Html.DisplayFor(modelItem => item.Length) phút</td>
+                    <td class="text-secondary"> Đã qua ngày thi</td>
+                }
+                <td>
+                    @if (item.StartTime > DateTime.Now)
+                    {
+                        <a class="badge badge-primary" style="width:30px; height:30px" asp-action="Edit" asp-route-id="@item.ContestScheduleId">
+                            <h5><i class="fas fa-edit"></i></h5>
+                        </a>
+                    }
+                    <a class="badge badge-danger text-white" href="" style="width:30px; height:30px" data-toggle="modal" data-target="#confirm-delete-@item.ContestScheduleId">
+                        <h5><i class="fas fa-trash-alt"></i></h5>
+                    </a>
 
-                <!--Modal confirm Yes/No-->
-                <div class="modal fade" id="confirm-delete-@item.ContestScheduleId" tabindex="-1" role="dialog" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-body">
-                                <p>Xác nhận xóa lịch thi này?</p>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Thoát</button>
-                                <a class="btn btn-danger btn-ok" asp-action="Delete" asp-route-id="@item.ContestScheduleId">Xác nhận</a>
+                    <!--Modal confirm Yes/No-->
+                    <div class="modal fade" id="confirm-delete-@item.ContestScheduleId" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <p>Xác nhận xóa lịch thi này?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Thoát</button>
+                                    <a class="btn btn-danger btn-ok" asp-action="Delete" asp-route-id="@item.ContestScheduleId">Xác nhận</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </td>
-        </tr>
-    }
-</table>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+@section Scripts
+{
+    <script>
+        function Find() {
+            var dateString = document.getElementById('findDate').value;
+            var myDate = new Date(dateString);
+
+            $.ajax({
+                method: "POST",
+                url: "/find-contest-schedule",
+                data: { sortDate: myDate.toISOString() },
+                success: function (result) {
+                    $('#render-view').html(result);
+                }
+            });
+        }
+    </script>
+}
 

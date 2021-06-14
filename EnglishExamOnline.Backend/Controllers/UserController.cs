@@ -57,7 +57,7 @@ namespace EnglishExamOnline.Backend.Controllers
                                    join ur in _context.UserRoles on u.Id equals ur.UserId
                                    join r in _context.Roles on ur.RoleId equals r.Id
                                    where r.Name.Equals("User") 
-                                   && (u.FullName.Contains(find) || u.Id.Contains(find))
+                                   && (u.FullName.Contains(find) || u.Email.Contains(find))
                                    select new UserVm
                                    {
                                        UserId = u.Id,
