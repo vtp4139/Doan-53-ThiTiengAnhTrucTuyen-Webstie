@@ -95,7 +95,7 @@ namespace EnglishExamOnline.Backend.Areas.Identity.Pages.Account
                 }
                 if (result.IsLockedOut)
                 {
-                    ModelState.AddModelError(string.Empty, "Tài khoản của bạn đã bị khóa!");
+                    ModelState.AddModelError(string.Empty, "Tài khoản của bạn đã bị khóa. Vui lòng liên hệ với trung tâm để được hỗ trợ.");
                     return Page();
                 }
                 else

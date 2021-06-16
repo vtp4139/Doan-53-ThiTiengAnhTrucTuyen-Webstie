@@ -29,23 +29,6 @@
                     <textarea asp-for="Description" class="form-control" rows="5"></textarea>
                     <span asp-validation-for="Description" class="text-danger"></span>
                 </div>
-
-                <div class="form-group">
-                    <label asp-for="ContestScheduleId" class="control-label"></label>
-                    <select asp-for="ContestScheduleId" class="form-control">
-                        @foreach (var data in ViewBag.scheduleList as IEnumerable<ContestScheduleVm>)
-                        {
-                            if (Model.ContestScheduleId == data.ContestScheduleId)
-                            {
-                                <option value="@data.ContestScheduleId" selected>@data.StartTime - @data.Length phút</option>
-                            }
-                            else
-                            {
-                                <option value="@data.ContestScheduleId">@data.StartTime - @data.Length phút</option>
-                            }
-                        }
-                    </select>
-                </div>
                 <div class="form-group">
                     <input type="submit" value="Cập nhật" class="btn btn-primary" />
                 </div>

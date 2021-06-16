@@ -97,8 +97,17 @@ namespace EnglishExamOnline.Backend.Areas.Identity.Pages.Account
                         values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
 
-                    await _emailSender.SendEmailAsync(Input.Email, "VPenglish - Xác nhận tài khoản",
-                        $"Chào mừng bạn đến với <b>VPenglish</b>. Vui lòng xác nhận tài khoản của bạn bằng <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>đường dẫn này</a>.");
+                    await _emailSender.SendEmailAsync(Input.Email, 
+                        "Xác nhận tài khoản",
+                        "<h1>VPEnglish</h1>" +
+                        "<p>Chào bạn, cảm ơn bạn đã đăng ký tài khoản trên VPEnglish.</p>" + 
+                        $"<p>Chúng tôi cần xác nhận email của bạn để hoàn thành việc đăng ký. Vui lòng xác nhận tài khoản của bạn bằng <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>đường dẫn này</a>.</p>" +
+                        "<br><hr>"+
+                        "<i><p>Mọi chi tiết xin liên hệ:</p>" +
+                        "<p>SĐT: 09812345678</p>" +
+                        "<p>Địa chỉ: 12 Nguyễn Văn Bảo, Phường 4, Gò Vấp, Thành phố Hồ Chí Minh</p>" +
+                        "<p>Hoặc gửi thư vào email này.</p></i>"
+                        );
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {

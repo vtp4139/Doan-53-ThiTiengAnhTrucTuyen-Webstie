@@ -81,10 +81,6 @@ namespace EnglishExamOnline.ClientSite.Controllers
 
         public async Task<ActionResult> EditAsync(int id)
         {
-            //Set viewbag list schedule to load dropdown list
-            IList<ContestScheduleVm> listSchedule = _contestScheduleApiClient.GetContestSchedulesAvailabe().Result;
-            ViewBag.scheduleList = listSchedule;
-
             var quest = await _contestApiClient.GetContest(id);
             if (quest == null)
             {
@@ -103,7 +99,6 @@ namespace EnglishExamOnline.ClientSite.Controllers
             ContestFormVm request = new ContestFormVm();
             request.ContestName = contest.ContestName;
             request.Description = contest.Description;
-            request.ContestScheduleId = contest.ContestScheduleId;
 
             await _contestApiClient.PutContest(contest.ContestId, request);
             _notyf.Success("Cập nhật cuộc thi thành công!", 4);

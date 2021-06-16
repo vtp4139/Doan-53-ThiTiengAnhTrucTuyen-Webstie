@@ -259,10 +259,8 @@ namespace EnglishExamOnline.Backend.Controllers
 
             contest.ContestName = ContestCreateRequest.ContestName;
             contest.Description = ContestCreateRequest.Description;
-            contest.ContestScheduleId = ContestCreateRequest.ContestScheduleId;
 
             await _context.SaveChangesAsync();
-
             return Ok(new ContestVm
             {
                 ContestId = contest.ContestId,

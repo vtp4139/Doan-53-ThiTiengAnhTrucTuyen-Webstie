@@ -38,7 +38,7 @@ else
                             <h5 class="text-danger"><b>@Html.DisplayFor(modelItem => item.Point)</b></h5>
                         </td>
                         <td>
-                            <a class="badge badge-success" style="width:80px; height:20px" asp-action="ExportPDFResult" asp-route-id="@item.ResultId">
+                            <a class="btn btn-success" asp-action="ExportPDFResult" asp-route-id="@item.ResultId">
                                 <i class="fas fa-file-export"></i> Xuất file
                             </a>
                         </td>

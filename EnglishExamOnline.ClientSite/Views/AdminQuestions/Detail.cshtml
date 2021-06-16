@@ -15,13 +15,12 @@
     </div>
     <div class="row justify-content-md-center">
         <div class="col-md-8">
-            <p><b>Mã câu hỏi: </b>@Model.QuestionId</p>
             <p><b>Nội dung: </b>@Model.QuestionInfo</p>
             <p><b>A. </b>@Model.AnswerA</p>
             <p><b>B. </b>@Model.AnswerB</p>
             <p><b>C. </b>@Model.AnswerC</p>
             <p><b>D. </b>@Model.AnswerD</p>
-            <p><b>Đáp án đúng: </b>@Model.CorrectAnswer</p>
+            <p><b>Đáp án đúng: </b><span class="text-danger">@Model.CorrectAnswer</span></p>
         </div>
     </div>
 </div>
