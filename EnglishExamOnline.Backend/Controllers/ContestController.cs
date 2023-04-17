@@ -18,7 +18,7 @@ namespace EnglishExamOnline.Backend.Controllers
     public class ContestController : Controller
     {
         private readonly ApplicationDbContext _context;
-
+        //TEST GIT
         public ContestController(ApplicationDbContext context)
         {
             _context = context;
